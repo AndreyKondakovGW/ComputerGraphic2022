@@ -63,7 +63,7 @@ def draw_triangel(img, p1, p2, p3, c1, c2, c3):
     acend = c3
 
     while ((op != oend) and (ap != aend)):
-        draw_line(img, op, ap, oc, ac, gradient=True)
+        draw_line(img, op, ap, oc, ac)
 
         op, oc, dio = get_point_inline(op, ostart, oend, ocstart, ocend, dio, gradient=True)
         ap, ac, dia = get_point_inline(ap, astart, aend, acstart, acend, dia, gradient=True)
@@ -71,19 +71,19 @@ def draw_triangel(img, p1, p2, p3, c1, c2, c3):
         if (op == p2):
             #ap, ac, dia = get_point_inline(ap, astart, aend, acstart, acend, dia, gradient=True)
             while ((ap != aend)):
-                draw_line(img, op, ap, oc, ac, gradient=True)
+                draw_line(img, op, ap, oc, ac)
                 ap, ac, dia = get_point_inline(ap, astart, aend, acstart, acend, dia, gradient=True)
             break
         if (ap == p3):
             #op, oc, dio = get_point_inline(op, ostart, oend, ocstart, ocend, dio, gradient=True)
             while ((op != oend)):
-                draw_line(img, op, ap, oc, ac, gradient=True)
+                draw_line(img, op, ap, oc, ac)
                 op, oc, dio = get_point_inline(op, ostart, oend, ocstart, ocend, dio, gradient=True)
             break
 
-    draw_line(img, p1, p2, c1, c2, gradient=True)
-    draw_line(img, p2, p3, c2, c3, gradient=True)
-    draw_line(img, p1, p3, c1, c3, gradient=True)
+    draw_line(img, p1, p2, c1, c2)
+    draw_line(img, p2, p3, c2, c3)
+    draw_line(img, p1, p3, c1, c3)
     return
 
 if __name__ == "__main__":

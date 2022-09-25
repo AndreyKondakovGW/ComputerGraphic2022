@@ -1,5 +1,5 @@
 
-def draw_line(img, p1, p2, c1, c2, gradient=False):
+def draw_line(img, p1, p2, c1=(0,0,0), c2=None):
     '''
     Функция рисования отрезка используя алгоритм Брезенхэма
     - p1, p2  координаты концов отрезка
@@ -21,10 +21,11 @@ def draw_line(img, p1, p2, c1, c2, gradient=False):
     if grad <= 1:
         di = 2*dy - dx
         for x in range(x1, x2, delx):
-            if gradient:
+            if c2 is not None:
                 new_c = count_grad_color(c1, c2, x, x1, x2)
             else:
-                new_c = (255, 0, 0)
+                #new_c = (255, 0, 0)
+                new_c = c1
             draw_pix(img, (x,y), new_c)
             if di < 0:
                 di = di + 2*dy
@@ -34,10 +35,11 @@ def draw_line(img, p1, p2, c1, c2, gradient=False):
     else:
         di = 2*dx - dy
         for y in range(y1, y2, dely):
-            if gradient:
+            if c2 is not None:
                 new_c = count_grad_color(c1, c2, y, y1, y2)
             else:
-                new_c = (255, 0, 0)
+                #new_c = (255, 0, 0)
+                new_c = c1
             draw_pix(img, (x,y), new_c)
             if di < 0:
                 di = di + 2*dx
