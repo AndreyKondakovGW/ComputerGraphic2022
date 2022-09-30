@@ -4,53 +4,43 @@ from tkinter import *
 from tkinter import ttk
 from draw_line import *
 
-def get_point_inline(p, p1, p2, c1, c2, di=None, gradient=False):
+def get_point_inline(p, p1, p2, c1, c2):
     x, y = p
     x1, y1 = p1
     x2, y2 = p2
-    dy = abs(y2 - y1)
-    dx = abs(x2 - x1)
-    grad = dy / (dx + 0.000001)
     dely = 1 if y2 - y1 > 0 else -1
-    delx = 1 if x2 - x1 > 0 else -1
 
-    if grad <= 1:
-        if di == None:
-            di = 2*dy - dx
+
+    x = x + 1
+    y = int((x - x1) * (y2 - y1) / (x2 - x1) + y1)
+
+    if x > x2:
+        x = x2
+    if y*dely > y2*dely:
+        y = y
+    new_c = count_grad_color(c1, c2, x, x1, x2)
+    return (x, y), new_c
+
+
+def draw_vert_line(img, p1, p2, c1, c2, gradient=False):
+    x1, y1 = p1
+    x2, y2 = p2
+
+    if y1 > y2:
+        y1, y2 = y2, y1
+        c1, c2 = c2, c1
+    for i in range(y1, y2):
         if gradient:
-            new_c = count_grad_color(c1, c2, x, x1, x2)
+            new_c = count_grad_color(c1, c2, i, y1, y2)
         else:
-            new_c = (255, 0, 0)
-        if di < 0:
-            di = di + 2*dy
-        else:
-            y = y + dely
-            di = di + 2*(dy - dx)
-        x = x + delx
-        if x*delx > x2*delx:
-            x = x2
-    else:
-        if di == None:
-            di = 2*dx - dy
-        if gradient:
-            new_c = count_grad_color(c1, c2, y, y1, y2)
-        else:
-            new_c = (255, 0, 0)
-        if di < 0:
-            di = di + 2*dx
-        else:
-            x = x + delx
-            di = di + 2*(dx - dy)
-        y = y + dely
-
-        if y*dely > y2*dely:
-            y = y
-    return (x, y), new_c, di
-
+            new_c = c1
+        draw_pix(img, (x1, i), new_c)
+        
 
 def draw_triangel(img, p1, p2, p3, c1, c2, c3):
-    op, oc, dio = get_point_inline(p1, p1, p2, c1, c2)
-    ap, ac, dia = get_point_inline(p1, p1, p3, c1, c3)
+    p1, p2, p3 = sorted([p1, p2, p3], key=lambda x: x[0])
+    op, oc= get_point_inline(p1, p1, p2, c1, c2)
+    ap, ac= get_point_inline(p1, p1, p3, c1, c3)
 
     ostart = p1
     oend = p2
@@ -63,22 +53,30 @@ def draw_triangel(img, p1, p2, p3, c1, c2, c3):
     acend = c3
 
     while ((op != oend) and (ap != aend)):
-        line_bresenchem(img, op, ap, oc, ac)
+        draw_vert_line(img, op, ap, oc, ac, True)
 
-        op, oc, dio = get_point_inline(op, ostart, oend, ocstart, ocend, dio, gradient=True)
-        ap, ac, dia = get_point_inline(ap, astart, aend, acstart, acend, dia, gradient=True)
+        op, oc = get_point_inline(op, ostart, oend, ocstart, ocend)
+        ap, ac = get_point_inline(ap, astart, aend, acstart, acend)
 
         if (op == p2):
-            #ap, ac, dia = get_point_inline(ap, astart, aend, acstart, acend, dia, gradient=True)
+            ostart = p2
+            oend = p3
+            ocstart = c2
+            ocend = c3
             while ((ap != aend)):
-                line_bresenchem(img, op, ap, oc, ac)
-                ap, ac, dia = get_point_inline(ap, astart, aend, acstart, acend, dia, gradient=True)
+                draw_vert_line(img, op, ap, oc, ac, True)
+                op, oc = get_point_inline(op, ostart, oend, ocstart, ocend)
+                ap, ac = get_point_inline(ap, astart, aend, acstart, acend)
             break
         if (ap == p3):
-            #op, oc, dio = get_point_inline(op, ostart, oend, ocstart, ocend, dio, gradient=True)
+            ostart = p3
+            oend = p2
+            ocstart = c3
+            ocend = c2
             while ((op != oend)):
-                line_bresenchem(img, op, ap, oc, ac)
-                op, oc, dio = get_point_inline(op, ostart, oend, ocstart, ocend, dio, gradient=True)
+                draw_vert_line(img, op, ap, oc, ac, True)
+                op, oc = get_point_inline(op, ostart, oend, ocstart, ocend)
+                ap, ac = get_point_inline(ap, astart, aend, acstart, acend)
             break
 
     return
@@ -96,6 +94,7 @@ class canvas_control:
         canv.create_image((win_width / 2, win_height / 2), image=self.img, state="normal")
 
         self.root_main.bind("<ButtonRelease-1>", self.set_triangle_point)
+        self.root_main.bind("<ButtonRelease-2>", self.save_img)
 
         self.p1 = None
         self.p2 = None
@@ -118,6 +117,10 @@ class canvas_control:
             self.p2 = None
             self.p3 = None
             self.p1 = None
+
+    def save_img(self, event):
+        self.img.write("output3.png", format="png")
+        return
 
 
 

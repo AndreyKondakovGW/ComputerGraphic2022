@@ -63,9 +63,9 @@ def count_grad_color(c1, c2, p, p1, p2):
 
 def delc(a, c1, c2):
     if c1 >= c2:
-        return (abs(int(c1 - a * abs(c1 - c2))) + 255) % 255
+        return max(min(int(c1 - a * abs(c1 - c2)), 255), 0)
     else:
-        return (abs(int(a * abs(c1 - c2) + c1)) + 255) % 255
+        return max(min(int(a * abs(c1 - c2) + c1), 255), 0)
 
 def rgb2hex(rgb):
     return "#%02x%02x%02x" % rgb
