@@ -1,5 +1,6 @@
+import numpy as np
 
-def draw_line(img, p1, p2, c1=(0,0,0), c2=None):
+def line_bresenchem(img, p1, p2, c1=(0,0,0), c2=None):
     '''
     Функция рисования отрезка используя алгоритм Брезенхэма
     - p1, p2  координаты концов отрезка
@@ -71,3 +72,36 @@ def rgb2hex(rgb):
 
 def draw_pix(img, point, color=(255, 0, 0)):
     img.put(rgb2hex(color), point)
+
+def draw_shade_pix(img, point, alpha, bg, color=(255, 0, 0)):
+    color = tuple(np.trunc(np.around(np.dot(alpha, color) + np.dot((1 - alpha), bg))).astype(int))
+    img.put(rgb2hex(color), point)
+
+def line_wu(img, x1, y1, x2, y2,bg,  color=(255, 0, 0)):
+    if x2 < x1:
+        x2, x1 = x1, x2
+        y2, y1 = y1, y2
+    d_x = x2 - x1
+    d_y = y2 - y1
+    gradient = d_y / d_x
+    x_end = round(x1)
+    y_end = y1 + gradient * (x_end - x1)
+    x_gap = 1 - (x1 + 0.5) % 1
+    x_pxl1 = x_end
+    y_pxl1 = int(y_end // 1)
+    draw_shade_pix(img, (x_pxl1, y_pxl1), (1 - y_end % 1) * x_gap, bg, color= color)
+    draw_shade_pix(img, (x_pxl1, y_pxl1 + 1), y_end % 1 * x_gap, bg, color= color)
+    inter_y = y_end + gradient
+
+    x_end = round(x2)
+    y_end = y2 + gradient * (x_end - x2)
+    x_gap = (x2 + 0.5) % 1
+    x_pxl2 = x_end
+    y_pxl2 = y_end // 1
+    draw_shade_pix(img, (x_pxl2, int(y_pxl2)), (1 - y_end % 1) * x_gap, bg, color= color)
+    draw_shade_pix(img, (x_pxl2, int(y_pxl2 + 1)), y_end % 1 * x_gap, bg, color= color)
+
+    for x in range(x_pxl1 + 1, x_pxl2 - 1):
+        draw_shade_pix(img, (x, int(inter_y)), 1 - inter_y % 1, bg, color= color)
+        draw_shade_pix(img, (x, int(inter_y) + 1), inter_y % 1, bg, color= color)
+        inter_y = inter_y + gradient

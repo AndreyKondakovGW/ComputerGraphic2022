@@ -63,7 +63,7 @@ def draw_triangel(img, p1, p2, p3, c1, c2, c3):
     acend = c3
 
     while ((op != oend) and (ap != aend)):
-        draw_line(img, op, ap, oc, ac)
+        line_bresenchem(img, op, ap, oc, ac)
 
         op, oc, dio = get_point_inline(op, ostart, oend, ocstart, ocend, dio, gradient=True)
         ap, ac, dia = get_point_inline(ap, astart, aend, acstart, acend, dia, gradient=True)
@@ -71,38 +71,55 @@ def draw_triangel(img, p1, p2, p3, c1, c2, c3):
         if (op == p2):
             #ap, ac, dia = get_point_inline(ap, astart, aend, acstart, acend, dia, gradient=True)
             while ((ap != aend)):
-                draw_line(img, op, ap, oc, ac)
+                line_bresenchem(img, op, ap, oc, ac)
                 ap, ac, dia = get_point_inline(ap, astart, aend, acstart, acend, dia, gradient=True)
             break
         if (ap == p3):
             #op, oc, dio = get_point_inline(op, ostart, oend, ocstart, ocend, dio, gradient=True)
             while ((op != oend)):
-                draw_line(img, op, ap, oc, ac)
+                line_bresenchem(img, op, ap, oc, ac)
                 op, oc, dio = get_point_inline(op, ostart, oend, ocstart, ocend, dio, gradient=True)
             break
 
-    draw_line(img, p1, p2, c1, c2)
-    draw_line(img, p2, p3, c2, c3)
-    draw_line(img, p1, p3, c1, c3)
     return
 
+class canvas_control:
+    def __init__(self):
+        self.root_main = Tk()
+        self.root_main.title("Draw Triangle")
+
+        win_width = self.root_main.winfo_screenwidth() // 2
+        win_height = self.root_main.winfo_screenheight() // 2
+
+        canv = Canvas(self.root_main, width=win_width, height=win_height, bg="white")
+        self.img = PhotoImage(width=win_width, height=win_height)
+        canv.create_image((win_width / 2, win_height / 2), image=self.img, state="normal")
+
+        self.root_main.bind("<ButtonRelease-1>", self.set_triangle_point)
+
+        self.p1 = None
+        self.p2 = None
+        self.p3 = None
+
+        canv.pack()
+        self.root_main.mainloop()
+
+    def set_triangle_point(self, event):
+        c1=(255, 0, 0)
+        c2=(0, 0, 255)
+        c3=(0, 255, 0)
+        if self.p1 == None:
+            self.p1 = (event.x, event.y)
+        elif self.p2 == None:
+            self.p2 = (event.x, event.y)
+        else:
+            self.p3 = (event.x, event.y)
+            draw_triangel(self.img, self.p1, self.p2, self.p3, c1, c2, c3)
+            self.p2 = None
+            self.p3 = None
+            self.p1 = None
+
+
+
 if __name__ == "__main__":
-    root_main = Tk()
-    root_main.title("Draw Triangle")
-
-    win_width = root_main.winfo_screenwidth() // 2
-    win_height = root_main.winfo_screenheight() // 2
-
-    canv = Canvas(root_main, width = win_width, height = win_height, bg = "lightblue")
-    img = PhotoImage(width=win_width, height=win_height)
-    canv.create_image((win_width/2, win_height/2), image=img, state="normal")
-
-    c1=(255, 0, 0)
-    c2=(0, 0, 255)
-    c3=(0, 255, 0)
-    p1 = (300, 100)
-    p2 = (100, 400)
-    p3 = (600, 400)
-    draw_triangel(img, p1, p2, p3, c1, c2, c3)
-    canv.pack()
-    root_main.mainloop()
+    cc = canvas_control()
