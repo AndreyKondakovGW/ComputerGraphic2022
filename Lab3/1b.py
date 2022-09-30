@@ -32,6 +32,7 @@ class ImageFiller(BaseFiller):
         y %= self.fill_image.height()
         return self.fill_image.get(x, y)
 
-root = Tk()
-color_filler = ImageFiller(root, "test.jpg")
-color_filler.start()
+if __name__ == "__main__":
+    root = Tk()
+    color_filler = ImageFiller(root, "test.jpg")
+    color_filler.start()

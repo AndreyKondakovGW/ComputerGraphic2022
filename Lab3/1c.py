@@ -184,6 +184,7 @@ class BorderFinder:
     def start(self):
         self.root.mainloop()
 
-root = Tk()
-border_finder = BorderFinder(root)
-border_finder.start()
+if __name__ == "__main__":
+    root = Tk()
+    border_finder = BorderFinder(root)
+    border_finder.start()

@@ -8,7 +8,8 @@ class ColorFiller(BaseFiller):
 
     def next_color(self, x, y):
         return self.fill_color
-
-root = Tk()
-color_filler = ColorFiller(root, (0, 255, 0))
-color_filler.start()
+        
+if __name__ == "__main__":
+    root = Tk()
+    color_filler = ColorFiller(root, (0, 255, 0))
+    color_filler.start()
