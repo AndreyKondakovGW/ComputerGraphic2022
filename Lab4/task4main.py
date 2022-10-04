@@ -1,7 +1,7 @@
-from painter import Painter
+from UI import MyUI
 
 if __name__ == "__main__":
-    p = Painter()
+    ui = MyUI()
     
 
     
