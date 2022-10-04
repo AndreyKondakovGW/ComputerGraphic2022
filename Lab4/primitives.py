@@ -32,6 +32,10 @@ def line_bresenchem(img, p1, p2, c1=(0, 0, 0), c2=None):
             else:
                 y = y + dely
                 di = di + 2 * (dy - dx)
+        if c2 is not None:
+            draw_pix(img, (x2, y2), c2)
+        else:
+            draw_pix(img, (x2, y2), c1)
     else:
         di = 2 * dx - dy
         for y in range(y1, y2, dely):
@@ -45,6 +49,10 @@ def line_bresenchem(img, p1, p2, c1=(0, 0, 0), c2=None):
             else:
                 x = x + delx
                 di = di + 2 * (dx - dy)
+        if c2 is not None:
+            draw_pix(img, (x2, y2), c2)
+        else:
+            draw_pix(img, (x2, y2), c1)
                 
 def line_wu(img, x1, y1, x2, y2, bg, color=(255, 0, 0)):
     d_x = x2 - x1
