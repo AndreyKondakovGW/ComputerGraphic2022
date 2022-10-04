@@ -46,7 +46,7 @@ class BaseFiller:
         new_coords = (event.x, event.y)
         if self.should_draw:
             if self.old_coords:
-                draw_line(self.image, new_coords, self.old_coords)
+                line_bresenchem(self.image, new_coords, self.old_coords)
                 #self.create_line(x, y, x1, y1)
         self.old_coords = new_coords
 

@@ -84,7 +84,7 @@ class BorderFinder:
         new_coords = (event.x, event.y)
         if self.should_draw:
             if self.old_coords:
-                draw_line(self.image, new_coords, self.old_coords)
+                line_bresenchem(self.image, new_coords, self.old_coords)
                 #self.create_line(x, y, x1, y1)
         self.old_coords = new_coords
 
@@ -229,6 +229,7 @@ class BorderFinder:
     def start(self):
         self.root.mainloop()
 
-root = Tk()
-border_finder = BorderFinder(root)
-border_finder.start()
+if __name__ == "__main__":
+    root = Tk()
+    border_finder = BorderFinder(root)
+    border_finder.start()

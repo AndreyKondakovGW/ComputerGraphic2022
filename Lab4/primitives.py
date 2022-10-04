@@ -1,7 +1,4 @@
-from tkinter import Tk, Canvas, PhotoImage
-
 import numpy as np
-
 
 def line_bresenchem(img, p1, p2, c1=(0, 0, 0), c2=None):
     '''
@@ -28,7 +25,6 @@ def line_bresenchem(img, p1, p2, c1=(0, 0, 0), c2=None):
             if c2 is not None:
                 new_c = count_grad_color(c1, c2, x, x1, x2)
             else:
-                # new_c = (255, 0, 0)
                 new_c = c1
             draw_pix(img, (x, y), new_c)
             if di < 0:
@@ -42,7 +38,6 @@ def line_bresenchem(img, p1, p2, c1=(0, 0, 0), c2=None):
             if c2 is not None:
                 new_c = count_grad_color(c1, c2, y, y1, y2)
             else:
-                # new_c = (255, 0, 0)
                 new_c = c1
             draw_pix(img, (x, y), new_c)
             if di < 0:
@@ -50,42 +45,7 @@ def line_bresenchem(img, p1, p2, c1=(0, 0, 0), c2=None):
             else:
                 x = x + delx
                 di = di + 2 * (dx - dy)
-
-
-def count_grad_color(c1, c2, p, p1, p2):
-    '''
-    Подсчитывает средний цвет на градиентном отрезке
-    - c1, c2 цвета концов отрезка в RGB
-    - p, p1, p2 кординаты концов отрезка и текущей точки цвет 
-    которой нужно высчитать, используются для высчитывания сочетания цветов
-    '''
-    a = abs(p - p1) / abs(p2 - p1)
-    r1, g1, b1 = c1
-    r2, g2, b2 = c2
-    new_c = (delc(a, r1, r2), delc(a, g1, g2), delc(a, b1, b2))
-    return new_c
-
-
-def delc(a, c1, c2):
-    if c1 >= c2:
-        return max(min(int(c1 - a * abs(c1 - c2)), 255), 0)
-    else:
-        return max(min(int(a * abs(c1 - c2) + c1), 255), 0)
-
-
-def rgb2hex(rgb):
-    return "#%02x%02x%02x" % rgb
-
-
-def draw_pix(img, point, color=(255, 0, 0)):
-    img.put(rgb2hex(color), point)
-
-
-def draw_shade_pix(img, point, alpha, bg, color=(255, 0, 0)):
-    color = tuple(np.trunc(np.around(np.dot(alpha, color) + np.dot((1 - alpha), bg))).astype(int))
-    img.put(rgb2hex(color), point)
-
-
+                
 def line_wu(img, x1, y1, x2, y2, bg, color=(255, 0, 0)):
     d_x = x2 - x1
     d_y = y2 - y1
@@ -149,3 +109,31 @@ def line_wu(img, x1, y1, x2, y2, bg, color=(255, 0, 0)):
             draw_shade_pix(img, (int(inter_x + 1), y), inter_x % 1, bg, color=color)
             inter_x = inter_x + gradient
 
+def draw_shade_pix(img, point, alpha, bg, color=(255, 0, 0)):
+    color = tuple(np.trunc(np.around(np.dot(alpha, color) + np.dot((1 - alpha), bg))).astype(int))
+    img.put(rgb2hex(color), point) 
+            
+def count_grad_color(c1, c2, p, p1, p2):
+    '''
+    Подсчитывает средний цвет на градиентном отрезке
+    - c1, c2 цвета концов отрезка в RGB
+    - p, p1, p2 кординаты концов отрезка и текущей точки цвет 
+    которой нужно высчитать, используются для высчитывания сочетания цветов
+    '''
+    a = abs(p - p1) / abs(p2 - p1)
+    r1, g1, b1 = c1
+    r2, g2, b2 = c2
+    new_c = (delc(a, r1, r2), delc(a, g1, g2), delc(a, b1, b2))
+    return new_c
+
+def delc(a, c1, c2):
+    if c1 >= c2:
+        return max(min(int(c1 - a * abs(c1 - c2)), 255), 0)
+    else:
+        return max(min(int(a * abs(c1 - c2) + c1), 255), 0)
+
+def rgb2hex(rgb):
+    return "#%02x%02x%02x" % rgb
+
+def draw_pix(img, point, color=(255, 0, 0)):
+    img.put(rgb2hex(color), point)
