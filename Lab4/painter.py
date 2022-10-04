@@ -4,6 +4,7 @@ from mouseLine import MouseLineMode
 from line_bresenchem import BerthLineMode
 from line_wu import WuLineMode
 from poli_line import PoligonMode
+from rect import RectangleMode
 
 class Painter():
     def __init__(self, brush_color = (0, 0, 0)):
@@ -31,6 +32,10 @@ class Painter():
         elif new_mode_name == "drawpoligon":
             self.current_mode = PoligonMode(self.canvas, self.brush_color)
             print("drawpoligon")     
+            pass
+        elif new_mode_name == "drawrectangle":
+            self.current_mode = RectangleMode(self.canvas, self.brush_color)
+            print("drawrectangle")     
             pass
         elif new_mode_name == "clear":
             self.current_mode = DummyMode()

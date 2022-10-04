@@ -32,6 +32,7 @@ class MyUI(Tk):
         self.add_button("Draw Line", lambda: button_press_f("drawline"))
         self.add_button("Draw Line Wu", lambda: button_press_f("drawlinewu"))
         self.add_button("Draw Poligon", lambda: button_press_f("drawpoligon"))
+        self.add_button("Draw Rect", lambda: button_press_f("drawrectangle"))
         self.add_button("Clear", lambda: button_press_f("clear"))
         return
     
