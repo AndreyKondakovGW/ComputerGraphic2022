@@ -1,4 +1,6 @@
 from primitives import line_bresenchem
+from functions import *
+from poli_line import Poligon
 
 class RectangleMode:
     def __init__(self, canvas, color):
@@ -20,22 +22,11 @@ class RectangleMode:
         if self.p0 is None:
             self.p0 = (event.x, event.y)
         else:
-            self.canvas.content.append(Rectangle(self.p0,(event.x, event.y), self.brush_color))
+            x1, y1 = self.p0
+            x2, y2 = event.x, event.y
+            rect_p = [(x1, y1), (x2, y1), (x2, y2), (x1, y2)]
+            self.canvas.content.append(Poligon(rect_p, self.brush_color))
             self.p0 = None
 
     def hanble_release(self, _):
         pass
-
-class Rectangle:
-    def __init__(self, p0, p1, color):
-        self.p0 = p0
-        self.p1 = p1
-        self.color = color
-
-    def draw(self, canvas):
-        x1, y1 = self.p0
-        x2, y2 = self.p1
-        line_bresenchem(canvas.image, (x1, y1), (x2, y1), self.color)
-        line_bresenchem(canvas.image, (x2, y1), (x2, y2), self.color)
-        line_bresenchem(canvas.image, (x2, y2), (x1, y2), self.color)
-        line_bresenchem(canvas.image, (x1, y2), (x1, y1), self.color)

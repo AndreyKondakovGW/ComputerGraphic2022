@@ -36,6 +36,7 @@ class Line:
         self.p0 = p0
         self.p1 = p1
         self.color = color
+        self.selected = False
 
     def draw(self, canvas):
         if self.line_type == "bresenchem":
@@ -48,5 +49,9 @@ class Line:
         if p is not None:
             return [p]
         return []
+
+    def in_rect(self, p1, p2):
+        return point_in_rect(self.p0, p1, p2) and point_in_rect(self.p1, p1, p2)
+
 
     
