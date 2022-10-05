@@ -1,4 +1,5 @@
 from primitives import line_bresenchem
+from functions import find_segments_intersection
 
 class RectangleMode:
     def __init__(self, canvas, color):
@@ -39,3 +40,25 @@ class Rectangle:
         line_bresenchem(canvas.image, (x2, y1), (x2, y2), self.color)
         line_bresenchem(canvas.image, (x2, y2), (x1, y2), self.color)
         line_bresenchem(canvas.image, (x1, y2), (x1, y1), self.color)
+
+    def sides(self):
+        first_point = self.p0
+        second_horizontal_point = (self.p1[0], self.p0[1])
+        second_vertical_point = (self.p0[0], self.p1[1])
+        diagonal_point = self.p1
+        high_side = (first_point, second_horizontal_point)
+        right_side = (second_horizontal_point, diagonal_point)
+        low_side = (diagonal_point, second_vertical_point)
+        left_side = (second_vertical_point, first_point)
+        return [high_side, right_side, low_side, left_side]
+
+
+    def find_intersec(self, p1, p2):
+        intersections = []
+        sides = self.sides()
+        for side in sides:
+            side_p1, side_p2 = side
+            intersec = find_segments_intersection(side_p1, side_p2, p1, p2)
+            if intersec is not None:
+                intersections.append(intersec)
+        return intersections
