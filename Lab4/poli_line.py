@@ -1,6 +1,6 @@
 from primitives import line_bresenchem
 from mouseLine import MouseLine
-from functions import find_segments_intersection
+from functions import *
 
 class PoligonMode:
     def __init__(self, canvas, color):
@@ -46,6 +46,7 @@ class Poligon:
     def __init__(self, points, color):
         self.points = points
         self.color = color
+        self.selected = False
     
     def draw(self, canvas):
         for i in range(len(self.points)-1):
@@ -62,3 +63,9 @@ class Poligon:
         if p is not None:
             intersections.append(p)
         return intersections
+    
+    def in_rect(self, p1, p2):
+        for p in self.points:
+            if not point_in_rect(p, p1, p2):
+                return False
+        return True
