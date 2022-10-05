@@ -31,3 +31,6 @@ class MouseLine:
     def draw(self, canvas):
         for i in range(len(self.points)-1):
             line_bresenchem(canvas.image, self.points[i], self.points[i+1], self.color)
+    
+    def find_intersec(self, p1, p2):
+        return []

@@ -14,6 +14,14 @@ class MyCanvas(Canvas):
         for fig in self.content:
             fig.draw(self)
 
+    def draw_intersections_with_line(self, p0, p1):
+        intersections = []
+        for fig in self.content:
+            intersections += fig.find_intersec(p0, p1)
+
+        for p in intersections:
+            self.draw_circle(p[0], p[1])
+
     def delete_content(self):
         self.content = []
         self.clear()
@@ -25,3 +33,8 @@ class MyCanvas(Canvas):
     def create_image(self, state="normal"):
         self.image = PhotoImage(width=self.width, height=self.height)
         super().create_image((self.width / 2, self.height / 2), image=self.image, state=state)
+
+     
+
+    def draw_circle(self, x, y, r=10, color="red"):
+        self.create_oval(x-r, y-r, x+r, y+r, fill=color, outline=color)

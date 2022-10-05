@@ -1,8 +1,7 @@
 from primitives import *
 from dummy import DummyMode
 from mouseLine import MouseLineMode
-from line_bresenchem import BerthLineMode
-from line_wu import WuLineMode
+from line import LineMode
 from poli_line import PoligonMode
 from rect import RectangleMode
 
@@ -22,11 +21,11 @@ class Painter():
             print("paint")
             pass
         elif new_mode_name == "drawline":
-            self.current_mode = BerthLineMode(self.canvas, self.brush_color)
+            self.current_mode = LineMode(self.canvas, self.brush_color, "bresenchem")
             print("drawline")
             pass
         elif new_mode_name == "drawlinewu":
-            self.current_mode = WuLineMode(self.canvas, self.brush_color)
+            self.current_mode = LineMode(self.canvas, self.brush_color, "wu")
             print("drawlinewu")
             pass
         elif new_mode_name == "drawpoligon":

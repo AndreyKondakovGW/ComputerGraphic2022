@@ -1,5 +1,6 @@
 from primitives import line_bresenchem
 from mouseLine import MouseLine
+from functions import find_segments_intersection
 
 class PoligonMode:
     def __init__(self, canvas, color):
@@ -11,6 +12,7 @@ class PoligonMode:
     def hanble_moution(self, event):
         if self.last_poli_point is not None:
             self.canvas.redraw_content()
+            self.canvas.draw_intersections_with_line(self.last_poli_point, (event.x, event.y))
             line_bresenchem(self.canvas.image, self.last_poli_point, (event.x, event.y), self.brush_color)
 
     def hanble_press(self, event):
@@ -49,3 +51,14 @@ class Poligon:
         for i in range(len(self.points)-1):
             line_bresenchem(canvas.image, self.points[i], self.points[i+1], self.color)
         line_bresenchem(canvas.image, self.points[0], self.points[-1], self.color)
+
+    def find_intersec(self, p1, p2):
+        intersections = []
+        for i in range(len(self.points)-1):
+            intersec = find_segments_intersection(self.points[i], self.points[i+1], p1, p2)
+            if intersec is not None:
+                intersections.append(intersec)
+        p = find_segments_intersection(self.points[0], self.points[-1], p1, p2)
+        if p is not None:
+            intersections.append(p)
+        return intersections
