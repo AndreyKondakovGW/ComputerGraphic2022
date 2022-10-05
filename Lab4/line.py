@@ -39,10 +39,13 @@ class Line:
         self.selected = False
 
     def draw(self, canvas):
+        self.draw_colored(canvas, self.color)
+
+    def draw_colored(self, canvas, color):
         if self.line_type == "bresenchem":
-            line_bresenchem(canvas.image, self.p0, self.p1, self.color)
+            line_bresenchem(canvas.image, self.p0, self.p1, color)
         elif self.line_type == "wu":
-            line_wu(canvas.image, self.p0[0], self.p0[1], self.p1[0], self.p1[1], (255, 255, 255), self.color)
+            line_wu(canvas.image, self.p0[0], self.p0[1], self.p1[0], self.p1[1], (255, 255, 255), color)
 
     def find_intersec(self, p1, p2):
         p = find_segments_intersection(p1, p2, self.p0, self.p1)
@@ -53,5 +56,10 @@ class Line:
     def in_rect(self, p1, p2):
         return point_in_rect(self.p0, p1, p2) and point_in_rect(self.p1, p1, p2)
 
-
-    
+    def draw_marked(self, canvas, p, left_color, right_color):
+        if point_from_left(p, self.p0, self.p1):
+            color = left_color
+        else:
+            color = right_color
+        self.draw_colored(canvas, color)
+        

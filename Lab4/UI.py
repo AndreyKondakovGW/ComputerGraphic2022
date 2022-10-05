@@ -28,13 +28,15 @@ class MyUI(Tk):
         self.mainloop()
 
     def create_buttons(self, button_press_f):
+        self.add_button("Dot", lambda: button_press_f("dot"))
         self.add_button("Paint", lambda: button_press_f("paint"))
         self.add_button("Draw Line", lambda: button_press_f("drawline"))
         self.add_button("Draw Line Wu", lambda: button_press_f("drawlinewu"))
         self.add_button("Draw Poligon", lambda: button_press_f("drawpoligon"))
         self.add_button("Draw Rect", lambda: button_press_f("drawrectangle"))
-        self.add_button("Delete", lambda: button_press_f("delselected"))
+        self.add_button("Mark Segments", lambda: button_press_f("marksegments"))
         self.add_button("Select", lambda: button_press_f("selectrectangle"))
+        self.add_button("Delete", lambda: button_press_f("delselected"))
         self.add_button("Clear", lambda: button_press_f("clear"))
         return
     

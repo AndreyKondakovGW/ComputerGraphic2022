@@ -47,21 +47,21 @@ class Poligon:
         self.points = points
         self.color = color
         self.selected = False
+        self.init_segments()
     
     def draw(self, canvas):
-        for i in range(len(self.points)-1):
-            line_bresenchem(canvas.image, self.points[i], self.points[i+1], self.color)
-        line_bresenchem(canvas.image, self.points[0], self.points[-1], self.color)
-
+        for segment in self.segments:
+            seg_p1, seg_p2 = segment
+            line_bresenchem(canvas.image, seg_p1, seg_p2, self.color)
+            
     def find_intersec(self, p1, p2):
         intersections = []
-        for i in range(len(self.points)-1):
-            intersec = find_segments_intersection(self.points[i], self.points[i+1], p1, p2)
+        for segment in self.segments:
+            seg_p1, seg_p2 = segment
+            intersec = find_segments_intersection(seg_p1, seg_p2, p1, p2)
             if intersec is not None:
                 intersections.append(intersec)
-        p = find_segments_intersection(self.points[0], self.points[-1], p1, p2)
-        if p is not None:
-            intersections.append(p)
+
         return intersections
     
     def in_rect(self, p1, p2):
@@ -69,3 +69,23 @@ class Poligon:
             if not point_in_rect(p, p1, p2):
                 return False
         return True
+
+    def draw_marked_segment(self, canvas, segment, p, left_color, right_color):
+        seg_p1, seg_p2 = segment
+        from_left = point_from_left(p, seg_p1, seg_p2)
+        if from_left:
+            line_bresenchem(canvas.image, seg_p1, seg_p2, left_color)
+        else:
+            line_bresenchem(canvas.image, seg_p1, seg_p2, right_color)
+
+    def init_segments(self):
+        self.segments = []
+        for i in range(len(self.points) - 1):
+            seg = (self.points[i], self.points[i + 1])
+            self.segments.append(seg)
+        seg = (self.points[-1], self.points[0])
+        self.segments.append(seg)
+        
+    def draw_marked(self, canvas, p, left_color, right_color):
+        for segment in self.segments:
+            self.draw_marked_segment(canvas, segment, p, left_color, right_color)

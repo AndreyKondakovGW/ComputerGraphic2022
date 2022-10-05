@@ -29,4 +29,3 @@ class RectSelector:
             self.should_draw = False
             self.canvas.select_figs_in_rect(self.p0, (event.x, event.y))
             self.p0 = None
-        pass

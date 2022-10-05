@@ -54,3 +54,12 @@ def point_in_rect(p, p1, p2):
     if x < min(x1, x2) or x > max(x1, x2) or y < min(y1, y2) or y > max(y1, y2):
         return False
     return True
+
+def point_from_left(point, seg_p1, seg_p2):
+    x, y = point
+    x1, y1 = seg_p1
+    x2, y2 = seg_p2
+    return (y2 - y1) * (x - x1) - (x2 - x1) * (y - y1) > 0
+
+def point_from_right(point, seg_p1, seg_p2):
+    return not point_from_left(point, seg_p1, seg_p2)

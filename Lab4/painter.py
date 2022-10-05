@@ -5,6 +5,8 @@ from line import LineMode
 from poli_line import PoligonMode
 from rect import RectangleMode
 from rect_selector import RectSelector
+from dot import DotMode
+from mark_segments_direction import MarkSegmentsDirectionMode
 
 class Painter():
     def __init__(self, brush_color = (0, 0, 0)):
@@ -17,7 +19,11 @@ class Painter():
         self.canvas = canvas
 
     def switch_mode(self, new_mode_name):
-        if new_mode_name == "paint":
+        if new_mode_name == "dot":
+            self.current_mode = DotMode(self.canvas, self.brush_color)
+            print("dot")
+            pass
+        elif new_mode_name == "paint":
             self.current_mode = MouseLineMode(self.canvas, self.brush_color)
             print("paint")
             pass
@@ -37,12 +43,16 @@ class Painter():
             self.current_mode = RectangleMode(self.canvas, self.brush_color)
             print("drawrectangle")     
             pass
+        elif new_mode_name == "marksegments":
+            self.current_mode = MarkSegmentsDirectionMode(self.canvas, self.brush_color)
+            print("marksegments")
+            pass
         elif new_mode_name == "selectrectangle":
             self.current_mode = RectSelector(self.canvas, self.brush_color)
             print("drawrectangle")     
             pass
         elif new_mode_name == "delselected":
-            self.current_mode = DummyMode()
+            #self.current_mode = DummyMode()
             self.canvas.delete_selected()
             print("delselected")
             pass
