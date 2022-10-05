@@ -4,6 +4,8 @@ from mouseLine import MouseLineMode
 from line import LineMode
 from poli_line import PoligonMode
 from rect import RectangleMode
+import handle_affine_translation
+
 from rect_selector import RectSelector
 
 class Painter():
@@ -39,7 +41,7 @@ class Painter():
             pass
         elif new_mode_name == "selectrectangle":
             self.current_mode = RectSelector(self.canvas, self.brush_color)
-            print("drawrectangle")     
+            print("drawrectangle")
             pass
         elif new_mode_name == "delselected":
             self.current_mode = DummyMode()
@@ -51,6 +53,11 @@ class Painter():
             self.canvas.delete_content()
             print("clear")
             pass
+        elif new_mode_name == 'affine':
+            self.current_mode = DummyMode()
+            handle_affine_translation.af_translation(self.canvas)
+
+            print("affine")
         else:
             pass
 
