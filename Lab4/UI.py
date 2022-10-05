@@ -35,6 +35,7 @@ class MyUI(Tk):
         self.add_button("Draw Poligon", lambda: button_press_f("drawpoligon"))
         self.add_button("Draw Rect", lambda: button_press_f("drawrectangle"))
         self.add_button("Mark Segments", lambda: button_press_f("marksegments"))
+        self.add_button("Check Convex", lambda: button_press_f("checkconvex"))
         self.add_button("Select", lambda: button_press_f("selectrectangle"))
         self.add_button("Delete", lambda: button_press_f("delselected"))
         self.add_button("Clear", lambda: button_press_f("clear"))
