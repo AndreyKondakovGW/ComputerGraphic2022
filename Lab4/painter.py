@@ -59,11 +59,11 @@ class Painter():
             handle_affine_transformation.af_translation(self.canvas)
             print("affine_translation")
         elif new_mode_name == 'affine_rotation':
-            self.current_mode = DummyMode()
+            self.current_mode = handle_affine_transformation.AffinePointMode(self.canvas)
             handle_affine_transformation.af_rotation(self.canvas)
             print("affine_rotation")
         elif new_mode_name == 'affine_scaling':
-            self.current_mode = DummyMode()
+            self.current_mode = handle_affine_transformation.AffinePointMode(self.canvas)
             handle_affine_transformation.af_scaling(self.canvas)
             print("affine_scaling")
         else:

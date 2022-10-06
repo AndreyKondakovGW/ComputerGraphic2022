@@ -44,10 +44,10 @@ def translation(fig, dx, dy):
     fig.points = new_points
 
 
-def rotation(fig, angle, point=[-1, -1]):
+def rotation(fig, angle, point=(-1, -1)):
     m = rotate_matrix(angle)
     new_points = list()
-    if [-1, -1] == point:
+    if (-1, -1) == point:
         point = centroid(fig.points)
     translation(fig, -point[0], -point[1])
     for point_f in fig.points:
@@ -58,12 +58,10 @@ def rotation(fig, angle, point=[-1, -1]):
     translation(fig, point[0], point[1])
 
 
-def scaling(fig, kx, ky, point=[-1, -1]):
-    # if point == (0,0):
-    #   point =  центр масс
+def scaling(fig, kx, ky, point=(-1, -1)):
     m = scale_matrix(kx, ky)
     new_points = list()
-    if [-1, -1] == point:
+    if (-1, -1) == point:
         point = centroid(fig.points)
     translation(fig, -point[0], -point[1])
     for point_f in fig.points:
