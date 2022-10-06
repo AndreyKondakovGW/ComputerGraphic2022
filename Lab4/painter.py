@@ -20,11 +20,7 @@ class Painter():
         self.canvas = canvas
 
     def switch_mode(self, new_mode_name):
-        if new_mode_name == "paint":
-            self.current_mode = MouseLineMode(self.canvas, self.brush_color)
-            print("paint")
-            pass
-        elif new_mode_name == "drawline":
+        if new_mode_name == "drawline":
             self.current_mode = LineMode(self.canvas, self.brush_color, "bresenchem")
             print("drawline")
             pass

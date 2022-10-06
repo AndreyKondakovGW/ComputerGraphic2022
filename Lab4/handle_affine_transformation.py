@@ -1,6 +1,6 @@
 from tkinter import Button, Toplevel, Label, Entry
 
-from Lab4.functions import intersection_with_scope
+from functions import intersection_with_scope
 from transformation import translation, rotation, scaling
 
 

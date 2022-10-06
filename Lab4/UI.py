@@ -1,6 +1,7 @@
-from tkinter import Tk, Button
+from tkinter import PhotoImage, Tk, Button
 from canvas import MyCanvas
 from painter import Painter
+import os
 
 class MyUI(Tk):
     def __init__(self, titel="Painter", width=0, height=0):
@@ -13,8 +14,14 @@ class MyUI(Tk):
             self.win_height = self.winfo_screenheight() // 2
         else:
             self.win_height = height
+
+        self.icons_folder = os.path.join(os.getcwd(), 'Lab4', 'icons')
+
+        photo = PhotoImage(file = os.path.join(self.icons_folder, "rat.png"))
+        self.wm_iconphoto(False, photo)
         self.title(titel)
         self.button_num = 0
+        
         
         self.painter = Painter()
         self.create_buttons(self.painter.switch_mode)
@@ -28,25 +35,31 @@ class MyUI(Tk):
         self.mainloop()
 
     def create_buttons(self, button_press_f):
-        self.add_button("Paint", lambda: button_press_f("paint"))
-        self.add_button("Draw Line", lambda: button_press_f("drawline"))
-        self.add_button("Draw Line Wu", lambda: button_press_f("drawlinewu"))
-        self.add_button("Draw Poligon", lambda: button_press_f("drawpoligon"))
-        self.add_button("Draw Rect", lambda: button_press_f("drawrectangle"))
-        self.add_button("Delete", lambda: button_press_f("delselected"))
-        self.add_button("Select", lambda: button_press_f("selectrectangle"))
+        #self.add_button("Paint", lambda: button_press_f("paint"), 'icons/paint.png')
+        self.add_button("Draw Line", lambda: button_press_f("drawline"), os.path.join(self.icons_folder, 'line-segment.png'))
+        self.add_button("Draw Line Wu", lambda: button_press_f("drawlinewu"), os.path.join(self.icons_folder, 'line-segment.png'))
+        self.add_button("Draw Poligon", lambda: button_press_f("drawpoligon"), os.path.join(self.icons_folder, 'poligon.png'))
+        self.add_button("Draw Rect", lambda: button_press_f("drawrectangle"), os.path.join(self.icons_folder, 'rect.png'))
+        self.add_button("Select", lambda: button_press_f("selectrectangle"), os.path.join(self.icons_folder, 'shape.png'))
         self.add_button("Translation", lambda: button_press_f("affine_translation"))
         self.add_button("Rotation", lambda: button_press_f("affine_rotation"))
         self.add_button("Scaling", lambda: button_press_f("affine_scaling"))
-        self.add_button("Clear", lambda: button_press_f("clear"))
+        self.add_button("Delete", lambda: button_press_f("delselected"), os.path.join(self.icons_folder, 'eraser.png'))
+        self.add_button("Clear", lambda: button_press_f("clear"), os.path.join(self.icons_folder, 'bin.png'))
         return
     
     def create_canvas(self):
         self.canv = MyCanvas(self, width=self.win_width, height=self.win_height, bg="white")
         self.canv.grid(row=2, columnspan=self.button_num)
 
-    def add_button(self, text, command):
-        button1=Button(self, text=text, command=command)
-        button1.grid(row=1,column=self.button_num)
+    def add_button(self, text, command, icon_name=None):
+        if icon_name is None:
+            Button(self, text=text, command=command).grid(row=1, column=self.button_num)
+        else:
+            icon = PhotoImage(file=icon_name)
+            icon = icon.subsample(10, 10)
+            button = Button(self, width=50,height=50, text=text, command=command, image =icon)
+            button.image = icon
+            button.grid(row=1, column=self.button_num)
         self.button_num += 1
         return
