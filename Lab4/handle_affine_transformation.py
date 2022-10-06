@@ -42,7 +42,7 @@ def af_rotation(canv):
            command=lambda: input_handler()).grid(column=1, row=20)
 
     def input_handler():
-        angle = int(e_angle.get())
+        angle = float(e_angle.get())
         fig = canv.content
         for f in fig:
             old_points = f.points
@@ -67,8 +67,8 @@ def af_scaling(canv):
            command=lambda: input_handler()).grid(column=1, row=20)
 
     def input_handler():
-        kx = int(entry_x.get())
-        ky = int(entry_y.get())
+        kx = float(entry_x.get())
+        ky = float(entry_y.get())
         fig = canv.content
         for f in fig:
             old_points = f.points
