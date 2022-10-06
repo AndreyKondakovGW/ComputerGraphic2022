@@ -1,5 +1,8 @@
-from tkinter import Text, Button, ttk, Toplevel, Label, Entry
+from tkinter import Button, Toplevel, Label, Entry
+
+from Lab4.functions import intersection_with_scope
 from transformation import translation, rotation, scaling
+
 
 
 def af_translation(canv):
@@ -20,8 +23,11 @@ def af_translation(canv):
         k_y = int(entry_y.get())
         fig = canv.content
         for f in fig:
+            old_points = f.points
             if f.selected:
                 translation(f, k_x, k_y)
+            if intersection_with_scope(f,canv):
+                f.points = old_points
         canv.redraw_content()
 
 
@@ -39,8 +45,11 @@ def af_rotation(canv):
         angle = int(e_angle.get())
         fig = canv.content
         for f in fig:
+            old_points = f.points
             if f.selected:
                 rotation(f, angle)
+            if intersection_with_scope(f,canv):
+                f.points = old_points
         canv.redraw_content()
 
 
@@ -62,6 +71,10 @@ def af_scaling(canv):
         ky = int(entry_y.get())
         fig = canv.content
         for f in fig:
+            old_points = f.points
             if f.selected:
                 scaling(f, kx, ky)
+            if intersection_with_scope(f,canv):
+                f.points = old_points
         canv.redraw_content()
+

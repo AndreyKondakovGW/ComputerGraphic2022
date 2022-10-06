@@ -42,7 +42,6 @@ def translation(fig, dx, dy):
         point1 = np.dot([p1, p2, 1], m).astype(int)
         new_points.append((point1[0], point1[1]))
     fig.points = new_points
-    print('end tr')
 
 
 def rotation(fig, angle, point=[-1, -1]):

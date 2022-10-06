@@ -4,7 +4,7 @@ from mouseLine import MouseLineMode
 from line import LineMode
 from poli_line import PoligonMode
 from rect import RectangleMode
-import handle_affine_translation
+import handle_affine_transformation
 
 from rect_selector import RectSelector
 
@@ -56,15 +56,15 @@ class Painter():
             pass
         elif new_mode_name == 'affine_translation':
             self.current_mode = DummyMode()
-            handle_affine_translation.af_translation(self.canvas)
+            handle_affine_transformation.af_translation(self.canvas)
             print("affine_translation")
         elif new_mode_name == 'affine_rotation':
             self.current_mode = DummyMode()
-            handle_affine_translation.af_rotation(self.canvas)
+            handle_affine_transformation.af_rotation(self.canvas)
             print("affine_rotation")
         elif new_mode_name == 'affine_scaling':
             self.current_mode = DummyMode()
-            handle_affine_translation.af_scaling(self.canvas)
+            handle_affine_transformation.af_scaling(self.canvas)
             print("affine_scaling")
         else:
             pass
