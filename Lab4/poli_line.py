@@ -105,3 +105,28 @@ class Polygon:
             self.color = inside_color
         else:
             self.color = outside_color
+
+    def check_any(self, p):
+        inside_color = (255, 0, 0)
+        outside_color = (0, 0, 255)
+        sum_angle = 0
+
+        for segment in self.segments():
+            seg_p1, seg_p2 = segment
+            v1 = (seg_p1[0] - p[0], seg_p1[1] - p[1])
+            v2 = (seg_p2[0] - p[0], seg_p2[1] - p[1])
+            angle = angle_between_vectors(v1, v2)
+            vector_product_z = vector_product_z_axis(v1, v2)
+            if vector_product_z > 0:
+                sum_angle += angle
+            else:
+                sum_angle -= angle
+        
+        normalized_sum = round(sum_angle / (2 * math.pi))
+        if abs(normalized_sum) == 1:
+            self.color = inside_color
+        elif abs(normalized_sum) == 0:
+            self.color = outside_color
+        else:
+            print("unexpected value")
+            self.color = outside_color

@@ -7,7 +7,7 @@ from rect import RectangleMode
 from rect_selector import RectSelector
 from dot import DotMode
 from mark_segments_direction import MarkSegmentsDirectionMode
-from check_convex import CheckConvexMode
+from check_convex import CheckPolygonMode
 
 class Painter():
     def __init__(self, brush_color = (0, 0, 0)):
@@ -42,8 +42,11 @@ class Painter():
             self.current_mode = MarkSegmentsDirectionMode(self.canvas, self.brush_color)
             print("marksegments")
         elif new_mode_name == "checkconvex":
-            self.current_mode = CheckConvexMode(self.canvas, self.brush_color)
+            self.current_mode = CheckPolygonMode(self.canvas, self.brush_color, convex=True)
             print("checkconvex")
+        elif new_mode_name == "checkpolygon":
+            self.current_mode = CheckPolygonMode(self.canvas, self.brush_color, convex=False)
+            print("checkpolygon")
         elif new_mode_name == "selectrectangle":
             self.current_mode = RectSelector(self.canvas, self.brush_color)
             print("drawrectangle")     
