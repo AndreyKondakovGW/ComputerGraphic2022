@@ -59,13 +59,20 @@ def rotation(fig, angle, point=[-1, -1]):
     translation(fig, point[0], point[1])
 
 
-def scaling(fig, kx, ky, point=[0, 0]):
+def scaling(fig, kx, ky, point=[-1, -1]):
     # if point == (0,0):
     #   point =  центр масс
-    for point_f in fig:
-        m = scale_matrix(kx, ky)
-        np.dot(m, point_f - point)
-    return fig
+    m = scale_matrix(kx, ky)
+    new_points = list()
+    if [-1, -1] == point:
+        point = centroid(fig.points)
+    translation(fig, -point[0], -point[1])
+    for point_f in fig.points:
+        p1, p2 = point_f
+        point1 = np.dot([p1, p2, 1], m).astype(int)
+        new_points.append((point1[0], point1[1]))
+    fig.points = new_points
+    translation(fig, point[0], point[1])
 
 
 def centroid(vertexes):

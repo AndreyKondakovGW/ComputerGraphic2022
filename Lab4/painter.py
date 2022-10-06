@@ -8,8 +8,9 @@ import handle_affine_translation
 
 from rect_selector import RectSelector
 
+
 class Painter():
-    def __init__(self, brush_color = (0, 0, 0)):
+    def __init__(self, brush_color=(0, 0, 0)):
         super().__init__()
         self.canvas = None
         self.brush_color = brush_color
@@ -33,11 +34,11 @@ class Painter():
             pass
         elif new_mode_name == "drawpoligon":
             self.current_mode = PoligonMode(self.canvas, self.brush_color)
-            print("drawpoligon")     
+            print("drawpoligon")
             pass
         elif new_mode_name == "drawrectangle":
             self.current_mode = RectangleMode(self.canvas, self.brush_color)
-            print("drawrectangle")     
+            print("drawrectangle")
             pass
         elif new_mode_name == "selectrectangle":
             self.current_mode = RectSelector(self.canvas, self.brush_color)
@@ -61,15 +62,18 @@ class Painter():
             self.current_mode = DummyMode()
             handle_affine_translation.af_rotation(self.canvas)
             print("affine_rotation")
+        elif new_mode_name == 'affine_scaling':
+            self.current_mode = DummyMode()
+            handle_affine_translation.af_scaling(self.canvas)
+            print("affine_scaling")
         else:
             pass
 
     def hanble_moution(self, event):
         self.current_mode.hanble_moution(event)
+
     def hanble_press(self, event):
         self.current_mode.hanble_press(event)
+
     def hanble_release(self, event):
         self.current_mode.hanble_release(event)
-
-    
-    

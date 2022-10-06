@@ -37,6 +37,7 @@ class MyUI(Tk):
         self.add_button("Select", lambda: button_press_f("selectrectangle"))
         self.add_button("Translation", lambda: button_press_f("affine_translation"))
         self.add_button("Rotation", lambda: button_press_f("affine_rotation"))
+        self.add_button("Scaling", lambda: button_press_f("affine_scaling"))
         self.add_button("Clear", lambda: button_press_f("clear"))
         return
     
