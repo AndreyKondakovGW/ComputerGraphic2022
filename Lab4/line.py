@@ -7,6 +7,7 @@ class LineMode:
         self.line_type = line_type
         self.brush_color = color
         self.should_draw = False
+        self.points = []
         self.p0 = None
 
     def hanble_moution(self, event):
@@ -18,8 +19,11 @@ class LineMode:
     def hanble_press(self, event):
         if self.p0 is None:
             self.p0 = (event.x, event.y)
+            self.points.append(self.p0)
         else:
-            self.canvas.content.append(Line(self.p0,(event.x, event.y), self.brush_color))
+            self.points.append((event.x, event.y))
+            self.canvas.content.append(Line(self.points, self.brush_color))
+            self.points = []
             self.p0 = None
     def hanble_release(self, _):
         pass
@@ -31,27 +35,26 @@ class LineMode:
             line_wu(self.canvas.image, p1[0], p1[1], p2[0], p2[1], (255, 255, 255), self.brush_color)
 
 class Line:
-    def __init__(self, p0, p1, color, line_type="bresenchem"):
+    def __init__(self,points, color, line_type="bresenchem"):
         self.line_type = line_type
-        self.p0 = p0
-        self.p1 = p1
         self.color = color
         self.selected = False
+        self.points = points
 
     def draw(self, canvas):
         if self.line_type == "bresenchem":
-            line_bresenchem(canvas.image, self.p0, self.p1, self.color)
+            line_bresenchem(canvas.image, self.points[0], self.points[1], self.color)
         elif self.line_type == "wu":
-            line_wu(canvas.image, self.p0[0], self.p0[1], self.p1[0], self.p1[1], (255, 255, 255), self.color)
+            line_wu(canvas.image, self.points[0][0], self.points[0][1], self.points[1][0], self.points[1][1], (255, 255, 255), self.color)
 
     def find_intersec(self, p1, p2):
-        p = find_segments_intersection(p1, p2, self.p0, self.p1)
+        p = find_segments_intersection(p1, p2, self.points[0], self.points[1])
         if p is not None:
             return [p]
         return []
 
     def in_rect(self, p1, p2):
-        return point_in_rect(self.p0, p1, p2) and point_in_rect(self.p1, p1, p2)
+        return point_in_rect(self.points[0], p1, p2) and point_in_rect(self.points[1], p1, p2)
 
 
     
