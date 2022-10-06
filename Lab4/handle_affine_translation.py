@@ -20,7 +20,27 @@ def af_translation(canv):
         k_y = int(entry_y.get())
         fig = canv.content
         for f in fig:
-            translation(f, k_x, k_y)
+            if f.selected:
+                translation(f, k_x, k_y)
+        canv.redraw_content()
+
+
+def af_rotation(canv):
+    a = Toplevel()
+    a.geometry('200x100')
+    a.title('Параметры поворота')
+    Label(a, text="угол в градусах").grid(column=1, row=1)
+    e_angle = Entry(a)
+    e_angle.grid(column=2, row=1)
+    Button(a, height=1, width=10, text="повернуть",
+           command=lambda: input_handler()).grid(column=1, row=20)
+
+    def input_handler():
+        angle = int(e_angle.get())
+        fig = canv.content
+        for f in fig:
+            if f.selected:
+                rotation(f, angle)
         canv.redraw_content()
 
 
@@ -35,12 +55,13 @@ def af_scaling(canv):
     entry_y = Entry(a)
     entry_y.grid(column=2, row=10)
     Button(a, height=1, width=10, text="масштабировать",
-           command=lambda: input_handler()).grid(column=1,row=20)
+           command=lambda: input_handler()).grid(column=1, row=20)
 
     def input_handler():
         kx = int(entry_x.get())
         ky = int(entry_y.get())
         fig = canv.content
         for f in fig:
-            scaling(f, kx, ky)
+            if f.selected:
+                scaling(f, kx, ky)
         canv.redraw_content()
