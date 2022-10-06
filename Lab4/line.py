@@ -1,5 +1,6 @@
 from primitives import line_bresenchem, line_wu
 from functions import *
+from primitives import *
 
 class LineMode:
     def __init__(self, canvas, color, line_type="bresenchem"):
@@ -40,7 +41,8 @@ class Line:
 
     def draw(self, canvas):
         if self.line_type == "bresenchem":
-            line_bresenchem(canvas.image, self.p0, self.p1, self.color)
+            canvas.create_line(self.p0[0], self.p0[1], self.p1[0], self.p1[1], fill=rgb2hex(self.color))
+            #line_bresenchem(canvas.image, self.p0, self.p1, self.color)
         elif self.line_type == "wu":
             line_wu(canvas.image, self.p0[0], self.p0[1], self.p1[0], self.p1[1], (255, 255, 255), self.color)
 

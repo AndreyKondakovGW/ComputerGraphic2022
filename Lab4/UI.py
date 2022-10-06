@@ -41,9 +41,9 @@ class MyUI(Tk):
         self.add_button("Draw Poligon", lambda: button_press_f("drawpoligon"), os.path.join(self.icons_folder, 'poligon.png'))
         self.add_button("Draw Rect", lambda: button_press_f("drawrectangle"), os.path.join(self.icons_folder, 'rect.png'))
         self.add_button("Select", lambda: button_press_f("selectrectangle"), os.path.join(self.icons_folder, 'shape.png'))
-        self.add_button("Translation", lambda: button_press_f("affine_translation"))
-        self.add_button("Rotation", lambda: button_press_f("affine_rotation"))
-        self.add_button("Scaling", lambda: button_press_f("affine_scaling"))
+        self.add_button("Translation", lambda: button_press_f("affine_translation"), os.path.join(self.icons_folder, 'move.png'))
+        self.add_button("Rotation", lambda: button_press_f("affine_rotation"), os.path.join(self.icons_folder, 'refresh.png'))
+        self.add_button("Scaling", lambda: button_press_f("affine_scaling"), os.path.join(self.icons_folder, 'move.png'))
         self.add_button("Delete", lambda: button_press_f("delselected"), os.path.join(self.icons_folder, 'eraser.png'))
         self.add_button("Clear", lambda: button_press_f("clear"), os.path.join(self.icons_folder, 'bin.png'))
         return

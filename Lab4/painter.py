@@ -5,6 +5,7 @@ from line import LineMode
 from poli_line import PoligonMode
 from rect import RectangleMode
 import handle_affine_transformation
+from mover import MoverMode
 
 from rect_selector import RectSelector
 
@@ -51,8 +52,9 @@ class Painter():
             print("clear")
             pass
         elif new_mode_name == 'affine_translation':
-            self.current_mode = DummyMode()
-            handle_affine_transformation.af_translation(self.canvas)
+            self.current_mode = MoverMode(self.canvas)
+            #self.current_mode = DummyMode()
+            #handle_affine_transformation.af_translation(self.canvas)
             print("affine_translation")
         elif new_mode_name == 'affine_rotation':
             self.current_mode = DummyMode()

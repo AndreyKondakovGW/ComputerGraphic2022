@@ -22,7 +22,6 @@ class RectSelector:
             self.should_draw = True
             self.p0 = (event.x, event.y)
             self.canvas.deselect_figs()
-            print(event.x, event.y)
 
     def hanble_release(self, event):
         if self.should_draw:

@@ -1,6 +1,7 @@
 from primitives import line_bresenchem
 from mouseLine import MouseLine
 from functions import *
+from primitives import *
 
 class PoligonMode:
     def __init__(self, canvas, color):
@@ -50,8 +51,10 @@ class Poligon:
     
     def draw(self, canvas):
         for i in range(len(self.points)-1):
-            line_bresenchem(canvas.image, self.points[i], self.points[i+1], self.color)
-        line_bresenchem(canvas.image, self.points[0], self.points[-1], self.color)
+            canvas.create_line(self.points[i][0], self.points[i][1], self.points[i+1][0], self.points[i+1][1], fill=rgb2hex(self.color))
+            #line_bresenchem(canvas.image, self.points[i], self.points[i+1], self.color)
+        #line_bresenchem(canvas.image, self.points[0], self.points[-1], self.color)
+        canvas.create_line(self.points[0][0], self.points[0][1], self.points[-1][0], self.points[-1][1], fill=rgb2hex(self.color))
 
     def find_intersec(self, p1, p2):
         intersections = []

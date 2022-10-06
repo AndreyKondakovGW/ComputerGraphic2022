@@ -3,8 +3,6 @@ from tkinter import Button, Toplevel, Label, Entry
 from functions import intersection_with_scope
 from transformation import translation, rotation, scaling
 
-
-
 def af_translation(canv):
     a = Toplevel()
     a.geometry('200x100')
