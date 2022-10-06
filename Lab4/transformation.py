@@ -1,4 +1,4 @@
-import math
+from math import radians, sin, cos
 
 import numpy as np
 
@@ -23,40 +23,55 @@ def translation_matrix(dx, dy):
 
 
 def rotate_matrix(angle):
-    return [[math.cos(angle), math.sin(angle), 0],
-            [-math.sin(angle), math.cos(angle), 0],
+    return [[cos(radians(angle)), sin(radians(angle)), 0],
+            [-sin(radians(angle)), cos(radians(angle)), 0],
             [0, 0, 1]]
 
 
 def scale_matrix(kx, ky):
-    return [[1//kx, 0, 0],
-            [0, 1//ky, 0],
+    return [[kx, 0, 0],
+            [0, ky, 0],
             [0, 0, 1]]
 
 
 def translation(fig, dx, dy):
     m = translation_matrix(dx, dy)
     new_points = list()
-    for f in fig:
-        for point in f.points:
-            p1, p2 = point
-            point1 = np.dot([p1, p2, 1], m)
-            new_points.append((point1[0], point1[1]))
-        f.points = new_points
+    for point in fig.points:
+        p1, p2 = point
+        point1 = np.dot([p1, p2, 1], m).astype(int)
+        new_points.append((point1[0], point1[1]))
+    fig.points = new_points
     print('end tr')
 
 
-def rotate(fig, angle, point=[0, 0]):
+def rotation(fig, angle, point=[-1, -1]):
     m = rotate_matrix(angle)
-    for point_f in fig:
-        np.dot(m, point_f + point)
-    return fig
+    new_points = list()
+    if [-1, -1] == point:
+        point = centroid(fig.points)
+    translation(fig, -point[0], -point[1])
+    for point_f in fig.points:
+        p1, p2 = point_f
+        point1 = np.dot([p1, p2, 1], m).astype(int)
+        new_points.append((point1[0], point1[1]))
+    fig.points = new_points
+    translation(fig, point[0], point[1])
 
 
-def scale(fig, kx, ky, point=[0, 0]):
+def scaling(fig, kx, ky, point=[0, 0]):
     # if point == (0,0):
     #   point =  центр масс
     for point_f in fig:
         m = scale_matrix(kx, ky)
         np.dot(m, point_f - point)
     return fig
+
+
+def centroid(vertexes):
+    _x_list = [vertex[0] for vertex in vertexes]
+    _y_list = [vertex[1] for vertex in vertexes]
+    _len = len(vertexes)
+    _x = sum(_x_list) / _len
+    _y = sum(_y_list) / _len
+    return (_x, _y)

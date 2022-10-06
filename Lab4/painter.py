@@ -53,11 +53,14 @@ class Painter():
             self.canvas.delete_content()
             print("clear")
             pass
-        elif new_mode_name == 'affine':
+        elif new_mode_name == 'affine_translation':
             self.current_mode = DummyMode()
             handle_affine_translation.af_translation(self.canvas)
-
-            print("affine")
+            print("affine_translation")
+        elif new_mode_name == 'affine_rotation':
+            self.current_mode = DummyMode()
+            handle_affine_translation.af_rotation(self.canvas)
+            print("affine_rotation")
         else:
             pass
 

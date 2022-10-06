@@ -35,7 +35,8 @@ class MyUI(Tk):
         self.add_button("Draw Rect", lambda: button_press_f("drawrectangle"))
         self.add_button("Delete", lambda: button_press_f("delselected"))
         self.add_button("Select", lambda: button_press_f("selectrectangle"))
-        self.add_button("перенос", lambda: button_press_f("affine"))
+        self.add_button("Translation", lambda: button_press_f("affine_translation"))
+        self.add_button("Rotation", lambda: button_press_f("affine_rotation"))
         self.add_button("Clear", lambda: button_press_f("clear"))
         return
     
