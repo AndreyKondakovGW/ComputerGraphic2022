@@ -6,11 +6,14 @@ class MyCanvas(Canvas):
         self.width = width
         self.height = height
         self.content = []
+        self.af_point = None # точка для аффинных преобразований
 
         self.create_image()
     
     def redraw_content(self):
         self.clear()
+        if self.af_point is not  None:
+            self.draw_circle(self.af_point[0], self.af_point[1], r=2)
         for fig in self.content:
             fig.draw(self)
 
@@ -37,6 +40,7 @@ class MyCanvas(Canvas):
 
     def delete_content(self):
         self.content = []
+        self.af_point = None
         self.clear()
 
     def delete_selected(self):
