@@ -35,15 +35,21 @@ class MyUI(Tk):
         self.mainloop()
 
     def create_buttons(self, button_press_f):
-        #self.add_button("Paint", lambda: button_press_f("paint"), 'icons/paint.png')
+        self.add_button("Dot", lambda: button_press_f("dot"))
         self.add_button("Draw Line", lambda: button_press_f("drawline"), os.path.join(self.icons_folder, 'line-segment.png'))
         self.add_button("Draw Line Wu", lambda: button_press_f("drawlinewu"), os.path.join(self.icons_folder, 'line-segment.png'))
         self.add_button("Draw Poligon", lambda: button_press_f("drawpoligon"), os.path.join(self.icons_folder, 'poligon.png'))
         self.add_button("Draw Rect", lambda: button_press_f("drawrectangle"), os.path.join(self.icons_folder, 'rect.png'))
+
         self.add_button("Select", lambda: button_press_f("selectrectangle"), os.path.join(self.icons_folder, 'shape.png'))
         self.add_button("Translation", lambda: button_press_f("affine_translation"), os.path.join(self.icons_folder, 'move.png'))
         self.add_button("Rotation", lambda: button_press_f("affine_rotation"), os.path.join(self.icons_folder, 'refresh.png'))
         self.add_button("Scaling", lambda: button_press_f("affine_scaling"), os.path.join(self.icons_folder, 'move.png'))
+
+        self.add_button("Mark Segments", lambda: button_press_f("marksegments"))
+        self.add_button("Check Convex", lambda: button_press_f("checkconvex"))
+        self.add_button("Check Polygon", lambda: button_press_f("checkpolygon"))
+
         self.add_button("Delete", lambda: button_press_f("delselected"), os.path.join(self.icons_folder, 'eraser.png'))
         self.add_button("Clear", lambda: button_press_f("clear"), os.path.join(self.icons_folder, 'bin.png'))
         return

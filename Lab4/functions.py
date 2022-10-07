@@ -1,3 +1,5 @@
+import math
+
 def find_segments_intersection(p1, p2, p3, p4):
     x1, y1 = p1
     x2, y2 = p2
@@ -64,3 +66,32 @@ def intersection_with_scope(f, canv):
            or f.find_intersec((0, 0), (canv.width, 0)) \
            or f.find_intersec((0, canv.height), (canv.width, canv.height)) \
            or f.find_intersec((canv.width, 0), (canv.width, canv.height))
+def point_from_left(point, seg_p1, seg_p2):
+    x, y = point
+    x1, y1 = seg_p1
+    x2, y2 = seg_p2
+    return (y2 - y1) * (x - x1) - (x2 - x1) * (y - y1) > 0
+
+def point_from_right(point, seg_p1, seg_p2):
+    return not point_from_left(point, seg_p1, seg_p2)
+
+def scalar_product(v1, v2):
+    x1, y1 = v1
+    x2, y2 = v2
+    return x1 * x2 + y1 * y2
+
+def vector_product_z_axis(v1, v2):
+    x1, y1 = v1
+    x2, y2 = v2
+    return x1 * y2 - y1 * x2
+
+def vector_length(v):
+    x, y = v
+    return math.sqrt(x * x + y * y)
+
+def angle_between_vectors(v1, v2):
+    sp = scalar_product(v1, v2)
+    cos_a = sp / vector_length(v1) / vector_length(v2)
+    cos_a = min(cos_a, 1.0)
+    cos_a = max(cos_a, -1.0)
+    return math.acos(cos_a) # radians

@@ -47,3 +47,6 @@ class MouseLine:
             if not point_in_rect(p, p1, p2):
                 return False
         return True
+
+    def draw_marked(self, canvas, _p, _left_color, _right_color):
+        self.draw(canvas)
