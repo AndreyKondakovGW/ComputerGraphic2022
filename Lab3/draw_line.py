@@ -126,6 +126,9 @@ def line_wu(img, x1, y1, x2, y2, bg, color=(255, 0, 0)):
             draw_shade_pix(img, (x, int(inter_y) + 1), inter_y % 1, bg, color=color)
             inter_y = inter_y + gradient
     elif abs(d_x) < abs(d_y):
+        if y2 < y1:
+            x2, x1 = x1, x2
+            y2, y1 = y1, y2
         gradient = d_x / d_y
         y_end = int(y1)
         x_end = x1 + gradient * (y_end - y1)

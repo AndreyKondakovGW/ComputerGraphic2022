@@ -19,6 +19,7 @@ class CheckPolygonMode:
         for fig in self.canvas.content:
             if isinstance(fig, Polygon):
                 fig.color = self.brush_color
+                fig.selected = True
         self.canvas.redraw_content()
 
     def hanble_release(self, _):
