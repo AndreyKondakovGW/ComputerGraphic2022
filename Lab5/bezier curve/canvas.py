@@ -7,6 +7,7 @@ class MyCanvas(Canvas):
         self.width = width
         self.height = height
         self.points = []
+        self.ad_point = None
 
         self.create_image()
 
@@ -15,6 +16,7 @@ class MyCanvas(Canvas):
 
     def delete_content(self):
         self.points = []
+        self.ad_point = None
         self.clear()
 
     def clear(self):
@@ -32,5 +34,6 @@ class MyCanvas(Canvas):
     def redraw_points(self):
         self.clear()
         for p in self.points:
-            self.draw_circle(p[0], p[1], 3)
+            if p != self.ad_point:
+                self.draw_circle(p[0], p[1], 3)
         draw_bezier_curve(self)
