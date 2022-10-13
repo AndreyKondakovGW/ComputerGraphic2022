@@ -2,7 +2,7 @@ import numpy as np
 
 
 # главная функция
-def draw_bezier_curve(canvas):
+def draw_bezier_curve(canvas, points):
     points_size = len(canvas.points)
     if points_size == 4:
         curve_four_points(canvas, canvas.points[0], canvas.points[1], canvas.points[2], canvas.points[3])
