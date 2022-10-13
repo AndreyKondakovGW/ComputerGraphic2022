@@ -1,5 +1,3 @@
-from primitives import *
-
 class DummyMode:
     def __init__(self):
         pass

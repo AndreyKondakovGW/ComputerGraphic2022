@@ -1,8 +1,7 @@
-from dot import Dot
-from poli_line import Polygon
+from .poli_line import Polygon
 
 class CheckPolygonMode:
-    def __init__(self, canvas, color, convex=True):
+    def __init__(self, canvas, color = (0,0,0), convex=True):
         self.canvas = canvas
         self.brush_color = color
         self.check_convex = convex

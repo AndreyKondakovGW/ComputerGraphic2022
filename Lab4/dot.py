@@ -1,8 +1,7 @@
-from functions import point_in_rect
-from primitives import rgb2hex
+from src.figure import Figure
 
 class DotMode:
-    def __init__(self, canvas, color):
+    def __init__(self, canvas, color=(0,0,0)):
         self.canvas = canvas
         self.brush_color = color
 
@@ -11,27 +10,22 @@ class DotMode:
 
     def hanble_press(self, event):
         p = (event.x, event.y)
-        dot = Dot(p, self.brush_color)
-        self.canvas.content.append(dot)
-        dot.draw(self.canvas)
+        self.canvas.storage.add_figure(Dot(p, self.brush_color))
     
     def hanble_release(self, _):
         pass
 
-class Dot:
+class Dot(Figure):
     def __init__(self, p, color):
+        super().__init__(color)
         self.points = [p]
-        self.color = color
 
     def draw(self, canvas):
         x, y = self.points[0]
-        canvas.draw_circle(x, y, 2, rgb2hex(self.color))
+        canvas.draw_circle(x, y, 2, self.brush_color)
 
     def find_intersec(self, p1, p2):
         return []
-
-    def in_rect(self, p1, p2):
-        return point_in_rect(self.points[0], p1, p2)
 
     def draw_marked(self, canvas, _p, _left_color, _right_color):
         self.draw(canvas)

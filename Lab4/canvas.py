@@ -6,7 +6,7 @@ class MyCanvas(Canvas):
         self.width = width
         self.height = height
         self.content = []
-        self.af_point = None # точка для аффинных преобразований
+        self.af_point = None
 
         self.create_image()
     

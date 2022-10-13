@@ -1,5 +1,4 @@
-from dot import Dot
-from primitives import line_bresenchem
+from .dot import Dot
 
 class MarkSegmentsDirectionMode:
     def __init__(self, canvas, color=(255, 0, 0)):

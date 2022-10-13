@@ -1,10 +1,11 @@
-from primitives import line_bresenchem
-from mouseLine import MouseLine
-from functions import *
-from primitives import *
+from .mouseLine import MouseLine
+from .functions import *
+from src.figure import Figure
+
+from .line_intersector import draw_intersections_with_line
 
 class PoligonMode:
-    def __init__(self, canvas, color):
+    def __init__(self, canvas, color = (0,0,0)):
         self.canvas = canvas
         self.brush_color = color
         self.last_poli_point = None
@@ -12,29 +13,27 @@ class PoligonMode:
     
     def hanble_moution(self, event):
         if self.last_poli_point is not None:
-            self.canvas.redraw_content()
-            self.canvas.draw_intersections_with_line(self.last_poli_point, (event.x, event.y))
-            line_bresenchem(self.canvas.image, self.last_poli_point, (event.x, event.y), self.brush_color)
+            self.canvas.redraw()
+            self.canvas.draw_line(self.last_poli_point, (event.x, event.y), self.brush_color)
+            draw_intersections_with_line(self.canvas, self.last_poli_point, (event.x, event.y))
 
     def hanble_press(self, event):
         if self.last_poli_point is None:
             self.last_poli_point = (event.x, event.y)
             self.points.append(self.last_poli_point)
-            self.canvas.content.append(MouseLine(self.points, self.brush_color))
+            self.canvas.storage.add_figure(MouseLine(self.points, self.brush_color))
         else:
-            #line_bresenchem(self.img, (event.x, event.y), self.last_poli_point, self.brush_color)
-
             self.last_poli_point = (event.x, event.y)
-            if self.find_pint_in_poli(self.last_poli_point):
-                self.canvas.content[-1] = Polygon(self.points, self.brush_color)
+            if self.point_is_poli_vertex(self.last_poli_point):
+                self.canvas.storage.figs[-1] = Polygon(self.points, self.brush_color)
                 self.last_poli_point = None
                 self.points = []
-                self.canvas.redraw_content()
+                self.canvas.redraw()
             else:
                 self.points.append((event.x, event.y))
-                self.canvas.content[-1].points.append((event.x, event.y))
+                self.canvas.storage.figs[-1].points.append((event.x, event.y))
 
-    def find_pint_in_poli(self, p):
+    def point_is_poli_vertex(self, p):
         x0, y0 = p
         for (x,y) in self.points:
             if abs(x-x0) < 10 and abs(y-y0) < 10:
@@ -43,18 +42,17 @@ class PoligonMode:
     def hanble_release(self, _):
         pass
 
-class Polygon:
-    def __init__(self, points, color):
+class Polygon(Figure):
+    def __init__(self, points, color = (0,0,0)):
+        super().__init__(color)
         self.points = points
-        self.color = color
         self.initial_color = color
         self.selected = False
     
     def draw(self, canvas):
         for segment in self.segments():
             seg_p1, seg_p2 = segment
-            canvas.create_line(seg_p1[0], seg_p1[1], seg_p2[0],seg_p2[1], fill=rgb2hex(self.color))
-            #line_bresenchem(canvas.image, seg_p1, seg_p2, self.color)
+            canvas.draw_line(seg_p1,seg_p2, color=self.brush_color)
 
     def find_intersec(self, p1, p2):
         intersections = []
@@ -65,20 +63,14 @@ class Polygon:
                 intersections.append(intersec)
 
         return intersections
-    
-    def in_rect(self, p1, p2):
-        for p in self.points:
-            if not point_in_rect(p, p1, p2):
-                return False
-        return True
 
     def draw_marked_segment(self, canvas, segment, p, left_color, right_color):
         seg_p1, seg_p2 = segment
         from_left = point_from_left(p, seg_p1, seg_p2)
         if from_left:
-            line_bresenchem(canvas.image, seg_p1, seg_p2, left_color)
+            canvas.draw_line(seg_p1, seg_p2, left_color)
         else:
-            line_bresenchem(canvas.image, seg_p1, seg_p2, right_color)
+            canvas.draw_line(seg_p1, seg_p2, right_color)
 
     def segments(self):
         round_points = [(round(p[0]), round(p[1])) for p in self.points]

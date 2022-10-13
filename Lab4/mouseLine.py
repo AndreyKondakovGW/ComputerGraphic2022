@@ -1,5 +1,5 @@
-from primitives import line_bresenchem
-from functions import *
+from .functions import *
+from src.figure import Figure
 
 class MouseLineMode:
     def __init__(self, canvas, color):
@@ -12,7 +12,7 @@ class MouseLineMode:
         new_coords = (event.x, event.y)
         if self.should_draw:
             if self.old_coords:
-                line_bresenchem(self.canvas.image, new_coords, self.old_coords, self.brush_color)
+                self.canvas.draw_line(self.old_coords, new_coords, self.brush_color)
             self.points.append((event.x, event.y))
         self.old_coords = new_coords
 
@@ -21,18 +21,17 @@ class MouseLineMode:
     
     def hanble_release(self, _):
         self.should_draw = False
-        self.canvas.content.append(MouseLine(self.points, self.brush_color))
+        self.canvas.storage.add_figure(MouseLine(self.points, self.brush_color))
         self.points = []
 
-class MouseLine:
+class MouseLine(Figure):
     def __init__(self, points, color):
+        super().__init__(color)
         self.points = points
-        self.color = color
-        self.selected = False
     
     def draw(self, canvas):
         for i in range(len(self.points)-1):
-            line_bresenchem(canvas.image, self.points[i], self.points[i+1], self.color)
+            canvas.draw_line(self.points[i], self.points[i+1], self.brush_color)
     
     def find_intersec(self, p1, p2):
         intersections = []
@@ -41,12 +40,6 @@ class MouseLine:
             if intersec is not None:
                 intersections.append(intersec)
         return intersections
-
-    def in_rect(self, p1, p2):
-        for p in self.points:
-            if not point_in_rect(p, p1, p2):
-                return False
-        return True
 
     def draw_marked(self, canvas, _p, _left_color, _right_color):
         self.draw(canvas)
