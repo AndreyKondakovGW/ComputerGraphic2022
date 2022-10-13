@@ -1,12 +1,10 @@
 from .dot import Dot
+from src.controller_mode import ControllerMode
 
-class MarkSegmentsDirectionMode:
+class MarkSegmentsDirectionMode(ControllerMode):
     def __init__(self, canvas, color=(255, 0, 0)):
         self.canvas = canvas
         self.brush_color = color
-
-    def hanble_moution(self, _):
-        pass
 
     def hanble_press(self, event):
         p = (event.x, event.y)
@@ -18,6 +16,3 @@ class MarkSegmentsDirectionMode:
         right_color = (0, 0, 255)
         for fig in self.canvas.content:
             fig.draw_marked(self.canvas, p, left_color, right_color)
-
-    def hanble_release(self, _):
-        pass

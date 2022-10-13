@@ -61,11 +61,12 @@ def point_in_rect(p, p1, p2):
     return True
 
 
-def intersection_with_scope(f, canv):
-    return f.find_intersec((0, 0), (0, canv.height)) \
-           or f.find_intersec((0, 0), (canv.width, 0)) \
-           or f.find_intersec((0, canv.height), (canv.width, canv.height)) \
-           or f.find_intersec((canv.width, 0), (canv.width, canv.height))
+def intersection_with_scope(f, max_height, max_width):
+    return f.find_intersec((0, 0), (0, max_height)) \
+           or f.find_intersec((0, 0), (max_width, 0)) \
+           or f.find_intersec((0, max_height), (max_width, max_height)) \
+           or f.find_intersec((max_width, 0), (max_width, max_height))
+        
 def point_from_left(point, seg_p1, seg_p2):
     x, y = point
     x1, y1 = seg_p1

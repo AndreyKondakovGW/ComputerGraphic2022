@@ -1,6 +1,7 @@
 from .poli_line import Polygon
+from src.controller_mode import ControllerMode
 
-class CheckPolygonMode:
+class CheckPolygonMode(ControllerMode):
     def __init__(self, canvas, color = (0,0,0), convex=True):
         self.canvas = canvas
         self.brush_color = color
@@ -11,7 +12,6 @@ class CheckPolygonMode:
         for fig in self.canvas.content:
             if isinstance(fig, Polygon):
                 self.check_polygon(fig, p)
-                #fig.check_convex(p)
         self.canvas.redraw_content()
 
     def hanble_press(self, _):
@@ -20,9 +20,6 @@ class CheckPolygonMode:
                 fig.color = self.brush_color
                 fig.selected = True
         self.canvas.redraw_content()
-
-    def hanble_release(self, _):
-        pass
 
     def check_polygon(self, poly, point):
         if self.check_convex:

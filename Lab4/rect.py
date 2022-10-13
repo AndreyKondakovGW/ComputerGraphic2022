@@ -1,8 +1,9 @@
 from .functions import *
 from .poli_line import Polygon
 from .line_intersector import draw_intersections_with_line
+from src.controller_mode import ControllerMode
 
-class RectangleMode:
+class RectangleMode(ControllerMode):
     def __init__(self, canvas, color=(0,0,0)):
         self.canvas = canvas
         self.brush_color = color
@@ -32,6 +33,3 @@ class RectangleMode:
             rect_p = [(x1, y1), (x2, y1), (x2, y2), (x1, y2)]
             self.canvas.storage.add_figure(Polygon(rect_p, self.brush_color))
             self.p0 = None
-
-    def hanble_release(self, _):
-        pass

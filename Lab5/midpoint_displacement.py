@@ -1,8 +1,9 @@
 from Lab4.mouseLine import MouseLine
+from src.controller_mode import ControllerMode
 import random
 import time
 
-class MidePointMode:
+class MidePointMode(ControllerMode):
     def __init__(self, canvas, color=(0, 0, 0)):
         self.canvas = canvas
         self.brush_color = color
@@ -13,9 +14,6 @@ class MidePointMode:
     def set_roughness(self, roughness):
         self.roughness = roughness
 
-    def hanble_moution(self, event):
-        pass
-
     def hanble_press(self, event):
         if self.p0 is None:
             self.p0 = (event.x, event.y)
@@ -25,9 +23,6 @@ class MidePointMode:
             self.canvas.storage.figs.append(MouseLine(points, self.brush_color))
             self.canvas.redraw()
             self.p0 = None
-
-    def hanble_release(self, _):
-        pass
 
 def displace_point(p1, p2, roughness):
     """Returns a new point displaced from the midpoint of p1 and p2."""

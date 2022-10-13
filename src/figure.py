@@ -20,8 +20,8 @@ class Figure:
 
     def select(self):
         self.selected = True
-        self.color = (255, 0, 0)
+        self.brush_color = (255, 0, 0)
 
     def deselect(self):
         self.selected = False
-        self.color = (0, 0, 0)
+        self.brush_color = (0, 0, 0)

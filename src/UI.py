@@ -27,6 +27,9 @@ class UI_base(Tk):
         self.bind('<Motion>', self.controller.hanble_moution)
         self.bind('<ButtonPress-1>', self.controller.hanble_press)
         self.bind('<ButtonRelease-1>', self.controller.hanble_release)
+        self.bind("<MouseWheel>", self.controller.hanble_mouse_wheel)
+
+
     
     def create_canvas(self):
         self.canv = MyCanvas(self, width=self.win_width, height=self.win_height, bg="white")

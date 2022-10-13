@@ -1,6 +1,4 @@
-from src.controller_mode import ControllerMode
-
-class DummyMode:
+class ControllerMode:
     def __init__(self):
         pass
     
@@ -11,4 +9,10 @@ class DummyMode:
         pass
 
     def hanble_release(self, event):
+        pass
+
+    def handle_scroll(self, event):
+        pass
+
+    def hanble_mouse_wheel(self, event):
         pass

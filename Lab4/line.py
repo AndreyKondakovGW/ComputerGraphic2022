@@ -1,8 +1,9 @@
 from .line_intersector import draw_intersections_with_line
 from src.figure import Figure
+from src.controller_mode import ControllerMode
 from functions import *
 
-class LineMode:
+class LineMode(ControllerMode):
     def __init__(self, canvas, color = (0,0,0), line_type="bresenchem"):
         self.canvas = canvas
         self.line_type = line_type
@@ -28,9 +29,6 @@ class LineMode:
 
             self.points = []
             self.p0 = None
-
-    def hanble_release(self, _):
-        pass
 
 class Line(Figure):
     def __init__(self,points, color, line_type="bresenchem"):

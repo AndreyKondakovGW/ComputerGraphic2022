@@ -1,8 +1,15 @@
-from functions import *
-from primitives import *
-from transformation import *
+from .functions import *
+from .transformation import *
+from src.controller_mode import ControllerMode
 
-class MoverMode:
+def move_figure(fig, dx, dy, max_height, max_width):
+    old_points = fig.points
+    if fig.selected:
+        translation(fig, dx, dy)
+        if intersection_with_scope(fig, max_height, max_width):
+            fig.points = old_points
+
+class MoverMode(ControllerMode):
     def __init__(self, canvas):
         self.canvas = canvas
         self.should_draw = False
@@ -12,16 +19,10 @@ class MoverMode:
         if self.p0 is not None:
             k_x = int(event.x - self.p0[0])
             k_y = int(event.y - self.p0[1])
-            fig = self.canvas.content
-            for f in fig:
-                old_points = f.points
-                if f.selected:
-                    translation(f, k_x, k_y)
-                if intersection_with_scope(f,self.canvas):
-                    f.points = old_points
+            max_height, max_width = self.canvas.height, self.canvas.width
+            self.canvas.storage.apply(lambda fig: move_figure(fig, k_x, k_y, max_height, max_width))
+            self.canvas.redraw()
             self.p0 = (event.x, event.y)
-            self.canvas.redraw_content()
-            
 
     def hanble_press(self, event):
         self.should_draw = True

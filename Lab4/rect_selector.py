@@ -1,4 +1,6 @@
-class RectSelector:
+from src.controller_mode import ControllerMode
+
+class RectSelectorMode(ControllerMode):
     def __init__(self, canvas, color=(0,0,0)):
         self.canvas = canvas
         self.brush_color = color
@@ -19,10 +21,11 @@ class RectSelector:
     def hanble_press(self, event):
         self.should_draw = True
         self.p0 = (event.x, event.y)
-        self.canvas.deselect_figs()
+        self.canvas.storage.apply(lambda fig: fig.deselect())
 
     def hanble_release(self, event):
         if self.should_draw:
+            self.canvas.storage.apply(lambda fig: fig.select() if fig.in_rect(self.p0, (event.x, event.y)) else fig.deselect())
             self.should_draw = False
-            self.canvas.select_figs_in_rect(self.p0, (event.x, event.y))
             self.p0 = None
+            self.canvas.redraw()

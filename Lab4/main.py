@@ -7,9 +7,11 @@ from Lab4.dot import DotMode
 from Lab4.line import LineMode
 from Lab4.poli_line import PoligonMode
 from Lab4.rect import RectangleMode
-from Lab4.rect_selector import RectSelector
+from Lab4.rect_selector import RectSelectorMode
 
 from Lab4.mover import MoverMode
+from Lab4.rotator import RotatorMode
+from Lab4.scaler import ScalerMode
 from Lab4.handle_affine_transformation import AffinePointMode
 
 from Lab4.mark_segments_direction import MarkSegmentsDirectionMode
@@ -43,10 +45,10 @@ if __name__ == "__main__":
     ui.controller.add_mode("drawpoligon", PoligonMode(ui.canv))
     ui.controller.add_mode("drawrectangle", RectangleMode(ui.canv))
 
-    ui.controller.add_mode("selectrectangle", RectSelector(ui.canv))
+    ui.controller.add_mode("selectrectangle", RectSelectorMode(ui.canv))
     ui.controller.add_mode("affine_translation", MoverMode(ui.canv))
-    ui.controller.add_mode("affine_rotation", AffinePointMode(ui.canv))
-    ui.controller.add_mode("affine_scaling", AffinePointMode(ui.canv))
+    ui.controller.add_mode("affine_rotation", RotatorMode(ui.canv))
+    ui.controller.add_mode("affine_scaling", ScalerMode(ui.canv))
 
     ui.controller.add_mode("marksegments", MarkSegmentsDirectionMode(ui.canv))
     ui.controller.add_mode("checkconvex", CheckPolygonMode(ui.canv, convex=True))

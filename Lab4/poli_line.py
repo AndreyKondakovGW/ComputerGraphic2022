@@ -1,10 +1,11 @@
 from .mouseLine import MouseLine
 from .functions import *
 from src.figure import Figure
+from src.controller_mode import ControllerMode
 
 from .line_intersector import draw_intersections_with_line
 
-class PoligonMode:
+class PoligonMode(ControllerMode):
     def __init__(self, canvas, color = (0,0,0)):
         self.canvas = canvas
         self.brush_color = color
@@ -38,9 +39,6 @@ class PoligonMode:
         for (x,y) in self.points:
             if abs(x-x0) < 10 and abs(y-y0) < 10:
                 return True           
-    
-    def hanble_release(self, _):
-        pass
 
 class Polygon(Figure):
     def __init__(self, points, color = (0,0,0)):

@@ -2,6 +2,7 @@ from tkinter import Button, Toplevel, Label, Entry
 
 from .functions import intersection_with_scope
 from .transformation import translation, rotation, scaling
+from src.controller_mode import ControllerMode
 
 def af_translation(canv):
     a = Toplevel()
@@ -89,17 +90,11 @@ def af_scaling(canv):
         canv.redraw_content()
 
 
-class AffinePointMode:
+class AffinePointMode(ControllerMode):
     def __init__(self, canv):
         self.canv = canv
-
-    def hanble_moution(self, event):
-        pass
+        self.af_point = None
 
     def hanble_press(self, event):
-        if event.widget == self.canv:
-            self.canv.draw_circle(event.x, event.y, r=2)
-            self.canv.af_point = (event.x, event.y)
-
-    def hanble_release(self, event):
-        pass
+        self.canv.af_point = (event.x, event.y)
+        self.canv.draw_circle(event.x, event.y, r=2)
