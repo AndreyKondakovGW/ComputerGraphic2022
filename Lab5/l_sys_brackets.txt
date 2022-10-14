@@ -1,0 +1,4 @@
+F 20 up
+X
+F->FF
+X->F[+X]F[-X]+X
