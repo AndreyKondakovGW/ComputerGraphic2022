@@ -10,3 +10,7 @@ class MyCanvas(Canvas):
     def create_image(self, state="normal"):
         self.image = PhotoImage(width=self.width, height=self.height)
         super().create_image((self.width / 2, self.height / 2), image=self.image, state=state)
+
+    def clear(self):
+        self.delete('all')
+        self.create_image()

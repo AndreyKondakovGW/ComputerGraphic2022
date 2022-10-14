@@ -21,7 +21,7 @@ class UI(Tk):
         self.canvas_height = 600
         self.init_ui()
         self.drawer = Drawer(self.canvas)
-        self.l_system_factory = LSystemFactory(self.drawer)
+        self.l_system_factory = LSystemFactory(self.drawer, self.canvas_width, self.canvas_height)
 
     def init_ui(self):
         self.init_buttons_layout()
@@ -50,37 +50,17 @@ class UI(Tk):
         self.canvas.create_image((self.canvas_width / 2, self.canvas_height / 2), image=self.image, state=state)
 
     def open_file(self):
-        filename = filedialog.askopenfilename(initialdir="~/computer_graphics")
+        filename = filedialog.askopenfilename(initialdir="~/computer_graphics/ComputerGraphic2022/Lab5")
         if filename is None:
             return
         self.l_system = self.l_system_factory.build(filename)
 
     def draw(self):
-        self.drawer.clear()
-        self.drawer.set_direction(self.l_system.starting_direction)
+        self.canvas.clear()
+        # self.drawer.set_direction(self.l_system.starting_direction)
+        # self.drawer.set_starting_point(self.l_system.starting_point)  
+        self.l_system.update_drawer()      
         self.drawer.set_step_size(10)
-        self.drawer.set_starting_point(50, 300)
+        #self.drawer.set_starting_point(50, 300)
         generation = int(self.generation_input.get())
         self.l_system.draw(generation)
-
-    # def draw(self):
-    #     self.drawer.set_starting_point(100, 250)
-    #     self.drawer.set_direction((1,0))
-    #     self.drawer.set_step_size(100)
-    #     print(self.drawer.current_point)
-    #     print(f"Direction: {self.drawer.direction}")
-    #     self.drawer.step()
-    #     print(self.drawer.current_point)
-    #     self.drawer.rotate(45)
-    #     print(f"Direction: {self.drawer.direction}")
-    #     self.drawer.step()
-    #     print(self.drawer.current_point)
-    #     self.drawer.rotate(-90)
-    #     print(f"Direction: {self.drawer.direction}")
-    #     self.drawer.step()
-    #     print(self.drawer.current_point)
-    #     self.drawer.rotate(45)
-    #     print(f"Direction: {self.drawer.direction}")
-    #     self.drawer.step()
-    #     print(self.drawer.current_point)
-    #     self.canvas.image.write("fractal.gif", format='gif')

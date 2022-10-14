@@ -1,15 +1,24 @@
 from typing import Dict, List
+from points_scaler import PointsScaler
 
 class LSystem:
-    def __init__(self, atom, rotation, axiom, starting_direction):
+    def __init__(self, atom, rotation, axiom, starting_direction, starting_point):
         self.atom = atom
         self.rotation = rotation
         self.axiom = axiom
         self.starting_direction = starting_direction
+        self.starting_point = starting_point
 
     def set_drawer(self, drawer):
         self.drawer = drawer
+        self.update_drawer()
+
+    def set_points_scaler(self, screen_width, screen_height):
+        self.points_scaler = PointsScaler(screen_width, screen_height)
+
+    def update_drawer(self):
         self.drawer.set_direction(self.starting_direction)
+        self.drawer.set_starting_point(self.starting_point[0], self.starting_point[1])
 
     def set_rules(self, rules: Dict[str, List[str]]):
         self.rules = rules
@@ -18,6 +27,7 @@ class LSystem:
         actions = self.get_actions(generation)
         for action in actions:
             self.process_action(action)
+        self.draw_scaled()
 
     def process_action(self, action):
         if action == self.atom:
@@ -57,4 +67,6 @@ class LSystem:
             return False
         return True
         
-
+    def draw_scaled(self):
+        self.points_scaler.scale_points(self.drawer)
+        self.drawer.draw_from_points()

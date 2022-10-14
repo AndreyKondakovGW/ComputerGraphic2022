@@ -20,10 +20,12 @@ class Drawer:
         super().__init__()
         self.canvas = canvas
         self.step_size = None
+        self.points = []
 
     def set_starting_point(self, x, y):
         self.clear()
         self.current_point = DrawerPoint(x, y)
+        self.points.append((x, y))
 
     def set_step_size(self, step_size):
         self.step_size = step_size
@@ -43,15 +45,11 @@ class Drawer:
 
     def step(self):
         new_point = self.current_point + self.direction
-        x1 = round(self.current_point.x)
-        y1 = round(self.current_point.y)
         x2 = round(new_point.x)
         y2 = round(new_point.y)
-        #self.canvas.create_line(x1, y1, x2, y2)
         color = (255, 0, 0)
-        line_bresenchem(self.canvas.image, (x1, y1), (x2, y2), color)
-        c = self.canvas.image.get(x1, y1)
-        #self.current_point = new_point
+        #line_bresenchem(self.canvas.image, (x1, y1), (x2, y2), color)
+        self.points.append((x2, y2))
         self.current_point = DrawerPoint(x2, y2)
 
     def rotate(self, angle):
@@ -63,8 +61,10 @@ class Drawer:
         return DrawerPoint(self.step_size, 0)
 
     def clear(self):
-        self.canvas.delete('all')
-        self.canvas.create_image()
-        self.current_point = None
-        self.step_size = None
-        self.directon = None
+        self.points = []
+
+    def draw_from_points(self):
+        first_point = self.points[0]
+        for point in self.points[1:]:
+            line_bresenchem(self.canvas.image, first_point, point)
+            first_point = point
