@@ -31,7 +31,7 @@ class Drawer:
         self.clear()
         brown = (139, 69, 19)
         self.current_color = brown
-        self.current_thikness = 6
+        self.current_thikness = 4
         self.points.append((x, y))
         self.colors.append(brown)
         self.set_point(x, y)
@@ -72,7 +72,7 @@ class Drawer:
 
     def set_dynamic(self, is_dynamic):
         self.is_dynamic = is_dynamic
-        self.current_thikness = 6
+        self.current_thikness = 4
 
     def step(self):
         x2, y2 = self.next_point_tuple()
@@ -150,7 +150,7 @@ class Drawer:
         if thikness == 1:
             line_bresenchem(self.canvas.image, p1, p2, c1, c2)
             return
-        for i in range(-thikness // 2, thikness // 2):
+        for i in range(-thikness, thikness):
             pi1 = self.clamp_point(p1[0] + i, p1[1])
             pi2 = self.clamp_point(p2[0] + i, p2[1])
             line_bresenchem(self.canvas.image, pi1, pi2, c1, c2)

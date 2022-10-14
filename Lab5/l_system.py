@@ -104,7 +104,7 @@ class LSystem:
         r, g, b = self.drawer.current_color
         self.drawer.set_color((r, (g+20) % 255, b))
         thikness = self.drawer.current_thikness
-        self.drawer.set_thikness(thikness // 2)
+        self.drawer.set_thikness(thikness - 1)
         step_size = self.drawer.step_size
         if step_size > 1:
             self.drawer.set_step_size(step_size / 2)
