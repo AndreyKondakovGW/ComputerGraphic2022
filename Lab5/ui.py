@@ -60,7 +60,7 @@ class UI(Tk):
         # self.drawer.set_direction(self.l_system.starting_direction)
         # self.drawer.set_starting_point(self.l_system.starting_point)  
         self.l_system.update_drawer()      
-        self.drawer.set_step_size(10)
+        self.drawer.set_step_size(100)
         #self.drawer.set_starting_point(50, 300)
         generation = int(self.generation_input.get())
         self.l_system.draw(generation)

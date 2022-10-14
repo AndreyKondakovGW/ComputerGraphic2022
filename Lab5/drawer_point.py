@@ -34,6 +34,9 @@ class DrawerPoint:
         normalized_y = self.y / self.length()
         return DrawerPoint(normalized_x, normalized_y)
 
+    def copy(self):
+        return DrawerPoint(self.x, self.y)
+
     def from_tuple(p):
         x, y = p
         return DrawerPoint(x, y)

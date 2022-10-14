@@ -34,8 +34,10 @@ class PointsScaler:
         
     def scale_from_center(self, drawer):
         midpoint = (self.screen_width // 2, self.screen_height // 2)
-        kx = self.screen_width / abs(self.max_x - self.min_x)
-        ky = self.screen_height / abs(self.max_y - self.min_y)
+        div_x = abs(self.max_x - self.min_x)
+        div_y = abs(self.max_y - self.min_y)
+        kx = self.screen_width / div_x if div_x > 0 else 1
+        ky = self.screen_height / div_y if div_y > 0 else 1
         k = min(kx, ky)
         scaling(drawer, k, k, midpoint)
 
