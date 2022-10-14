@@ -4,12 +4,13 @@ import random
 import time
 
 class MidePointMode(ControllerMode):
-    def __init__(self, canvas, color=(0, 0, 0)):
+    def __init__(self, canvas, interactive = False, color=(0, 0, 0)):
         self.canvas = canvas
         self.brush_color = color
         self.points = []
         self.p0 = None
         self.roughness = 0.25
+        self.interactive = interactive
 
     def set_roughness(self, roughness):
         self.roughness = roughness
@@ -18,8 +19,10 @@ class MidePointMode(ControllerMode):
         if self.p0 is None:
             self.p0 = (event.x, event.y)
         else:
-            #points = interactive_midpoint_displacement(self.canvas, self.p0, (event.x, event.y), self.roughness)
-            points = midpoint_displacement(self.p0, (event.x, event.y), self.roughness)
+            if self.interactive:
+                points = interactive_midpoint_displacement(self.canvas, self.p0, (event.x, event.y), self.roughness)
+            else:
+                points = midpoint_displacement(self.p0, (event.x, event.y), self.roughness)
             self.canvas.storage.figs.append(MouseLine(points, self.brush_color))
             self.canvas.redraw()
             self.p0 = None

@@ -29,6 +29,10 @@ class UI_controller():
         if event.widget == self.canvas:
             self.current_mode.hanble_press(event)
 
+    def hanble_right_press(self, event):
+        if event.widget == self.canvas:
+            self.current_mode.hanble_right_press(event)
+
     def hanble_release(self, event):
         if event.widget == self.canvas:
             self.current_mode.hanble_release(event)

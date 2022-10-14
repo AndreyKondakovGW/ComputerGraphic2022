@@ -8,6 +8,9 @@ class ControllerMode:
     def hanble_press(self, event):
         pass
 
+    def hanble_right_press(self, event):
+        pass
+
     def hanble_release(self, event):
         pass
 

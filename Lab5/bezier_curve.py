@@ -2,16 +2,17 @@ import numpy as np
 
 
 # главная функция
-def draw_bezier_curve(canvas, points):
-    points_size = len(canvas.points)
+def draw_bezier_curve(canvas, points, ad_point):
+    points_size = len(points)
     if points_size == 4:
-        curve_four_points(canvas, canvas.points[0], canvas.points[1], canvas.points[2], canvas.points[3])
+        curve_four_points(canvas, points[0], points[1], points[2], points[3])
     elif points_size > 4:
         if points_size % 2 == 0:
-            splain(canvas)
+            splain(canvas, points)
         else:
-            additional_point(canvas)
-            splain(canvas)
+            ad_point, new_points = additional_point(canvas, points)
+            splain(canvas, new_points)
+    return ad_point, points
 
 
 # матрица безье
@@ -42,32 +43,34 @@ def next_point(p0, p1, p2, p3, t):
 
 
 # сплайн для более 4х точек
-def splain(canvas):
-    l = len(canvas.points)
-    p3 = middle_point(canvas.points[2], canvas.points[3])  # невидимая точка для соединения кривых
-    curve_four_points(canvas, canvas.points[0], canvas.points[1], canvas.points[2], p3)
+def splain(canvas, points):
+    l = len(points)
+    p3 = middle_point(points[2], points[3])  # невидимая точка для соединения кривых
+    curve_four_points(canvas, points[0], points[1], points[2], p3)
 
     idx = 3
     while idx < l - 4:
         p0 = p3
-        p1 = canvas.points[idx]
-        p2 = canvas.points[idx + 1]
-        p3 = middle_point(canvas.points[idx + 1], canvas.points[idx + 2])
+        p1 = points[idx]
+        p2 = points[idx + 1]
+        p3 = middle_point(points[idx + 1], points[idx + 2])
         curve_four_points(canvas, p0, p1, p2, p3)
         idx += 2
 
-    curve_four_points(canvas, p3, canvas.points[l - 3], canvas.points[l - 2], canvas.points[l - 1])
+    curve_four_points(canvas, p3, points[l - 3], points[l - 2], points[l - 1])
 
 
 # дополнительная невидимая точка для нечетного количества точек
-def additional_point(canvas):
-    l = len(canvas.points)
-    if canvas.ad_point is None:
-        canvas.ad_point = middle_point(canvas.points[l - 2], canvas.points[l - 1])
-        canvas.points.insert(l - 1, canvas.ad_point)
+def additional_point(canvas, points, ad_point=None):
+    new_points = points.copy()
+    l = len(points)
+    if ad_point is None:
+        ad_point = middle_point(points[l - 2], points[l - 1])
+        new_points.insert(l - 1, ad_point)
     else:
-        canvas.points.remove(canvas.ad_point)
-        canvas.ad_point = None
+        new_points.remove(ad_point)
+        ad_point = None
+    return ad_point, new_points
 
 
 # нахождение точек посередине между двумя

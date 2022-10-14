@@ -27,6 +27,7 @@ class UI_base(Tk):
         self.bind('<Motion>', self.controller.hanble_moution)
         self.bind('<ButtonPress-1>', self.controller.hanble_press)
         self.bind('<ButtonRelease-1>', self.controller.hanble_release)
+        self.bind("<ButtonPress-3>", self.controller.hanble_right_press)
         self.bind("<MouseWheel>", self.controller.hanble_mouse_wheel)
 
 
