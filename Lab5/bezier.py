@@ -34,13 +34,11 @@ class BezierMode(ControllerMode):
         self.canvas.redraw()
 
     def hanble_release(self, event):
-        print(self.shold_move)
         self.shold_move = False
         self.moving_inx = None
 
     def hanble_moution(self, event):
         if self.shold_move:
-            print(self.moving_inx)
             self.points[self.moving_inx] = (event.x, event.y)
             self.ad_point, self.points = draw_bezier_curve(self.canvas, self.points, self.ad_point)
             if len(self.points) == 1:

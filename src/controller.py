@@ -17,9 +17,7 @@ class UI_controller():
         mode.brush_color = self.brush_color
 
     def switch_mode(self, mode_name):
-        print("Switching to mode: ", mode_name)
         self.current_mode = self.modes.get(mode_name, ControllerMode())
-        print(self.current_mode)
     
     def hanble_moution(self, event):
         if event.widget == self.canvas:
