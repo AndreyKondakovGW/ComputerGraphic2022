@@ -1,4 +1,4 @@
-from tkinter import PhotoImage, Tk, Button, Scale
+from tkinter import PhotoImage, Tk, Button, Scale, Entry,StringVar, Frame
 from .canvas import MyCanvas
 from .controller import UI_controller
 import os
@@ -6,6 +6,7 @@ import os
 class UI_base(Tk):
     def __init__(self, titel="Painter", width=0, height=0):
         super().__init__()
+        self.variables = []
         if width == 0:
             self.win_width = self.winfo_screenwidth() // 2
         else:
@@ -21,6 +22,8 @@ class UI_base(Tk):
         self.wm_iconphoto(False, photo)
         self.title(titel)
         self.button_num = 0
+        self.buttons_layout = Frame(self)
+        self.buttons_layout.grid(row=1, column=0)
         self.controller = UI_controller()
         
 
@@ -29,8 +32,6 @@ class UI_base(Tk):
         self.bind('<ButtonRelease-1>', self.controller.hanble_release)
         self.bind("<ButtonPress-3>", self.controller.hanble_right_press)
         self.bind("<MouseWheel>", self.controller.hanble_mouse_wheel)
-
-
     
     def create_canvas(self):
         self.canv = MyCanvas(self, width=self.win_width, height=self.win_height, bg="white")
@@ -39,20 +40,30 @@ class UI_base(Tk):
 
     def add_button(self, text, command, icon_name=None):
         if icon_name is None:
-            Button(self, text=text, command=command).grid(row=1, column=self.button_num)
+            Button(self.buttons_layout, text=text, command=command).grid(row=1, column=self.button_num)
         else:
             icon_path = os.path.join(self.icons_folder, icon_name)
             icon = PhotoImage(file=icon_path)
             icon = icon.subsample(10, 10)
-            button = Button(self, width=50,height=50, text=text, command=command, image =icon)
+            button = Button(self.buttons_layout, width=50,height=50, text=text, command=command, image =icon)
             button.image = icon
             button.grid(row=1, column=self.button_num)
         self.button_num += 1
 
     def add_slider(self, min_val, max_val, curent_value, command):
-        slider = Scale(self, from_=min_val,to=max_val, orient='horizontal', command=command)
+        slider = Scale(self.buttons_layout, from_=min_val,to=max_val, orient='horizontal', command=command)
         slider.grid(row=1, column=self.button_num)
         self.button_num += 1
 
+    def add_entry(self, text, command, start_text=""):
+        sv = StringVar()
+        self.variables.append(sv)
+        sv.trace("w", lambda name, index, mode, sv=sv: command(sv.get()))
+        e = Entry(self.buttons_layout, text=text, textvariable=sv)
+        e.insert(0, start_text)
+        e.grid(row=1, column=self.button_num)
+        self.button_num += 1
+
+    
     def run(self):
         self.mainloop()

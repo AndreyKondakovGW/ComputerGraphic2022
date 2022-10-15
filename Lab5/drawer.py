@@ -1,20 +1,9 @@
-from tkinter import PhotoImage, Tk,  Canvas
 from drawer_point import DrawerPoint
-#from transformation import rotation
 from typing import Tuple
 import random
 
-import os
-import sys
-import inspect
-
-currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-parentdir = os.path.dirname(currentdir)
-lab4dir = os.path.join(parentdir, "Lab4")
-sys.path.insert(0, lab4dir) 
-
-from transformation import rotation
-from primitives import line_bresenchem
+from Lab4.transformation import rotation
+from Lab3.draw_line import line_bresenchem
 
 class Drawer:
     def __init__(self, canvas):
@@ -109,7 +98,7 @@ class Drawer:
             return random.randint(angle-delta_angle, angle)
         if angle < 0:
             return -random.randint(-angle-delta_angle, -angle)
-        return 0;
+        return 0
 
     def set_color(self, new_color):
         self.current_color = new_color

@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
-import src
+from src.UI import UI_base
 from Lab4.rect_selector import RectSelectorMode
 from Lab4.mover import MoverMode
 from Lab4.rotator import RotatorMode
@@ -10,7 +10,7 @@ from Lab4.scaler import ScalerMode
 from midpoint_displacement import MidePointMode
 from bezier import BezierMode
 
-ui = src.UI.UI_base()
+ui = UI_base()
 ui.add_button("",lambda: ui.controller.switch_mode("Mid point"), icon_name='line-segment.png')
 ui.add_slider(1,100,50, lambda x: ui.controller.modes["Mid point"].set_roughness(float(x)/ 100))
 ui.add_button("",lambda: ui.controller.switch_mode("Mid point int"), icon_name='line-segment.png')

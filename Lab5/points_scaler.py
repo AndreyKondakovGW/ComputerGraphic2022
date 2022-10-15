@@ -1,13 +1,4 @@
-import os
-import sys
-import inspect
-
-currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-parentdir = os.path.dirname(currentdir)
-lab4dir = os.path.join(parentdir, "Lab4")
-sys.path.insert(0, lab4dir) 
-
-from transformation import translation, scaling
+from Lab4.transformation import translation, scaling
 
 class PointsScaler:
     def __init__(self, screen_width, screen_height):
