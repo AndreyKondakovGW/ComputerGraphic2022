@@ -1,0 +1,4 @@
+F -60 right
+FXF--FF--FF
+F->FF
+X->--FXF++FXF++FXF--
