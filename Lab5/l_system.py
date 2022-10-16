@@ -46,8 +46,12 @@ class LSystem:
             for action in actions:
                 if LSystem.is_recursive_action(action) and (action in self.rules.keys()):
                     for new_gen_action in self.rules[action]:
+
                         new_actions.append(new_gen_action)
                 else:
+                    """ if action == 'X':
+                        new_actions.append('F')
+                    else: """
                     new_actions.append(action)
             actions = new_actions
             generation -= 1

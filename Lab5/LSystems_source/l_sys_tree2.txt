@@ -1,0 +1,3 @@
+F 60 up random dynamic
+X
+X->F[@[-X]+X]

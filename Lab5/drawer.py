@@ -23,6 +23,7 @@ class Drawer:
         self.current_thikness = 4
         self.points.append((x, y))
         self.colors.append(brown)
+        self.thiknesses.append(4)
         self.set_point(x, y)
         self.last_point_index = 0
 
@@ -116,6 +117,7 @@ class Drawer:
         self.points = []
         self.edges = []
         self.colors = []
+        self.thiknesses = []
 
     def draw_from_edges(self):
         print("draw from edges")
@@ -125,7 +127,7 @@ class Drawer:
             p2 = self.points[ind2]
             c1 = self.colors[ind1]
             c2 = self.colors[ind2]
-            thikness = self.thiknesses[ind1]
+            thikness = self.thiknesses[ind2]
             self.draw_line(p1, p2, c1, c2, thikness)
             #line_bresenchem(self.canvas.image, p1, p2, c1, c2)
 
