@@ -16,20 +16,23 @@
 
 **Внешний вид интерфейса**
 ![alt text](examples/exampleMain.png)
----
+
 **Рисование Примитивов**
 ![alt text](examples/exampleIcons1.png)
 Иконки
 ![alt text](examples/exampleDot.png)
+
 Рисование точек
 ![alt text](examples/exampleLines.png)
+
 Рисование линий
 ![alt text](examples/examplePolys.png)
+
 Рисование полигонов
----
+
 **Отслеживание пересечений**
 ![alt text](examples/exampleIntersec.png)
----
+
 **Выделение фигур**
 
 ![alt text](examples/exampleIcons2.png)
@@ -37,19 +40,22 @@
 Иконки
 ![alt text](examples/exampleSelect1.png)
 ![alt text](examples/exampleSelect2.png)
----
+
 **Аффиные преобразования**
 ![alt text](examples/exampleIcons3.png)
 
 Иконки
 ![alt text](examples/exampleMove.png)
+
 Движение выделенной фигуры мышкой
 ![alt text](examples/exampleRotate.png)
+
 Поворот выделенной фигуры колесом мыши
 ![alt text](examples/exampleScale1.png)
+
 Скалирование выделенной фигуры относитель но точки.
 (Фигура меняет размер в таком же отношении как и созданный отрезк)
----
+
 **Классификация положения точки относительно ребра**
 
 ![alt text](examples/exampleIcons4.png)
@@ -59,7 +65,7 @@
 ![alt text](examples/exampleMarkSeg2.png)
 ![alt text](examples/exampleMarkSeg3.png)
 Рёбра от которых точки находится справа подсвечиваются синим, а от которых она находится слева зелёным
----
+
 **Проверка находится ли точка внутри или снаружи полигона**
 
 ![alt text](examples/exampleIcons5.png)
