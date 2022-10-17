@@ -34,5 +34,6 @@ class ImageFiller(BaseFiller):
 
 if __name__ == "__main__":
     root = Tk()
-    color_filler = ImageFiller(root, "test.jpg")
+    root.title("Для заливки фигуры используйте двойной щелчок мыши")
+    color_filler = ImageFiller(root, "./test.jpg")
     color_filler.start()

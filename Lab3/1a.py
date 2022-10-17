@@ -11,5 +11,6 @@ class ColorFiller(BaseFiller):
         
 if __name__ == "__main__":
     root = Tk()
+    root.title("Для заливки фигуры используйте двойной щелчок мыши")
     color_filler = ColorFiller(root, (0, 255, 0))
     color_filler.start()

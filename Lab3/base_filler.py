@@ -15,7 +15,7 @@ class BaseFiller:
         self.__fill_background()
 
     def __init_ui(self):
-        self.width = 400
+        self.width = 500
         self.height = 400
         self.image = PhotoImage(width=self.width, height=self.height)
         self.canvas = Canvas(self.root, width=self.width, height=self.height)

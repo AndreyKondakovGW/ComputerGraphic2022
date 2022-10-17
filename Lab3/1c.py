@@ -19,7 +19,7 @@ class BorderFinder:
         self.__fill_background()
 
     def __init_ui(self):
-        self.width = 400
+        self.width = 500
         self.height = 400
         self.image = PhotoImage(width=self.width, height=self.height)
         self.mask = PhotoImage(width=self.width, height=self.height)
@@ -231,5 +231,6 @@ class BorderFinder:
 
 if __name__ == "__main__":
     root = Tk()
+    root.title("Для вдел ганиц фигуры используйте двойной щелчок")
     border_finder = BorderFinder(root)
     border_finder.start()
