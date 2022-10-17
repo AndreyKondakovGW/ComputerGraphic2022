@@ -19,17 +19,6 @@ class Strage:
     def delete_selected(self):
         self.figs = [fig for fig in self.figs if not fig.selected]
 
-    def select(self, pred):
-        for fig in self.figs:
-            if pred(fig):
-                fig.selected = True
-                fig.color = (255, 0, 0)
-    
-    def deselect_figs(self):
-        for fig in self.figs:
-            fig.selected = False
-            fig.color = (0, 0, 0)
-
     def call(self, func):
         res = []
         for fig in self.figs:

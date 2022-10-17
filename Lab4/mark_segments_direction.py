@@ -8,11 +8,8 @@ class MarkSegmentsDirectionMode(ControllerMode):
 
     def hanble_press(self, event):
         p = (event.x, event.y)
-        dot = Dot(p, self.brush_color)
-        self.canvas.content.append(dot)
         self.canvas.clear()
-        dot.draw(self.canvas)
+        self.canvas.storage.add_figure(Dot(p, self.brush_color))
         left_color = (0, 255, 0)
         right_color = (0, 0, 255)
-        for fig in self.canvas.content:
-            fig.draw_marked(self.canvas, p, left_color, right_color)
+        self.canvas.storage.apply(lambda fig: fig.draw_marked(self.canvas, p, left_color, right_color))

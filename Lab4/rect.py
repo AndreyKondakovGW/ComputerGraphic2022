@@ -1,5 +1,5 @@
 from .functions import *
-from .poli_line import Polygon
+from .poligon import Polygon
 from .line_intersector import draw_intersections_with_line
 from src.controller_mode import ControllerMode
 

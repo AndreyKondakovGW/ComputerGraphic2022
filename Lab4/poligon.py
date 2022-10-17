@@ -95,9 +95,11 @@ class Polygon(Figure):
                 inside = False
                 break
         if inside:
-            self.color = inside_color
+            self.brush_color = inside_color
+            return True
         else:
-            self.color = outside_color
+            self.brush_color = outside_color
+            return False
 
     def check_any(self, p):
         inside_color = (255, 0, 0)
@@ -117,9 +119,12 @@ class Polygon(Figure):
         
         normalized_sum = round(sum_angle / (2 * math.pi))
         if abs(normalized_sum) == 1:
-            self.color = inside_color
+            self.brush_color = inside_color
+            return True
         elif abs(normalized_sum) == 0:
-            self.color = outside_color
+            self.brush_color = outside_color
+            return False
         else:
             print("unexpected value")
-            self.color = outside_color
+            self.brush_color = outside_color
+            return False

@@ -28,6 +28,10 @@ class MyCanvas(Canvas):
         self.delete('all')
         self.create_image()
 
+    def delete_selected(self):
+        self.storage.delete_selected()
+        self.redraw()
+
     def draw_circle(self, x, y, r=10, color=(255, 0, 0)):
         rx, ry = round(x), round(y)
         self.create_oval(rx-r, ry-r, rx+r, ry+r, fill=rgb2hex(color), outline=rgb2hex(color))

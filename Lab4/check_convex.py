@@ -1,4 +1,4 @@
-from .poli_line import Polygon
+from .poligon import Polygon
 from src.controller_mode import ControllerMode
 
 class CheckPolygonMode(ControllerMode):
@@ -9,20 +9,21 @@ class CheckPolygonMode(ControllerMode):
 
     def hanble_moution(self, event):
         p = (event.x, event.y)
-        for fig in self.canvas.content:
-            if isinstance(fig, Polygon):
-                self.check_polygon(fig, p)
-        self.canvas.redraw_content()
+        self.canvas.storage.apply(lambda fig: self.check_polygon(fig, p) if isinstance(fig, Polygon) and not fig.selected else None)
+        self.canvas.redraw()
 
-    def hanble_press(self, _):
-        for fig in self.canvas.content:
-            if isinstance(fig, Polygon):
-                fig.color = self.brush_color
-                fig.selected = True
-        self.canvas.redraw_content()
+    def hanble_press(self, event):
+        p = (event.x, event.y)
+        self.canvas.storage.apply(lambda fig: self.select_polygon(fig, p))
+        self.canvas.redraw()
 
     def check_polygon(self, poly, point):
         if self.check_convex:
-            poly.check_convex(point)
+            return poly.check_convex(point)
         else:
-            poly.check_any(point)
+            return poly.check_any(point)
+
+    def select_polygon(self, fig, p):
+        if isinstance(fig, Polygon) and not fig.selected:
+            if self.check_polygon(fig, p):
+                fig.select()

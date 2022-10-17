@@ -5,14 +5,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import src
 from Lab4.dot import DotMode
 from Lab4.line import LineMode
-from Lab4.poli_line import PoligonMode
+from Lab4.poligon import PoligonMode
 from Lab4.rect import RectangleMode
 from Lab4.rect_selector import RectSelectorMode
 
 from Lab4.mover import MoverMode
 from Lab4.rotator import RotatorMode
 from Lab4.scaler import ScalerMode
-from Lab4.handle_affine_transformation import AffinePointMode
 
 from Lab4.mark_segments_direction import MarkSegmentsDirectionMode
 from Lab4.check_convex import CheckPolygonMode
@@ -35,7 +34,7 @@ if __name__ == "__main__":
     ui.add_button("Check Convex", lambda: ui.controller.switch_mode("checkconvex"), icon_name='iran.png')
     ui.add_button("Check Polygon", lambda: ui.controller.switch_mode("checkpolygon"), icon_name='cursor.png')
 
-    ui.add_button("Delete", lambda: ui.canv.delete_content(), icon_name='eraser.png')
+    ui.add_button("Delete", lambda: ui.canv.delete_selected(), icon_name='eraser.png')
     ui.add_button("Clear", lambda: ui.canv.delete_content(), icon_name='bin.png')
     
     ui.create_canvas()
