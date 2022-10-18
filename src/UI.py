@@ -1,7 +1,10 @@
 from tkinter import PhotoImage, Tk, Button, Scale, Entry,StringVar, Frame
+
 from .canvas import MyCanvas
 from .controller import UI_controller
 import os
+from Lab6.side_menue import SideMenue
+from .drawer import Drawer
 
 class UI_base(Tk):
     def __init__(self, titel="Painter", width=0, height=0):
@@ -23,8 +26,11 @@ class UI_base(Tk):
         self.title(titel)
         self.button_num = 0
         self.buttons_layout = Frame(self)
-        self.buttons_layout.grid(row=1, column=0)
+        self.side_menue_layout = SideMenue()
+        self.buttons_layout.grid(row=0, column=2)
+        self.side_menue_layout.grid(row=2, column=0, columnspan=2)
         self.controller = UI_controller()
+        self.buttons = {}
         
 
         self.bind('<Motion>', self.controller.hanble_moution)
@@ -35,12 +41,16 @@ class UI_base(Tk):
     
     def create_canvas(self):
         self.canv = MyCanvas(self, width=self.win_width, height=self.win_height, bg="white")
-        self.canv.grid(row=2, columnspan=self.button_num)
+        self.canv.grid(row=2, column=2)
         self.controller.set_canvas(self.canv)
+
+    def create_drawer(self):
+        self.drawer = Drawer(self.canv)
 
     def add_button(self, text, command, icon_name=None):
         if icon_name is None:
-            Button(self.buttons_layout, text=text, command=command).grid(row=1, column=self.button_num)
+            button = Button(self.buttons_layout, text=text, command=command)
+            button.grid(row=1, column=self.button_num)
         else:
             icon_path = os.path.join(self.icons_folder, icon_name)
             icon = PhotoImage(file=icon_path)
@@ -49,6 +59,7 @@ class UI_base(Tk):
             button.image = icon
             button.grid(row=1, column=self.button_num)
         self.button_num += 1
+        self.buttons[text] = button
 
     def add_slider(self, min_val, max_val, curent_value, command):
         slider = Scale(self.buttons_layout, from_=min_val,to=max_val, orient='horizontal', command=command)
@@ -64,6 +75,8 @@ class UI_base(Tk):
         e.grid(row=1, column=self.button_num)
         self.button_num += 1
 
-    
+    def add_side_menue(self):
+
+        pass
     def run(self):
         self.mainloop()

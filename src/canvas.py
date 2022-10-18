@@ -1,5 +1,5 @@
 from tkinter import Canvas, PhotoImage
-from .fig_storage import Strage
+from .fig_storage import Storage
 from Lab3.draw_line import *
 
 class MyCanvas(Canvas):
@@ -7,7 +7,7 @@ class MyCanvas(Canvas):
         super().__init__(tk, width=width, height=height, bg=bg)
         self.width = width
         self.height = height
-        self.storage = Strage([], self)
+        self.storage = Storage([], self)
         self.af_point = None
 
         self.create_image()

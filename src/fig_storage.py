@@ -1,6 +1,4 @@
-
-
-class Strage:
+class Storage:
     def __init__(self, figs,canvas):
         self.canvas = canvas
         self.figs = figs

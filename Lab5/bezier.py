@@ -27,7 +27,7 @@ class BezierMode(ControllerMode):
                 self.canvas.draw_circle(p[0], p[1], 3, color=(127, 0, 127))
             self.ad_point, self.points = draw_bezier_curve(self.canvas, self.points, self.ad_point)
             if len(self.points) == 1:
-                self.canvas.storage.add_figure(BezierCurv(self.points, self.ad_point))
+                self.canvas.storage.add_figure(BezierCurve(self.points, self.ad_point))
             else:
                 self.canvas.storage.figs[-1].points = self.points
                 self.canvas.storage.figs[-1].ad_point = self.ad_point
@@ -42,7 +42,7 @@ class BezierMode(ControllerMode):
             self.points[self.moving_inx] = (event.x, event.y)
             self.ad_point, self.points = draw_bezier_curve(self.canvas, self.points, self.ad_point)
             if len(self.points) == 1:
-                self.canvas.storage.add_figure(BezierCurv(self.points, self.ad_point))
+                self.canvas.storage.add_figure(BezierCurve(self.points, self.ad_point))
             else:
                 self.canvas.storage.figs[-1].points = self.points
                 self.canvas.storage.figs[-1].ad_point = self.ad_point
@@ -57,14 +57,14 @@ class BezierMode(ControllerMode):
         if delidx != -1:
             del self.points[delidx]
             if len(self.points) == 1:
-                self.canvas.storage.add_figure(BezierCurv(self.points, self.ad_point))
+                self.canvas.storage.add_figure(BezierCurve(self.points, self.ad_point))
             else:
                 self.canvas.storage.figs[-1].points = self.points
                 self.canvas.storage.figs[-1].ad_point = self.ad_point
         self.canvas.redraw()
         pass
 
-class BezierCurv(Figure):
+class BezierCurve(Figure):
     def __init__(self, points,ad_point, color = (0,0,0)):
         super().__init__(color)
         self.points = points
