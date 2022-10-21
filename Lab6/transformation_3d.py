@@ -57,10 +57,13 @@ def scale(points, kx, ky, kz, scaling_center=None):
         scaling_center = centroid(points)
     dx, dy, dz = -scaling_center[0], -scaling_center[1], -scaling_center[2]
     translated_points = translate(points, dx, dy, dz)
-    matrix = scale_matrix(kx, ky, kz)
-    scaled_points = apply_matrix_to_points(translated_points, matrix)
+    scaled_points = just_scale(translated_points, kx, ky, kz)
     result = translate(scaled_points, -dx, -dy, -dz)
     return result
+
+def just_scale(points, kx, ky, kz):
+    matrix = scale_matrix(kx, ky, kz)
+    return apply_matrix_to_points(points, matrix)
 
 def centroid(points):
     xs = [point.x for point in points]

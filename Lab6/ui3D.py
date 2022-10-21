@@ -8,6 +8,7 @@ from Lab6.selector3D import RectSelector3DMode
 from Lab6.scaler3D import ScalerMode3D
 from Lab6.mover3D import MoverMode3D
 from Lab6.rotator3D import RotatorMode3D
+from Lab6.mirror import MirrorMode3D
 
 class UI3D(UI_base):
     def __init__(self):
@@ -18,6 +19,7 @@ class UI3D(UI_base):
         self.add_button("Move", lambda: self.controller.switch_mode("move"))
         self.add_button("Scale", lambda: self.controller.switch_mode("scale"))
         self.add_button("Rotate", lambda: self.controller.switch_mode("rotate"))
+        self.add_button("Mirror", lambda: self.controller.switch_mode("mirror"))
 
 
         self.add_button("Clear", self.del_figures)
@@ -28,6 +30,7 @@ class UI3D(UI_base):
         self.controller.add_mode("move", MoverMode3D(self.renderer, self.scene))
         self.controller.add_mode("scale", ScalerMode3D(self.renderer, self.scene))
         self.controller.add_mode("rotate", RotatorMode3D(self.renderer, self.scene))
+        self.controller.add_mode("mirror", MirrorMode3D(self.renderer, self.scene))
         self.side_menue_controller = SideMenu_Controller(self.renderer, self.scene)
         self.side_menue_layout = SideMenu(self.side_menue_controller)
         self.side_menue_layout.grid(row=1, column=0)

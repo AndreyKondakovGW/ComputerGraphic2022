@@ -2,9 +2,13 @@ from Lab6.line3D import Line3D
 from Lab6.transformation_3d import *
 from src.controller_mode import ControllerMode
 
-def rotate_figure(fig, dir, angle):
+def rotate_figure(fig, dir, angle, rotation_line):
+    if rotation_line:
+        p1 = rotation_line.points[0]
+        p2 = rotation_line.points[1]
+
+        line_dir = (p2.x - p1.x, p2.y - p1.y, p2.z - p1.z)
     center =  centroid(fig.points)
-    #dir = (dir[0] + center[0], dir[1] + center[1], dir[2] + center[2])
     fig.points = rotate(fig.points, center, dir,  angle)
 
 class RotatorMode3D(ControllerMode):
@@ -68,9 +72,10 @@ class RotatorMode3D(ControllerMode):
     def hanble_left(self, event):
         dir = (int(self.isXmode), int(self.isYmode), int(self.isZmode))
         angle = -5
+
         for fig in self.scene.storage:
             if fig.selected:
-                rotate_figure(fig, dir, angle)
+                rotate_figure(fig, dir, angle, self.rotation_line)
         self.renderer.render_scene(self.scene)
 
     def hanble_right(self, event):
@@ -78,5 +83,5 @@ class RotatorMode3D(ControllerMode):
         angle = 5
         for fig in self.scene.storage:
             if fig.selected:
-                rotate_figure(fig, dir, angle)
+                rotate_figure(fig, dir, angle, self.rotation_line)
         self.renderer.render_scene(self.scene)
