@@ -15,19 +15,29 @@ def scale_matrix(kx, ky, kz):
             [0,  0,  kz, 0],
             [0,  0,  0,  1]]
 
-def rotation_matrix(a, dir, angle):
-    x, y, z = a
-    l, m, n = dir
+def rotation_around_vector_matrix(dir, angle):
+    x, y, z = dir
     rad_angle = radians(angle)
     cos_angle = cos(rad_angle)
     sin_angle = sin(rad_angle)
-    l2 = l*l
-    m2 = m*m
-    n2 = n*n
-    return [[l2 + cos_angle*(1 - l2), l*(1-cos_angle)*m + n*sin_angle, l*(1-cos_angle)*n + m*sin_angle, 0],
-            [l*(1-cos_angle)*m - n*sin_angle, m2 + cos_angle*(1-m2),   m*(1-cos_angle)*n + l*sin_angle, 0],
-            [l*(1-cos_angle)*n + m*sin_angle, m*(1-cos_angle)*n + l*sin_angle, n2 + cos_angle*(1-n2),   0], 
+    x2 = x*x
+    y2 = y*y
+    z2 = z*z
+    # return [[l2 + cos_angle*(1 - l2), l*(1-cos_angle)*m + n*sin_angle, l*(1-cos_angle)*n + m*sin_angle, 0],
+    #         [l*(1-cos_angle)*m - n*sin_angle, m2 + cos_angle*(1-m2),   m*(1-cos_angle)*n + l*sin_angle, 0],
+    #         [l*(1-cos_angle)*n + m*sin_angle, m*(1-cos_angle)*n + l*sin_angle, n2 + cos_angle*(1-n2),   0], 
+    #         [0, 0, 0, 1]]
+    return [[cos_angle + (1-cos_angle)*x2, (1-cos_angle)*x*y - sin_angle*z, (1-cos_angle)*x*z + sin_angle*y, 0],
+            [(1-cos_angle)*y*x + sin_angle*z, cos_angle + (1-cos_angle)*y2, (1-cos_angle)*y*z - sin_angle*x, 0],
+            [(1-cos_angle)*z*x - sin_angle*y, (1-cos_angle)*z*y + sin_angle*x, cos_angle + (1-cos_angle)*z2, 0],
             [0, 0, 0, 1]]
+
+def rotation_matrix(a, dir, angle):
+    x, y, z = a
+    translate_to_a = translation_matrix(-x, -y, -z)
+    rotation = rotation_around_vector_matrix(dir, angle)
+    translate_back = translation_matrix(x, y, z)
+    return np.dot(np.dot(translate_to_a, rotation), translate_back)
 
 
 def apply_matrix_to_point(point, matrix):
