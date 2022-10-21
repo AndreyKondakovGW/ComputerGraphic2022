@@ -40,8 +40,8 @@ class UI3D(UI_base):
         self.bind("<y>", self.controller.hanble_y)
         self.bind("<z>", self.controller.hanble_z)
 
-        self.bind("<,>", self.controller.hanble_left)
-        self.bind("<.>", self.controller.hanble_right)
+        self.bind("<Left>", self.controller.hanble_left)
+        self.bind("<Right>", self.controller.hanble_right)
 
     def del_figures(self):
         self.scene.clear()
