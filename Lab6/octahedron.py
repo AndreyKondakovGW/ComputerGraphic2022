@@ -25,19 +25,19 @@ class Octahedron(Figure):
     def draw(self, drawer):
         self.canvas_points = self.points.copy()
         for i in range(1,5):
-            p = drawer.draw_line([self.points[0], self.points[i]])
+            p = drawer.draw_line([self.points[0], self.points[i]], self.brush_color)
             self.canvas_points[0] = p[0]
             self.canvas_points[i] = p[1]
-            p = drawer.draw_line([self.points[5], self.points[i]])
+            p = drawer.draw_line([self.points[5], self.points[i]], self.brush_color)
             self.canvas_points[5] = p[0]
             self.canvas_points[i] = p[1]
 
-        p = drawer.draw_line([self.points[1], self.points[2]])
-        p = drawer.draw_line([self.points[2], self.points[3]])
+        p = drawer.draw_line([self.points[1], self.points[2]], self.brush_color)
+        p = drawer.draw_line([self.points[2], self.points[3]], self.brush_color)
         self.canvas_points[2] = p[0]
-        p = drawer.draw_line([self.points[3], self.points[4]])
+        p = drawer.draw_line([self.points[3], self.points[4]], self.brush_color)
         self.canvas_points[3] = p[0]
-        p = drawer.draw_line([self.points[4], self.points[1]])
+        p = drawer.draw_line([self.points[4], self.points[1]], self.brush_color)
         self.canvas_points[4] = p[0]
         self.canvas_points[1] = p[1]
 
