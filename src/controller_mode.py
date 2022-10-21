@@ -19,3 +19,18 @@ class ControllerMode:
 
     def hanble_mouse_wheel(self, event):
         pass
+
+    def hanble_x(self, event):
+        pass
+
+    def hanble_y(self, event):
+        pass
+
+    def hanble_z(self, event):
+        pass
+
+    def hanble_left(self, event):
+        pass
+
+    def hanble_right(self, event):
+        pass

@@ -38,3 +38,18 @@ class UI_controller():
     def hanble_mouse_wheel(self, event):
         if event.widget == self.canvas:
             self.current_mode.hanble_mouse_wheel(event)
+
+    def hanble_x(self, event):
+        self.current_mode.hanble_x(event)
+
+    def hanble_y(self, event):
+        self.current_mode.hanble_y(event)
+
+    def hanble_z(self, event):
+        self.current_mode.hanble_z(event)
+
+    def hanble_left(self, event):
+        self.current_mode.hanble_left(event)
+
+    def hanble_right(self, event):
+        self.current_mode.hanble_right(event)

@@ -15,12 +15,12 @@ class Tetrahedron(Figure):
     def draw(self, drawer):
         self.canvas_points = self.points.copy()
         for i in range(3):
-            p = drawer.draw_line([self.points[i], self.points[(i + 1) % 3]])
+            p = drawer.draw_line([self.points[i], self.points[(i + 1) % 3]], self.brush_color)
             self.canvas_points[i] = p[0]
             self.canvas_points[(i + 1) % 3] = p[1]
-            p = drawer.draw_line([self.points[i], self.points[3]])
+            p = drawer.draw_line([self.points[i], self.points[3]], self.brush_color)
             self.canvas_points[i] = p[0]
             self.canvas_points[3] = p[1]
-            p = drawer.draw_line([self.points[(i + 1) % 3], self.points[3]])
+            p = drawer.draw_line([self.points[(i + 1) % 3], self.points[3]], self.brush_color)
             self.canvas_points[(i + 1) % 3] = p[0]
             self.canvas_points[3] = p[1]
