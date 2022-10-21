@@ -3,8 +3,8 @@ from tkinter import PhotoImage, Tk, Button, Scale, Entry,StringVar, Frame
 from .canvas import MyCanvas
 from .controller import UI_controller
 import os
-from Lab6.side_menue import SideMenue
-from .drawer import Drawer
+from .renderer import Renderer
+from .scene import Scene
 
 class UI_base(Tk):
     def __init__(self, titel="Painter", width=0, height=0):
@@ -24,28 +24,28 @@ class UI_base(Tk):
         photo = PhotoImage(file = os.path.join(self.icons_folder, "rat.png"))
         self.wm_iconphoto(False, photo)
         self.title(titel)
+
         self.button_num = 0
         self.buttons_layout = Frame(self)
-        self.side_menue_layout = SideMenue()
         self.buttons_layout.grid(row=0, column=2)
-        self.side_menue_layout.grid(row=2, column=0, columnspan=2)
         self.controller = UI_controller()
         self.buttons = {}
-        
 
         self.bind('<Motion>', self.controller.hanble_moution)
         self.bind('<ButtonPress-1>', self.controller.hanble_press)
         self.bind('<ButtonRelease-1>', self.controller.hanble_release)
         self.bind("<ButtonPress-3>", self.controller.hanble_right_press)
         self.bind("<MouseWheel>", self.controller.hanble_mouse_wheel)
+
+        self.scene = Scene()
     
     def create_canvas(self):
         self.canv = MyCanvas(self, width=self.win_width, height=self.win_height, bg="white")
-        self.canv.grid(row=2, column=2)
+        self.canv.grid(row=1, column=2)
         self.controller.set_canvas(self.canv)
 
-    def create_drawer(self):
-        self.drawer = Drawer(self.canv)
+    def create_renderer(self):
+        self.renderer = Renderer(self.canv)
 
     def add_button(self, text, command, icon_name=None):
         if icon_name is None:
