@@ -3,8 +3,10 @@ from Lab4.functions import point_in_rect
 class Figure:
     def __init__(self, color):
         self.brush_color = color
+        self.initial_color = color
         self.selected = False
         self.points = []
+        self.canvas_points = []
 
     def draw(self, _):
         pass
@@ -13,9 +15,14 @@ class Figure:
         return []
 
     def in_rect(self, p1, p2):
-        for p in self.points:
-            if not point_in_rect(p, p1, p2):
-                return False
+        if len(self.canvas_points) == 0:
+            for p in self.points:
+                if not point_in_rect(p, p1, p2):
+                    return False
+        else:
+            for p in self.canvas_points:
+                if not point_in_rect(p, p1, p2):
+                    return False
         return True
 
     def select(self):
@@ -24,4 +31,4 @@ class Figure:
 
     def deselect(self):
         self.selected = False
-        self.brush_color = (0, 0, 0)
+        self.brush_color = self.initial_color

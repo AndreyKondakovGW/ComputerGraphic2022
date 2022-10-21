@@ -53,7 +53,7 @@ def find_lines_intersection(p1, p2, p3, p4):
 
 
 def point_in_rect(p, p1, p2):
-    x, y = p
+    x, y = p.x, p.y
     x1, y1 = p1
     x2, y2 = p2
     if x < min(x1, x2) or x > max(x1, x2) or y < min(y1, y2) or y > max(y1, y2):

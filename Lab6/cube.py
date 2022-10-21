@@ -17,7 +17,14 @@ class Cube(Figure):
         self.points.append(Point(center.x + a, center.y - a, center.z + a))
 
     def draw(self, drawer):
+        self.canvas_points = self.points.copy()
         for i in range(4):
-            drawer.draw_line([self.points[i], self.points[(i + 1) % 4]])
-            drawer.draw_line([self.points[i + 4], self.points[(i + 1) % 4 + 4]])
-            drawer.draw_line([self.points[i], self.points[i + 4]])
+            p = drawer.draw_line([self.points[i], self.points[(i + 1) % 4]], self.brush_color)
+            self.canvas_points[i] = p[0]
+            self.canvas_points[(i + 1) % 4] = p[1]
+            p = drawer.draw_line([self.points[i + 4], self.points[(i + 1) % 4 + 4]], self.brush_color)
+            self.canvas_points[i + 4] = p[0]
+            self.canvas_points[(i + 1) % 4 + 4] = p[1]
+            p = drawer.draw_line([self.points[i], self.points[i + 4]], self.brush_color)
+            self.canvas_points[i] = p[0]
+            self.canvas_points[i + 4] = p[1]
