@@ -34,7 +34,7 @@ class SideMenu_Controller():
         if self.figure_name == "Point":
             self.scene.add_figure(Point3D(Point(50, 50, 50), (255, 0, 0)))
         elif self.figure_name == "Line":
-            self.scene.add_figure(Line3D([Point(50, 50, 50), Point(0, 0, 0)]))
+            self.scene.add_figure(Line3D([Point(100, 0, 0), Point(0, 0, 0)]))
         elif self.figure_name == "Cube":
             self.scene.add_figure(Cube(Point(50,50,50), 100))
         elif self.figure_name == "Tetrahedron":

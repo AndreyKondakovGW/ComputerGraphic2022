@@ -59,8 +59,14 @@ def translate(points, dx, dy, dz):
     return apply_matrix_to_points(points, matrix)
 
 def rotate(points, a, dir, angle):
+    dir = normalize_vector_tuple(dir)
     matrix = rotation_matrix(a, dir, angle)
     return apply_matrix_to_points(points, matrix)
+
+def normalize_vector_tuple(vector_tuple):
+    x, y, z = vector_tuple[0], vector_tuple[1], vector_tuple[2]
+    l = (x**2 + y**2 + z**2)**0.5
+    return (x/l, y/l, z/l)
 
 def scale(points, kx, ky, kz, scaling_center=None):
     if scaling_center is None:

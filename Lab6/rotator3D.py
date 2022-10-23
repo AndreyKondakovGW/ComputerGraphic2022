@@ -7,8 +7,10 @@ def rotate_figure(fig, dir, angle, rotation_line):
         p1 = rotation_line.points[0]
         p2 = rotation_line.points[1]
 
-        line_dir = (p2.x - p1.x, p2.y - p1.y, p2.z - p1.z)
-    center =  centroid(fig.points)
+        dir = (p2.x - p1.x, p2.y - p1.y, p2.z - p1.z)
+        center = (p1.x, p1.y, p1.z)
+    else:
+        center =  centroid(fig.points)
     fig.points = rotate(fig.points, center, dir,  angle)
 
 class RotatorMode3D(ControllerMode):
@@ -43,9 +45,10 @@ class RotatorMode3D(ControllerMode):
 
     def hanble_release(self, event):
         if self.should_draw:
+            self.rotation_line = None
             for fig in self.scene.storage:
                 if fig.in_rect(self.p0, (event.x, event.y)):
-                    if fig is Line3D:
+                    if isinstance(fig,Line3D):
                         self.rotation_line = fig
                         fig.brush_color = (0, 255, 0)
                         break
