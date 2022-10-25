@@ -4,7 +4,10 @@ def simple2D_projection():
     return [[1, 0,0,0],[0, 1,0,0],[0, 0,0,0], [0, 0,0,1]]
 
 def perspective_projection(r = 0.005): # r = 1 / c 
-    return [[1, 0,0,0],[0, 1,0,0],[0, 0,0,r], [0, 0,0,1]]
+    return [[1, 0,0,0],
+            [0, 1,0,0],
+            [0, 0,1,r],
+            [0, 0,0,1]]
 
 def corner_projection(p = 0.01, q = 0.01):
     return [[1, 0,0,p],[0, 1,0,q],[0, 0,0,0], [0, 0,0,1]]

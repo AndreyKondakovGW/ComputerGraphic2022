@@ -17,6 +17,7 @@ class UI_controller():
         mode.brush_color = self.brush_color
 
     def switch_mode(self, mode_name):
+        self.current_mode.set_default_params()
         self.current_mode = self.modes.get(mode_name, ControllerMode())
     
     def hanble_moution(self, event):

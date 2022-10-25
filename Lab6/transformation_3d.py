@@ -44,24 +44,22 @@ def apply_matrix_to_point(point, matrix):
     px, py, pz = point.x, point.y, point.z
     point_vector = [px, py, pz, 1]
     new_point_arr = np.dot(point_vector, matrix)
-    new_point = Point(new_point_arr[0], new_point_arr[1], new_point_arr[2])
-    return new_point
+    point.x = new_point_arr[0]
+    point.y = new_point_arr[1]
+    point.z = new_point_arr[2]
 
 def apply_matrix_to_points(points, matrix):
-    new_points = []
     for point in points:
-        new_point = apply_matrix_to_point(point, matrix)
-        new_points.append(new_point)
-    return new_points
+        apply_matrix_to_point(point, matrix)
 
 def translate(points, dx, dy, dz):
     matrix = translation_matrix(dx, dy, dz)
-    return apply_matrix_to_points(points, matrix)
+    apply_matrix_to_points(points, matrix)
 
 def rotate(points, a, dir, angle):
     dir = normalize_vector_tuple(dir)
     matrix = rotation_matrix(a, dir, angle)
-    return apply_matrix_to_points(points, matrix)
+    apply_matrix_to_points(points, matrix)
 
 def normalize_vector_tuple(vector_tuple):
     x, y, z = vector_tuple[0], vector_tuple[1], vector_tuple[2]
@@ -72,14 +70,13 @@ def scale(points, kx, ky, kz, scaling_center=None):
     if scaling_center is None:
         scaling_center = centroid(points)
     dx, dy, dz = -scaling_center[0], -scaling_center[1], -scaling_center[2]
-    translated_points = translate(points, dx, dy, dz)
-    scaled_points = just_scale(translated_points, kx, ky, kz)
-    result = translate(scaled_points, -dx, -dy, -dz)
-    return result
+    translate(points, dx, dy, dz)
+    just_scale(points, kx, ky, kz)
+    translate(points, -dx, -dy, -dz)
 
 def just_scale(points, kx, ky, kz):
     matrix = scale_matrix(kx, ky, kz)
-    return apply_matrix_to_points(points, matrix)
+    apply_matrix_to_points(points, matrix)
 
 def centroid(points):
     xs = [point.x for point in points]

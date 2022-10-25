@@ -2,14 +2,16 @@ from Lab6.transformation_3d import *
 from src.controller_mode import ControllerMode
 
 def scale_figure(fig, kx, ky, kz):
-    old_points = fig.points
     if fig.selected:
-        fig.points = scale(fig.points, kx, ky, kz)
+        scale(fig.points, kx, ky, kz)
 
 class ScalerMode3D(ControllerMode):
     def __init__(self, renderer,scene):
         self.renderer = renderer
         self.scene = scene
+        self.set_default_params()
+
+    def set_default_params(self):
         self.should_draw = False
         self.isXmode = False
         self.isYmode = False

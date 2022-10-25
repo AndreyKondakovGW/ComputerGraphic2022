@@ -3,14 +3,16 @@ from src.controller_mode import ControllerMode
 from src.point import *
 
 def move_figure(fig, dx, dy,dz):
-    old_points = fig.points
     if fig.selected:
-        fig.points = translate(fig.points, dx, dy, dz)
+        translate(fig.points, dx, dy, dz)
 
 class MoverMode3D(ControllerMode):
     def __init__(self, renderer,scene):
         self.renderer = renderer
         self.scene = scene
+        self.set_default_params()
+
+    def set_default_params(self):
         self.should_draw = False
         self.isXmode = False
         self.isYmode = False

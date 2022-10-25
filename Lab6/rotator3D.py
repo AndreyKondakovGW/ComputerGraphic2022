@@ -1,4 +1,4 @@
-from Lab6.line3D import Line3D
+from Lab6.figures.line3D import Line3D
 from Lab6.transformation_3d import *
 from src.controller_mode import ControllerMode
 
@@ -11,18 +11,21 @@ def rotate_figure(fig, dir, angle, rotation_line):
         center = (p1.x, p1.y, p1.z)
     else:
         center =  centroid(fig.points)
-    fig.points = rotate(fig.points, center, dir,  angle)
+    rotate(fig.points, center, dir,  angle)
 
 class RotatorMode3D(ControllerMode):
     def __init__(self, renderer,scene):
         self.renderer = renderer
         self.scene = scene
+        self.canvas = self.renderer.canvas
+        self.brush_color = (0, 255, 0)
+        self.set_default_params()
+
+    def set_default_params(self):
         self.should_draw = False
         self.isXmode = False
         self.isYmode = False
         self.isZmode = False
-        self.canvas = self.renderer.canvas
-        self.brush_color = (0, 255, 0)
         self.p0 = None
         self.rotation_line = None
 

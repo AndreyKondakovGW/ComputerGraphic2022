@@ -8,8 +8,8 @@ class Figure:
         self.points = []
         self.canvas_points = []
 
-    def draw(self, _):
-        pass
+    def draw(self, renderer):
+        self.canvas_points = [renderer.translate3D_point(p) for p in self.points]
 
     def find_intersec(self, p1, p2):
         return []

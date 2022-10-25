@@ -1,10 +1,11 @@
 from Lab6.projections import *
 from src.point import Point
 from Lab6.point3D import Point3D
-from Lab6.line3D import Line3D
-from Lab6.cube import Cube
-from Lab6.tetrahedron import Tetrahedron
-from Lab6.octahedron import Octahedron
+from Lab6.figures.line3D import Line3D
+from Lab6.figures.cube import Cube
+from Lab6.figures.tetrahedron import Tetrahedron
+from Lab6.figures.octahedron import Octahedron
+from Lab6.figures.icosahedron import Icosahedron
 
 class SideMenu_Controller():
     def __init__(self, renderer, scene):
@@ -15,7 +16,7 @@ class SideMenu_Controller():
             "3D perspective": perspective_projection(),
             "3D aksonometric": akso_projection(),
         }
-        self.figures_names = ["Point", "Line", "Cube", "Tetrahedron", "Octahedron"]
+        self.figures_names = ["Point", "Line", "Cube", "Tetrahedron", "Octahedron", "Icosahedron"]
         self.renderer = renderer
         self.scene = scene
 
@@ -32,15 +33,17 @@ class SideMenu_Controller():
 
     def draw_figure(self):
         if self.figure_name == "Point":
-            self.scene.add_figure(Point3D(Point(50, 50, 50), (255, 0, 0)))
+            self.scene.add_figure(Point3D(Point(0, 50, 0), (255, 0, 0)))
         elif self.figure_name == "Line":
-            self.scene.add_figure(Line3D([Point(100, 0, 0), Point(0, 0, 0)]))
+            self.scene.add_figure(Line3D(Point(100, 0, 0), Point(0, 0, 0)))
         elif self.figure_name == "Cube":
             self.scene.add_figure(Cube(Point(50,50,50), 100))
         elif self.figure_name == "Tetrahedron":
             self.scene.add_figure(Tetrahedron(Point(50,50,50), 100))
         elif self.figure_name == "Octahedron":
             self.scene.add_figure(Octahedron(Point(50,50,50), 100))
+        elif self.figure_name == "Icosahedron":
+            self.scene.add_figure(Icosahedron(Point(50,50,50), 100))
         self.renderer.render_scene(self.scene)
 
     

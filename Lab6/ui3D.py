@@ -2,8 +2,6 @@ from src.UI import UI_base
 from Lab6.side_menu import SideMenu
 from Lab6.sidemenu_controller import SideMenu_Controller
 
-from src.point import Point
-from Lab6.line3D import Line3D
 from Lab6.selector3D import RectSelector3DMode
 from Lab6.scaler3D import ScalerMode3D
 from Lab6.mover3D import MoverMode3D
@@ -47,10 +45,4 @@ class UI3D(UI_base):
 
     def del_figures(self):
         self.scene.clear()
-        """ self.add_axes() """
-
-    """ def add_axes(self):
-        self.scene.add_figure(Line3D([Point(500,0,0), Point(-500,0,0)], (255,0,0)))
-        self.scene.add_figure(Line3D([Point(0,-500,0), Point(0,500,0)], (0,255,0)))
-        self.scene.add_figure(Line3D([Point(0,0,500), Point(0,0,-500)], (0,0,255)))
-        self.renderer.render_scene(self.scene) """
+        self.renderer.render_scene(self.scene)
