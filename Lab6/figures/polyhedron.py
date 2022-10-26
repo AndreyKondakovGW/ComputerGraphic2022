@@ -1,3 +1,4 @@
+from turtle import color
 from src.figure import Figure
 from src.point import face_midpoint
 
@@ -8,6 +9,8 @@ class Polyhedron(Figure):
 
     def draw(self, renderer):
         super().draw(renderer)
+        for point in self.points:
+            renderer.draw_point(point, color = (255, 0, 0))
         for face in self.faces:
             face.draw(renderer)
 
@@ -33,6 +36,7 @@ class Face3D(Figure):
     def draw(self, renderer):
         super().draw(renderer)
         for edge in self.edges:
+            edge.brush_color = self.brush_color
             edge.draw(renderer)
 
     def select(self):

@@ -48,8 +48,6 @@ class Octahedron(Polyhedron):
 
 
     def create_points(self):
-        self.points = []
-
         cube = Cube(self.center, self.size, self.brush_color)
         for face in cube.faces:
             self.points.append(face.get_center())
