@@ -6,6 +6,7 @@ import os
 from .renderer import Renderer
 from .scene import Scene
 
+
 class UI_base(Tk):
     def __init__(self, titel="Painter", width=0, height=0):
         super().__init__()

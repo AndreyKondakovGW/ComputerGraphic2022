@@ -7,7 +7,7 @@ from Lab6.scaler3D import ScalerMode3D
 from Lab6.mover3D import MoverMode3D
 from Lab6.rotator3D import RotatorMode3D
 from Lab6.mirror import MirrorMode3D
-
+from Lab6.mouseRotator import MouseRotatorMode3D
 class UI3D(UI_base):
     def __init__(self):
         super().__init__()
@@ -27,7 +27,7 @@ class UI3D(UI_base):
         self.controller.add_mode("selectrectangle", RectSelector3DMode(self.renderer, self.scene))
         self.controller.add_mode("move", MoverMode3D(self.renderer, self.scene))
         self.controller.add_mode("scale", ScalerMode3D(self.renderer, self.scene))
-        self.controller.add_mode("rotate", RotatorMode3D(self.renderer, self.scene))
+        self.controller.add_mode("rotate", MouseRotatorMode3D(self.renderer, self.scene))
         self.controller.add_mode("mirror", MirrorMode3D(self.renderer, self.scene))
         self.side_menue_controller = SideMenu_Controller(self.renderer, self.scene)
         self.side_menue_layout = SideMenu(self.side_menue_controller)

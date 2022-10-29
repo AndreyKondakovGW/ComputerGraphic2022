@@ -7,4 +7,3 @@ from Lab6.ui3D import UI3D
 if __name__ == '__main__':
     ui = UI3D()
     ui.run()
-

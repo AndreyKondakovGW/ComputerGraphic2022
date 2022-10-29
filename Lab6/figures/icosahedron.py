@@ -32,17 +32,17 @@ class Icosahedron(Polyhedron):
         self.faces.append(Face3D([self.edges[14], self.edges[10], self.edges[19]], self.brush_color))        
 
         #belt
-        self.faces.append(Face3D([self.edges[20], self.edges[21], self.edges[17]], (255, 0 ,0)))#10
-        self.faces.append(Face3D([self.edges[21], self.edges[22], self.edges[5]], (255, 0 ,0)))
-        self.faces.append(Face3D([self.edges[22], self.edges[23], self.edges[16]], (255, 0 ,0)))
-        self.faces.append(Face3D([self.edges[23], self.edges[24], self.edges[6]], (255, 0 ,0)))
-        self.faces.append(Face3D([self.edges[24], self.edges[25], self.edges[15]], (255, 0 ,0)))
+        self.faces.append(Face3D([self.edges[20], self.edges[21], self.edges[17]], self.brush_color))#10
+        self.faces.append(Face3D([self.edges[21], self.edges[22], self.edges[5]], self.brush_color))
+        self.faces.append(Face3D([self.edges[22], self.edges[23], self.edges[16]], self.brush_color))
+        self.faces.append(Face3D([self.edges[23], self.edges[24], self.edges[6]], self.brush_color))
+        self.faces.append(Face3D([self.edges[24], self.edges[25], self.edges[15]], self.brush_color))
 
-        self.faces.append(Face3D([self.edges[25], self.edges[26], self.edges[7]], (255, 0 ,0)))
-        self.faces.append(Face3D([self.edges[26], self.edges[27], self.edges[19]], (255, 0 ,0)))
-        self.faces.append(Face3D([self.edges[27], self.edges[28], self.edges[8]], (255, 0 ,0)))
-        self.faces.append(Face3D([self.edges[28], self.edges[29], self.edges[18]], (255, 0 ,0)))
-        self.faces.append(Face3D([self.edges[29], self.edges[20], self.edges[9]], (255, 0 ,0)))
+        self.faces.append(Face3D([self.edges[25], self.edges[26], self.edges[7]], self.brush_color))
+        self.faces.append(Face3D([self.edges[26], self.edges[27], self.edges[19]], self.brush_color))
+        self.faces.append(Face3D([self.edges[27], self.edges[28], self.edges[8]], self.brush_color))
+        self.faces.append(Face3D([self.edges[28], self.edges[29], self.edges[18]], self.brush_color))
+        self.faces.append(Face3D([self.edges[29], self.edges[20], self.edges[9]], self.brush_color))
 
 
     
@@ -86,5 +86,5 @@ class Icosahedron(Polyhedron):
             y = self.size  * sin(2 * pi * i / 5)
             self.points.append(self.center + Point(-x, self.size / 2, y))
 
-        self.points.append(self.center + Point(0, -3 * self.size / 2, 0))
-        self.points.append(self.center + Point(0, 3 * self.size / 2, 0))
+        self.points.append(self.center + Point(0, -5 * self.size / 4, 0))
+        self.points.append(self.center + Point(0, 5 * self.size / 4, 0))
