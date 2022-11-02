@@ -9,15 +9,16 @@ from Lab6.figures.icosahedron import Icosahedron
 from Lab6.figures.dodecahedron import Dodecahedron
 
 class SideMenu_Controller():
-    def __init__(self, renderer, scene):
+    def __init__(self, renderer, scene, loader):
         self.mode_name = "2D"
         self.instrument_name = "Point"
+        self.loader = loader
         self.mode_projection = {
             "2D": simple2D_projection(),
             "3D perspective": perspective_projection(),
             "3D aksonometric": akso_projection(),
         }
-        self.figures_names = ["Point", "Line", "Cube", "Tetrahedron", "Octahedron", "Icosahedron", "Dodecahedron"]
+        self.figures_names = ["Point", "Line", "Cube", "Tetrahedron", "Octahedron", "Icosahedron", "Dodecahedron", "Load Figure"]
         self.renderer = renderer
         self.scene = scene
 
@@ -47,6 +48,9 @@ class SideMenu_Controller():
             self.scene.add_figure(Icosahedron(Point(50,50,50), 100))
         elif self.figure_name == "Dodecahedron":
             self.scene.add_figure(Dodecahedron(Point(50,50,50), 100))
+        elif self.figure_name == "Load Figure":
+            res = self.loader.open_file()
+            self.scene.add_figure(res)
         self.renderer.render_scene(self.scene)
 
     
