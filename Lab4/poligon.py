@@ -1,6 +1,7 @@
 from .mouseLine import MouseLine
 from .functions import *
 from src.figure import Figure
+from src.point import Point
 from src.controller_mode import ControllerMode
 
 from .line_intersector import draw_intersections_with_line
@@ -20,7 +21,7 @@ class PoligonMode(ControllerMode):
 
     def hanble_press(self, event):
         if self.last_poli_point is None:
-            self.last_poli_point = (event.x, event.y)
+            self.last_poli_point = Point(event.x, event.y)
             self.points.append(self.last_poli_point)
             self.canvas.storage.add_figure(MouseLine(self.points, self.brush_color))
         else:
@@ -31,8 +32,8 @@ class PoligonMode(ControllerMode):
                 self.points = []
                 self.canvas.redraw()
             else:
-                self.points.append((event.x, event.y))
-                self.canvas.storage.figs[-1].points.append((event.x, event.y))
+                self.points.append(Point(event.x, event.y))
+                self.canvas.storage.figs[-1].points.append(Point(event.x, event.y))
 
     def point_is_poli_vertex(self, p):
         x0, y0 = p
@@ -71,7 +72,7 @@ class Polygon(Figure):
             canvas.draw_line(seg_p1, seg_p2, right_color)
 
     def segments(self):
-        round_points = [(round(p[0]), round(p[1])) for p in self.points]
+        round_points = [(round(p.x), round(p.y)) for p in self.points]
         segments = []
         for i in range(len(round_points) - 1):
             seg = (round_points[i], round_points[i + 1])

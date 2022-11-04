@@ -5,6 +5,7 @@ from .controller import UI_controller
 import os
 from .renderer import Renderer
 from .scene import Scene
+from .storage_canvas import StorageCanvas
 
 
 class UI_base(Tk):
@@ -40,8 +41,11 @@ class UI_base(Tk):
 
         self.scene = Scene()
     
-    def create_canvas(self):
-        self.canv = MyCanvas(self, width=self.win_width, height=self.win_height, bg="white")
+    def create_canvas(self, use_storage=False):
+        if use_storage:
+            self.canv = StorageCanvas(self, width=self.win_width, height=self.win_height, bg="white")
+        else:
+            self.canv = MyCanvas(self, width=self.win_width, height=self.win_height, bg="white")
         self.canv.grid(row=1, column=2)
         self.controller.set_canvas(self.canv)
 

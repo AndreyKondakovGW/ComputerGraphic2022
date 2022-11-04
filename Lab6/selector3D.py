@@ -1,4 +1,5 @@
 from src.controller_mode import ControllerMode
+from src.point import Point
 
 class RectSelector3DMode(ControllerMode):
     def __init__(self, renderer,scene, color=(0,0,0)):
@@ -11,7 +12,7 @@ class RectSelector3DMode(ControllerMode):
 
     def hanble_moution(self, event):
         if self.should_draw:
-            x1, y1 = self.p0
+            x1, y1 = self.p0.x, self.p0.y
             x2, y2 = event.x, event.y
 
             self.renderer.render_scene(self.scene)
@@ -22,7 +23,7 @@ class RectSelector3DMode(ControllerMode):
 
     def hanble_press(self, event):
         self.should_draw = True
-        self.p0 = (event.x, event.y)
+        self.p0 = Point(event.x, event.y)
         for fig in self.scene.storage:
             fig.deselect()
         self.renderer.render_scene(self.scene)
@@ -30,7 +31,7 @@ class RectSelector3DMode(ControllerMode):
     def hanble_release(self, event):
         if self.should_draw:
             for fig in self.scene.storage:
-                if fig.in_rect(self.p0, (event.x, event.y)):
+                if fig.in_rect(self.p0, Point(event.x, event.y)):
                     fig.select()
                 else:
                     fig.deselect()

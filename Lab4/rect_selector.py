@@ -1,4 +1,5 @@
 from src.controller_mode import ControllerMode
+from src.point import Point
 
 class RectSelectorMode(ControllerMode):
     def __init__(self, canvas, color=(0,0,0)):
@@ -9,7 +10,7 @@ class RectSelectorMode(ControllerMode):
 
     def hanble_moution(self, event):
         if self.should_draw:
-            x1, y1 = self.p0
+            x1, y1 = self.p0.x, self.p0.y
             x2, y2 = event.x, event.y
 
             self.canvas.redraw()
@@ -20,12 +21,12 @@ class RectSelectorMode(ControllerMode):
 
     def hanble_press(self, event):
         self.should_draw = True
-        self.p0 = (event.x, event.y)
+        self.p0 = Point(event.x, event.y)
         self.canvas.storage.apply(lambda fig: fig.deselect())
 
     def hanble_release(self, event):
         if self.should_draw:
-            self.canvas.storage.apply(lambda fig: fig.select() if fig.in_rect(self.p0, (event.x, event.y)) else fig.deselect())
+            self.canvas.storage.apply(lambda fig: fig.select() if fig.in_rect(self.p0, Point(event.x, event.y)) else fig.deselect())
             self.should_draw = False
             self.p0 = None
             self.canvas.redraw()

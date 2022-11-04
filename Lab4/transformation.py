@@ -1,6 +1,7 @@
 from math import radians, sin, cos
 
 import numpy as np
+from src.point import Point
 
 
 # class AffineTranslation:
@@ -38,44 +39,44 @@ def translation(fig, dx, dy):
     m = translation_matrix(dx, dy)
     new_points = list()
     for point in fig.points:
-        p1, p2 = point
+        p1, p2 = point.x, point.y
         point1 = np.dot([p1, p2, 1], m)
-        new_points.append((point1[0], point1[1]))
+        new_points.append(Point(point1[0], point1[1]))
     fig.points = new_points
 
 
-def rotation(fig, angle, point=(-1, -1)):
+def rotation(fig, angle, point=Point(-1, -1)):
     m = rotate_matrix(angle)
     new_points = list()
-    if (-1, -1) == point:
+    if Point(-1, -1) == point:
         point = centroid(fig.points)
-    translation(fig, -point[0], -point[1])
+    translation(fig, -point.x, -point.y)
     for point_f in fig.points:
-        p1, p2 = point_f
+        p1, p2 = point_f.x, point_f.y
         point1 = np.dot([p1, p2, 1], m)
-        new_points.append((point1[0], point1[1]))
+        new_points.append(Point(point1[0], point1[1]))
     fig.points = new_points
-    translation(fig, point[0], point[1])
+    translation(fig, point.x, point.y)
 
 
-def scaling(fig, kx, ky, point=(-1, -1)):
+def scaling(fig, kx, ky, point=Point(-1, -1)):
     m = scale_matrix(kx, ky)
     new_points = list()
-    if (-1, -1) == point:
+    if Point(-1, -1) == point:
         point = centroid(fig.points)
-    translation(fig, -point[0], -point[1])
+    translation(fig, -point.x, -point.y)
     for point_f in fig.points:
-        p1, p2 = point_f
+        p1, p2 = point_f.x, point_f.y
         point1 = np.dot([p1, p2, 1], m)
-        new_points.append((point1[0], point1[1]))
+        new_points.append(Point(point1[0], point1[1]))
     fig.points = new_points
-    translation(fig, point[0], point[1])
+    translation(fig, point.x, point.y)
 
 
 def centroid(vertexes):
-    _x_list = [vertex[0] for vertex in vertexes]
-    _y_list = [vertex[1] for vertex in vertexes]
+    _x_list = [vertex.x for vertex in vertexes]
+    _y_list = [vertex.y for vertex in vertexes]
     _len = len(vertexes)
     _x = sum(_x_list) / _len
     _y = sum(_y_list) / _len
-    return (_x, _y)
+    return Point(_x, _y)

@@ -37,7 +37,7 @@ if __name__ == "__main__":
     ui.add_button("Delete", lambda: ui.canv.delete_selected(), icon_name='eraser.png')
     ui.add_button("Clear", lambda: ui.canv.delete_content(), icon_name='bin.png')
     
-    ui.create_canvas()
+    ui.create_canvas(use_storage=True)
     ui.controller.add_mode("dot", DotMode(ui.canv))
     ui.controller.add_mode("drawline", LineMode(ui.canv, line_type="bresenchem"))
     ui.controller.add_mode("drawlinewu", LineMode(ui.canv, line_type="wu"))

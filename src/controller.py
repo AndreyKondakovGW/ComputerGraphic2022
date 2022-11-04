@@ -19,6 +19,7 @@ class UI_controller():
     def switch_mode(self, mode_name):
         self.current_mode.set_default_params()
         self.current_mode = self.modes.get(mode_name, ControllerMode())
+        self.current_mode.init_params()
     
     def hanble_moution(self, event):
         if event.widget == self.canvas:

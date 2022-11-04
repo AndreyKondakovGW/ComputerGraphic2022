@@ -2,6 +2,7 @@ from .line_intersector import draw_intersections_with_line
 from src.figure import Figure
 from src.controller_mode import ControllerMode
 from functions import *
+from src.point import Point
 
 class LineMode(ControllerMode):
     def __init__(self, canvas, color = (0,0,0), line_type="bresenchem"):
@@ -21,10 +22,10 @@ class LineMode(ControllerMode):
 
     def hanble_press(self, event):
         if self.p0 is None:
-            self.p0 = (event.x, event.y)
+            self.p0 = Point(event.x, event.y)
             self.points.append(self.p0)
         else:
-            self.points.append((event.x, event.y))
+            self.points.append(Point(event.x, event.y))
             self.canvas.storage.add_figure(Line(self.points, self.brush_color))
 
             self.points = []

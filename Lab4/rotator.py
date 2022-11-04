@@ -1,6 +1,7 @@
 from .functions import *
 from .transformation import *
 from src.controller_mode import ControllerMode
+from src.point import Point
 
 def rotate_figure(fig, angle, point, max_height, max_width):
     old_points = fig.points
@@ -18,11 +19,11 @@ class RotatorMode(ControllerMode):
         if self.p0 is not None:
             point = self.p0
         else:
-            point = (-1, -1)
+            point = Point(-1, -1)
         angle = event.delta // 120
         max_height, max_width = self.canvas.height, self.canvas.width
         self.canvas.storage.apply(lambda fig: rotate_figure(fig, angle, point, max_height, max_width))
         self.canvas.redraw()
 
     def hanble_press(self, event):
-        self.p0 = (event.x, event.y)
+        self.p0 = Point(event.x, event.y)

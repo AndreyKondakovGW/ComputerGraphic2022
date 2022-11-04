@@ -17,22 +17,10 @@ class MyCanvas(Canvas):
     def create_image(self, state="normal"):
         self.image = PhotoImage(width=self.width, height=self.height)
         super().create_image((self.width / 2, self.height / 2), image=self.image, state=state)
-
-    def redraw(self):
-        self.clear()
-        self.storage.draw(self)
-
-    def delete_content(self):
-        self.storage.delete_all()
-        self.clear()
     
     def clear(self):
         self.delete('all')
         self.create_image()
-
-    def delete_selected(self):
-        self.storage.delete_selected()
-        self.redraw()
 
     def draw_circle(self, x, y, r=10, color=(255, 0, 0)):
         rx, ry = round(x),round(y)

@@ -4,7 +4,10 @@ class ControllerMode:
 
     def set_default_params(self):
         pass
-    
+
+    def init_params(self):
+        pass
+
     def hanble_moution(self, event):
         pass
 

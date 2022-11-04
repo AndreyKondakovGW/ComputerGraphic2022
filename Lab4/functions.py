@@ -54,8 +54,8 @@ def find_lines_intersection(p1, p2, p3, p4):
 
 def point_in_rect(p, p1, p2):
     x, y = p.x, p.y
-    x1, y1 = p1
-    x2, y2 = p2
+    x1, y1 = p1.x, p1.y
+    x2, y2 = p2.x, p2.y
     if x < min(x1, x2) or x > max(x1, x2) or y < min(y1, y2) or y > max(y1, y2):
         return False
     return True
@@ -68,9 +68,9 @@ def intersection_with_scope(f, max_height, max_width):
            or f.find_intersec((max_width, 0), (max_width, max_height))
         
 def point_from_left(point, seg_p1, seg_p2):
-    x, y = point
-    x1, y1 = seg_p1
-    x2, y2 = seg_p2
+    x, y = point.x, point.y
+    x1, y1 = seg_p1.x, seg_p1.y
+    x2, y2 = seg_p2.x, seg_p2.y
     return (y2 - y1) * (x - x1) - (x2 - x1) * (y - y1) > 0
 
 def point_from_right(point, seg_p1, seg_p2):
