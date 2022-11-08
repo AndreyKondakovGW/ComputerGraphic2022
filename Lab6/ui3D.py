@@ -10,6 +10,7 @@ from Lab6.mirror import MirrorMode3D
 from Lab6.mouseRotator import MouseRotatorMode3D
 
 from Lab7.obj_parser import ObjParser
+
 class UI3D(UI_base):
     def __init__(self):
         super().__init__()

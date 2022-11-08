@@ -18,19 +18,18 @@ class SideMenu_Controller():
             "3D perspective": perspective_projection(),
             "3D aksonometric": akso_projection(),
         }
-        self.figures_names = ["Point", "Line", "Cube", "Tetrahedron", "Octahedron", "Icosahedron", "Dodecahedron", "Load Figure"]
+        self.figures_names = ["Point", "Line", "Cube", "Tetrahedron", 
+                              "Octahedron", "Icosahedron", "Dodecahedron", "Load Figure"]
         self.renderer = renderer
         self.scene = scene
 
 
-    def mode_update(self, event):
-        mode_name = event.widget.get()
+    def set_mode(self, mode_name):
         self.mode_name = mode_name
         self.renderer.set_projection(self.mode_projection[mode_name])
         self.renderer.render_scene(self.scene)
 
-    def figure_update(self, event):
-        figure_name = event.widget.get()
+    def set_figure(self, figure_name):
         self.figure_name = figure_name
 
     def draw_figure(self):
