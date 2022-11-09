@@ -1,5 +1,6 @@
 from Lab6.ui3D import UI3D
 from Lab7.obj_parser import ObjParser
+from Lab7.function_plotter import plot
 
 class UI7(UI3D):
     def __init__(self):
@@ -13,3 +14,4 @@ class UI7(UI3D):
     def init_sidemenu_instruments(self):
         super().init_sidemenu_instruments()
         self.side_menu_controller.add_instrument("Load Figure", lambda: self.loader.open_file())
+        self.side_menu_controller.add_instrument("Plot", lambda: plot(self, 10))
