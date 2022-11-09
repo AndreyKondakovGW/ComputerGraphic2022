@@ -21,7 +21,7 @@ class UI_base(Tk):
         else:
             self.win_height = height
 
-        self.icons_folder = os.path.join(os.getcwd(), 'static', 'icons')
+        self.icons_folder = 'C:/Users/InkReD/PycharmProjects/ComputerGraphic2022/static/icons'
 
         photo = PhotoImage(file = os.path.join(self.icons_folder, "rat.png"))
         self.wm_iconphoto(False, photo)
