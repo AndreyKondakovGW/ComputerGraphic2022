@@ -64,6 +64,8 @@ def rotate(points, a, dir, angle):
 def normalize_vector_tuple(vector_tuple):
     x, y, z = vector_tuple[0], vector_tuple[1], vector_tuple[2]
     l = (x**2 + y**2 + z**2)**0.5
+    if l == 0:
+        return (0, 0, 0)
     return (x/l, y/l, z/l)
 
 def scale(points, kx, ky, kz, scaling_center=None):

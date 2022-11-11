@@ -2,8 +2,8 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
-from Lab6.ui3D import UI3D
+from Lab7.ui import UI7
 
 if __name__ == '__main__':
-    ui = UI3D()
+    ui = UI7()
     ui.run()
