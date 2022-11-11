@@ -9,10 +9,12 @@ class Polyhedron(Figure):
 
     def draw(self, renderer):
         super().draw(renderer)
-        """ for point in self.points:
-            renderer.draw_point(point, color = (255, 0, 0)) """
         for face in self.faces:
             face.draw(renderer)
+
+    def mark_undrawed(self):
+        for face in self.faces:
+            face.mark_undrawed()
 
     def select(self):
         super().select()
@@ -43,9 +45,6 @@ class Face3D(Figure):
                     p1 = edge.points[0]
                     break
             
-        # for edge in edges:
-        #     self.points.append(edge.points[0])
-        #     self.points.append(edge.points[1])
         self.points = list(dict.fromkeys(self.points))
 
     def draw(self, renderer):
@@ -53,6 +52,10 @@ class Face3D(Figure):
         for edge in self.edges:
             edge.brush_color = self.brush_color
             edge.draw(renderer)
+
+    def mark_undrawed(self):
+        for edge in self.edges:
+            edge.drawed = False
 
     def select(self):
         super().select()

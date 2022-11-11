@@ -13,11 +13,11 @@ class UI_base(Tk):
         super().__init__()
         self.variables = []
         if width == 0:
-            self.win_width = self.winfo_screenwidth() // 2
+            self.win_width = self.winfo_screenwidth()
         else:
             self.win_width = width
         if height == 0:
-            self.win_height = self.winfo_screenheight() // 2
+            self.win_height = self.winfo_screenheight()
         else:
             self.win_height = height
 

@@ -16,10 +16,10 @@ class Renderer:
 
     def render_scene(self, scene):
         self.canvas.clear()
-
         self.show_grid()
         self.draw_axes()
         for figure in scene.storage:
+            figure.mark_undrawed()
             figure.draw(self)
 
     def draw_axes(self):
