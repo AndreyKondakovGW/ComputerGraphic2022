@@ -65,10 +65,10 @@ def get_plot_polygon(function: Function3D, points_along_axis_count: int, color=(
     polygon = Polyhedron(color)
     for i in range(0, len(xs) - 1):
         for j in range(0, len(ys) - 1):
-            p1 = Point(xs[i], ys[j], fm[i][j])
-            p2 = Point(xs[i+1], ys[j], fm[i+1][j])
-            p3 = Point(xs[i+1], ys[j+1], fm[i+1][j+1])
-            p4 = Point(xs[i], ys[j+1], fm[i][j+1])
+            p1 = Point(xs[i], fm[i][j], ys[j])
+            p2 = Point(xs[i+1], fm[i+1][j], ys[j])
+            p3 = Point(xs[i+1], fm[i+1][j+1], ys[j+1])
+            p4 = Point(xs[i], fm[i][j+1], ys[j+1])
             polygon.points.append(p1)
             polygon.points.append(p2)
             polygon.points.append(p3)
