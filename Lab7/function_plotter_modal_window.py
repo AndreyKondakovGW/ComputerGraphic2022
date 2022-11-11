@@ -1,4 +1,5 @@
 from tkinter import Tk, Toplevel, Label, Frame, Entry, Button
+from math import *
 
 class FunctionPlotterModalWindow:
     def __init__(self, root: Tk):
