@@ -8,7 +8,6 @@ from Indv_Kondakov.delaunayMode import TriangulationMode
 from Lab4.rect_selector import RectSelectorMode
 
 if __name__ == "__main__":
-
     ui = src.UI.UI_base(titel="RatPainter")
     ui.add_button("Dot", lambda: ui.controller.switch_mode("dot"), icon_name='dot-circle.png')
     ui.add_button("Delanay", lambda: ui.controller.switch_mode("delanay"), icon_name='poligon.png')

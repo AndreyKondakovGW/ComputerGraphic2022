@@ -81,7 +81,6 @@ class UI_base(Tk):
         self.button_num += 1
 
     def add_side_menue(self):
-
         pass
     def run(self):
         self.mainloop()
