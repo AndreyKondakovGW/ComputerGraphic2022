@@ -7,9 +7,13 @@ class Figure:
         self.selected = False
         self.points = []
         self.canvas_points = []
+        self.drawed = False
 
     def draw(self, renderer):
         self.canvas_points = [renderer.translate3D_point(p) for p in self.points]
+
+    def mark_undrawed(self):
+        pass
 
     def find_intersec(self, p1, p2):
         return []
