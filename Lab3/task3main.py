@@ -2,7 +2,10 @@ from math import *
 import re
 from tkinter import *
 from tkinter import ttk
-from draw_line import *
+if __name__ == '__main__':
+    from draw_line import *
+if __name__ != "__main__":
+    from Lab3.draw_line import *
 
 def get_point_inline(p, p1, p2, c1, c2):
     x, y = p
