@@ -9,6 +9,9 @@ def next_point_in_line(current_p: PointWithColor, line_p1: PointWithColor, line_
     x1, y1, z1 = line_p1.x, line_p1.y, line_p1.z
     x2, y2, z2 = line_p2.x, line_p2.y, line_p2.z
     
+    if x1 == x2:
+        return line_p1
+
     c1 = line_p1.color
     c2 = line_p2.color
 
@@ -30,12 +33,13 @@ def get_vertical_line_points(p1: PointWithColor, p2: PointWithColor):
     c2 = p2.color
 
     # debug, should throw error
-    # if x1 != x2:
-    #     print("x1 != x2")
-    #     return None
+    if x1 != x2:
+        print(f"{x1} != {x2}")
+        # return None
 
     if y1 > y2:
         y1, y2 = y2, y1
+        z1, z2 = z2, z1
         c1, c2 = c2, c1
 
     res = []
@@ -63,6 +67,27 @@ def raster_triangle(p1: PointWithColor, p2: PointWithColor, p3: PointWithColor):
 
     res_points = []
 
+    if (op == p1):
+        ostart = p2
+        oend = p3
+        ap = p1
+        while ((ap != aend)):
+            vertical_line_points = get_vertical_line_points(op, ap)
+            res_points.extend(vertical_line_points)
+            op = next_point_in_line(op, ostart, oend)
+            ap = next_point_in_line(ap, astart, aend)
+        return res_points
+    if (ap == p1):
+        ostart = p3
+        oend = p2
+        op = p1
+        while ((op != oend)):
+            vertical_line_points = get_vertical_line_points(op, ap)
+            res_points.extend(vertical_line_points)
+            op = next_point_in_line(op, ostart, oend)
+            ap = next_point_in_line(ap, astart, aend)
+        return res_points
+
     while ((op != oend) and (ap != aend)):
         vertical_line_points = get_vertical_line_points(op, ap)
         res_points.extend(vertical_line_points)
@@ -82,6 +107,8 @@ def raster_triangle(p1: PointWithColor, p2: PointWithColor, p3: PointWithColor):
         if (ap == p3):
             ostart = p3
             oend = p2
+            # astart = p3
+            # aend = p2
             while ((op != oend)):
                 vertical_line_points = get_vertical_line_points(op, ap)
                 res_points.extend(vertical_line_points)

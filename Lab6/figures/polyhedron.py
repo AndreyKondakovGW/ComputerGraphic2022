@@ -59,7 +59,7 @@ class Face3D(Figure):
             edge.drawed = False
 
     def select(self):
-        super().select()
+        #super().select()
         for edge in self.edges:
             edge.select()
 
