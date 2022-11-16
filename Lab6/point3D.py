@@ -4,6 +4,7 @@ from src.point import Point
 class Point3D(Figure):
     def __init__(self, point, color=(0, 0, 0)):
         super().__init__(color)
+        self.points.append(point)
         self.point = point
 
     def draw(self, drawer):

@@ -1,6 +1,6 @@
 from src.UI import UI_base
 from Lab6.side_menu import SideMenu
-from Lab6.sidemenu_controller import SideMenuController
+from Lab6.sidemenu_controller import SideMenu_Controller
 
 from Lab6.selector3D import RectSelector3DMode
 from Lab6.scaler3D import ScalerMode3D
@@ -57,7 +57,7 @@ class UI3D(UI_base):
         self.controller.add_mode("mirror", MirrorMode3D(self.renderer, self.scene))
 
     def init_sidemenu(self):
-        self.side_menu_controller = SideMenuController(self.renderer, self.scene, "2D", "Point")
+        self.side_menu_controller = SideMenu_Controller(self.renderer, self.scene, "2D", "Point")
         self.init_sidemenu_modes()
         self.init_sidemenu_instruments()
         self.side_menu_layout = SideMenu(self.side_menu_controller)

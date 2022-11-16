@@ -14,7 +14,7 @@ class TriangulationMode(ControllerMode):
             if isinstance(fig, Dot) and fig.selected:
                 points_list += fig.points
         
-        triangeles = triangulate_delaunay_auto(points_list, self.canvas)
+        triangeles = triangulate_delaunay(points_list)
 
         for t in triangeles:
             self.canvas.storage.add_figure(Polygon(t, self.brush_color))

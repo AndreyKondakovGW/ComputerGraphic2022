@@ -14,4 +14,4 @@ class UI7(UI3D):
     def init_sidemenu_instruments(self):
         super().init_sidemenu_instruments()
         self.side_menu_controller.add_instrument("Load Figure", lambda: self.loader.open_file())
-        self.side_menu_controller.add_instrument("Plot", lambda: plot(self, 10))
+        self.side_menu_controller.add_instrument("Plot", lambda: plot(self, 20))
