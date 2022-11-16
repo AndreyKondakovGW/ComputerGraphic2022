@@ -12,6 +12,8 @@ class PolyRenderer(Renderer):
         self.camera_height = canvas.winfo_height()
         self.colors_buffer = [[None for _ in range(self.camera_height)] for _ in range(self.camera_width)]
         self.z_buffer = [[math.inf for _ in range(self.camera_height)] for _ in range(self.camera_width)]
+        self.should_draw_lines = False
+        self.show_axis = True
         
     def clear_buffers(self):
         self.colors_buffer = [[None for _ in range(self.camera_height)] for _ in range(self.camera_width)]
@@ -26,8 +28,19 @@ class PolyRenderer(Renderer):
                 if color is not None:
                     self.canvas.put_pixel(x, y, color)
 
+    def show_grid(self):
+        self.should_draw_lines = self.show_axis
+        super().show_grid()
+        self.should_draw_lines = False
+
+    def draw_axes(self):
+        self.should_draw_lines = self.show_axis
+        super().draw_axes()
+        self.should_draw_lines = False
+
     def draw_line(self, points, color=(0,0,0), thickness=2):
-        super().draw_line(points, color, thickness)
+        if self.should_draw_lines:
+            super().draw_line(points, color, thickness)
         # pass
 
     def draw_face(self, face):
