@@ -67,6 +67,7 @@ class UI3D(UI_base):
         self.side_menu_controller.add_mode("2D", simple2D_projection())
         self.side_menu_controller.add_mode("3D perspective", perspective_projection())
         self.side_menu_controller.add_mode("3D aksonometric", akso_projection())
+        self.side_menu_controller.add_mode("Camera", None)
 
     def init_sidemenu_instruments(self):
         self.side_menu_controller.add_instrument("Point", lambda: Point3D(Point(0, 50, 0), (255, 0, 0)))
@@ -81,6 +82,13 @@ class UI3D(UI_base):
         self.bind("<x>", self.controller.hanble_x)
         self.bind("<y>", self.controller.hanble_y)
         self.bind("<z>", self.controller.hanble_z)
+        
+        self.bind("<w>", self.controller.hanble_w)
+        self.bind("<a>", self.controller.hanble_a)
+        self.bind("<s>", self.controller.hanble_s)
+        self.bind("<d>", self.controller.hanble_d)
+        self.bind("<q>", self.controller.hanble_q)
+        self.bind("<e>", self.controller.hanble_e)
 
         self.bind("<Left>", self.controller.hanble_left)
         self.bind("<Right>", self.controller.hanble_right)
@@ -88,3 +96,7 @@ class UI3D(UI_base):
     def del_figures(self):
         self.scene.clear()
         self.renderer.render_scene(self.scene)
+
+    def create_camera(self, pos, target):
+        super().create_camera(pos, target)
+        self.side_menu_controller.camera = self.camera

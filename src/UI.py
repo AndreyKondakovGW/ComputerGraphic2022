@@ -6,6 +6,7 @@ import os
 from .renderer import Renderer
 from .scene import Scene
 from .storage_canvas import StorageCanvas
+from .camera import Camera
 
 
 class UI_base(Tk):
@@ -50,7 +51,11 @@ class UI_base(Tk):
         self.controller.set_canvas(self.canv)
 
     def create_renderer(self):
-        self.renderer = Renderer(self.canv)
+            self.renderer = Renderer(self.canv)
+
+    def create_camera(self, pos, target):
+        self.camera = Camera(pos, target, self.win_width / self.win_height)
+        #self.renderer.camera = self.camera
 
     def add_button(self, text, command, icon_name=None):
         if icon_name is None:

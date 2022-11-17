@@ -50,6 +50,30 @@ class UI_controller():
     def hanble_z(self, event):
         self.current_mode.hanble_z(event)
 
+    def hanble_w(self, event):
+        self.current_mode.hanble_w(event)
+
+    def hanble_a(self, event):
+        self.current_mode.hanble_a(event)
+
+    def hanble_s(self, event):
+        self.current_mode.hanble_s(event)
+
+    def hanble_d(self, event):
+        self.current_mode.hanble_d(event)
+
+    def hanble_e(self, event):
+        self.current_mode.hanble_e(event)
+    
+    def hanble_q(self, event):
+        self.current_mode.hanble_q(event)
+
+    def hanble_p(self, event):
+        self.current_mode.hanble_p(event)
+
+    def hanble_y(self, event):
+        self.current_mode.hanble_y(event)
+
     def hanble_left(self, event):
         self.current_mode.hanble_left(event)
 

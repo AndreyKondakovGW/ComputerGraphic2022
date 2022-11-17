@@ -7,6 +7,7 @@ class Renderer:
         self.gridX = True
         self.gridY = False
         self.gridZ = False
+        self.camera = None
         self.canvas = canvas
         self.projection = simple2D_projection()
         self.center = Point(self.canvas.width / 2, self.canvas.height / 2)
@@ -16,16 +17,16 @@ class Renderer:
 
     def render_scene(self, scene):
         self.canvas.clear()
-        self.show_grid()
         self.draw_axes()
+        #self.show_grid()
         for figure in scene.storage:
             figure.mark_undrawed()
             figure.draw(self)
 
     def draw_axes(self):
-        self.draw_line([Point(- self.canvas.width , 0, 0), Point(self.canvas.width, 0, 0)], color=(255, 0, 0), thickness = 4)
-        self.draw_line([Point(0, - self.canvas.width, 0), Point(0,  self.canvas.width, 0)], color=(0, 255, 0), thickness = 4)
-        self.draw_line([Point(0, 0, - self.canvas.width), Point(0, 0, self.canvas.width)], color=(0, 0, 255), thickness = 4)
+        self.draw_line([Point(- 200 , 0, 0), Point(200, 0, 0)], color=(255, 0, 0), thickness = 4)
+        self.draw_line([Point(0, - 200, 0), Point(0,  200, 0)], color=(0, 255, 0), thickness = 4)
+        self.draw_line([Point(0, 0, - 200), Point(0, 0, 200)], color=(0, 0, 255), thickness = 4)
 
     def show_grid(self):
         if self.gridX:
@@ -63,10 +64,19 @@ class Renderer:
         self.canvas.draw_circle(point.x, point.y, 3, color=color)
 
     def draw_line(self, points, color=(0, 0, 0), thickness = 2):
-        points = [self.translate3D_point(p) for p in points]
-        self.canvas.draw_line((points[0].x, points[0].y), (points[1].x, points[1].y), color, thickness=thickness)   
+        trans_points = [self.translate3D_point(p) for p in points]
+        self.canvas.draw_line((trans_points[0].x, trans_points[0].y), (trans_points[1].x, trans_points[1].y), color, thickness=thickness)   
 
     def translate3D_point(self, point):
-        p0 = [[point.x, point.y, point.z, 1]]
-        p = np.dot(p0, self.projection)[0]
+        p0 = np.array([[point.x, point.y, point.z, 1]])
+        if self.camera:
+            p0 = p0.T
+            p0 = np.dot(self.camera.lookAtMatrix, p0)
+            p0 = np.dot(self.camera.projection_matrix, p0)
+            p = (p0.T)[0]
+            p[0] = p[0] / p[3]
+            p[1] = p[1] / p[3]
+            return self.center + Point(p[0] * self.canvas.width // 2, -p[1]*self.canvas.height // 2, 0)
+        p0 = np.dot(p0, self.projection)
+        p = p0[0]
         return self.center + Point(p[0] / p[3], -(p[1] / p[3]), 0)

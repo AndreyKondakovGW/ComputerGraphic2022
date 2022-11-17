@@ -19,11 +19,13 @@ class SideMenu_Controller():
             "2D": simple2D_projection(),
             "3D perspective": perspective_projection(),
             "3D aksonometric": akso_projection(),
+            "Camera": None
         }
         self.figures_names = ["Point", "Line", "Cube", "Tetrahedron", "Octahedron", "Icosahedron", "Dodecahedron",
                               "Load Figure"]
         self.renderer = renderer
         self.scene = scene
+        self.camera = None
         self.forming_point = None
         self.axes = ['OX', 'OY', 'OZ']
         self.axis = None
@@ -41,8 +43,13 @@ class SideMenu_Controller():
         self.modes[name] = command
 
     def set_mode(self, mode_name):
-        self.mode_name = mode_name
-        self.renderer.set_projection(self.modes[mode_name])
+        if mode_name == "Camera" and self.camera is not None:
+            self.mode_name = mode_name
+            self.renderer.camera = self.camera
+        else:
+            self.renderer.camera = None
+            self.mode_name = mode_name
+            self.renderer.set_projection(self.modes[mode_name])
         self.renderer.render_scene(self.scene)
 
     def set_instrument(self, instrument_name):
