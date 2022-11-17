@@ -1,3 +1,5 @@
+from tkinter import BooleanVar
+
 from Lab6.projections import *
 from Lab7.rotation_figure import RotationFigure
 from src.point import Point
@@ -29,6 +31,7 @@ class SideMenu_Controller():
         self.axis = None
         self.rotation_axis = None
         self.partition = None
+        self.delete_faces_box = BooleanVar()
 
     def mode_update(self, event):
         mode_name = event.widget.get()
@@ -63,7 +66,7 @@ class SideMenu_Controller():
     def axis_update(self, event):
         axis = event.widget.get()
         self.axis = axis
-    def add_forming_point(self):  # не очень красивый код, но я не придумала лучше
+    def change_rotation_figure(self):
         flag = False
         i = []
         for x in self.scene.storage:
@@ -73,8 +76,8 @@ class SideMenu_Controller():
         if flag:
             for x in i:
                 if x.selected:
-                    x.update_rotation_figure(self.forming_point, self.partition, self.axis)
+                    x.update_rotation_figure(self.forming_point, self.partition, self.axis, self.delete_faces_box.get())
         else:
             self.scene.add_figure(RotationFigure(Point(50, 50, 50), self.axis, self.partition))
-            self.scene.storage[-1].update_rotation_figure(self.forming_point, self.partition, self.axis)
+            self.scene.storage[-1].update_rotation_figure(self.forming_point, self.partition, self.axis, self.delete_faces_box.get())
         self.renderer.render_scene(self.scene)

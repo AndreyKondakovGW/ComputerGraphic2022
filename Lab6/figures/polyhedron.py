@@ -1,6 +1,10 @@
 from turtle import color
+
+import numpy as np
+
 from src.figure import Figure
 from src.point import face_midpoint
+
 
 class Polyhedron(Figure):
     def __init__(self, color):
@@ -24,6 +28,7 @@ class Polyhedron(Figure):
         for face in self.faces:
             face.deselect()
 
+
 class Face3D(Figure):
     def __init__(self, edges, color):
         super().__init__(color)
@@ -42,7 +47,7 @@ class Face3D(Figure):
                     p0 = p1
                     p1 = edge.points[0]
                     break
-            
+
         # for edge in edges:
         #     self.points.append(edge.points[0])
         #     self.points.append(edge.points[1])
@@ -66,3 +71,8 @@ class Face3D(Figure):
 
     def get_center(self):
         return face_midpoint(self.points)
+
+    def update_normal_vector(self):
+        v1 = self.edges[0].points[1] - self.edges[0].points[0]
+        v2 = self.edges[1].points[1] - self.edges[1].points[0]
+        self.normal_vector = np.cross((v1.x,v1.y,v1.z),(v2.x,v2.y,v2.z))

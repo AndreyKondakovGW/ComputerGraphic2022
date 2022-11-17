@@ -87,3 +87,10 @@ def centroid(points):
     y = sum(ys) / l
     z = sum(zs) / l
     return (x, y, z)
+
+
+def cos_between_vectors(v1, v2):
+    dot_pr = v1.dot(v2)
+    norms = np.linalg.norm(v1) * np.linalg.norm(v2)
+
+    return dot_pr / norms

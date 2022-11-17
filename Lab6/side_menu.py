@@ -1,4 +1,4 @@
-from tkinter import Button, Frame, Entry
+from tkinter import Button, Frame, Entry, Checkbutton
 from tkinter.ttk import Combobox, Label
 import re
 
@@ -54,8 +54,12 @@ class SideMenu(Frame):
         self.forming_point_text = Entry(self)
         self.forming_point_text.grid(column=0, row=15)
 
-        self.draw_rot_fig_button = Button(self, text="Добавить точку", command=lambda: input_handler())
+        self.draw_rot_fig_button = Button(self, text="Перерисовать", command=lambda: input_handler())
         self.draw_rot_fig_button.grid(column=0, row= 16)
+
+        self.delete_faces_checkbox = Checkbutton(self, text='Отсечь нелицевые грани', variable=self.controller.delete_faces_box)
+        self.delete_faces_checkbox.grid(column=0, row= 18)
+
 
         def input_handler():
             partition = int(self.partition_text.get())
@@ -65,4 +69,4 @@ class SideMenu(Frame):
             fp = re.match(r'(\-?\d{1,3}),(\-?\d{1,3}),(\-?\d{1,3})', fp)
             if fp:
                 self.controller.forming_point = Point(int(fp[1]), int(fp[2]), int(fp[3]))
-                self.controller.add_forming_point()
+                self.controller.change_rotation_figure()
