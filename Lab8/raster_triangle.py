@@ -33,10 +33,9 @@ def get_vertical_line_points(p1: PointWithColor, p2: PointWithColor):
     c2 = p2.color
 
     # debug, should throw error
-    if x1 != x2:
-        print(f"{x1} != {x2}")
-        # return None
-
+    # if x1 != x2:
+    #     print(f"{x1} != {x2}")
+    
     if y1 > y2:
         y1, y2 = y2, y1
         z1, z2 = z2, z1
