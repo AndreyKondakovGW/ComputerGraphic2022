@@ -1,3 +1,4 @@
+import math
 from math import radians, sin, cos
 
 from src.point import Point
@@ -91,8 +92,8 @@ def centroid(points):
     return (x, y, z)
 
 
-def cos_between_vectors(v1, v2):
+def angle_between_vectors(v1, v2):
     dot_pr = v1.dot(v2)
     norms = np.linalg.norm(v1) * np.linalg.norm(v2)
 
-    return dot_pr / norms
+    return math.degrees(np.arccos(dot_pr / norms))
