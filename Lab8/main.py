@@ -9,6 +9,5 @@ from Lab8.ui import UI8
 if __name__ == '__main__':
     ui = UI8()
     ui.create_camera(Point(300, 300, 300), Point(0, 0, 0))
-    ui.add_button("Move Camera", lambda: ui.controller.switch_mode("move_camera"))
-    ui.controller.add_mode("move_camera", CameraMoverMode(ui.renderer, ui.scene, ui.camera))
+    ui.controller.add_mode("move_camera", CameraMoverMode(ui.renderer, ui.scene, ui.camera))        
     ui.run()

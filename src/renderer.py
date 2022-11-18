@@ -71,18 +71,19 @@ class Renderer:
         self.canvas.draw_line((points[0].x, points[0].y), (points[1].x, points[1].y), color, thickness=thickness)
 
     def draw_face(self, face: Face3D):
-        print("draw face")
-
+        ...
+        
     def translate3D_point(self, point):
         p0 = np.array([[point.x, point.y, point.z, 1]])
         if self.camera:
             p0 = p0.T
             p0 = np.dot(self.camera.lookAtMatrix, p0)
+            z = p0[2]
             p0 = np.dot(self.camera.projection_matrix, p0)
             p = (p0.T)[0]
             p[0] = p[0] / p[3]
             p[1] = p[1] / p[3]
-            return self.center + Point(p[0] * self.canvas.width // 2, -p[1]*self.canvas.height // 2, 0)
+            return self.center + Point(p[0] * self.canvas.width // 2, -p[1]*self.canvas.height // 2, z)
         p0 = np.dot(p0, self.projection)
         p = p0[0]
-        return self.center + Point(p[0] / p[3], -(p[1] / p[3]), 0)
+        return self.center + Point(p[0] / p[3], -(p[1] / p[3]), point.z)
