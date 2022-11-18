@@ -2,7 +2,7 @@ from Lab6.figures.line3D import Line3D
 from Lab6.figures.polyhedron import Polyhedron, Face3D
 from Lab6.point3D import Point3D
 from Lab6.rotator3D import rotate_figure
-from Lab6.transformation_3d import rotate, centroid, cos_between_vectors
+from Lab6.transformation_3d import rotate, centroid, angle_between_vectors
 from src.point import Point
 
 
@@ -87,8 +87,8 @@ class RotationFigure(Polyhedron):
         proection = Point(c[0], c[1], c[2]) - self.camera
         for f in self.all_faces:
             f.update_normal_vector()
-            cos = cos_between_vectors(f.normal_vector, (proection.x,proection.y,proection.z))
-            if 1 >= cos >= 0:
+            cos = angle_between_vectors(f.normal_vector, (proection.x,proection.y,proection.z))
+            if 90 > cos > 0:
                 self.faces.append(f)
 
 
