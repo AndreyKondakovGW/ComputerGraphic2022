@@ -1,6 +1,8 @@
 import numpy as np
 from .point import Point
 from Lab6.projections import *
+from Lab6.point3D import Point3D
+from Lab6.figures.polyhedron import Face3D
 
 class Renderer:
     def __init__(self, canvas):
@@ -65,8 +67,11 @@ class Renderer:
         self.canvas.draw_circle(point.x, point.y, 3, color=color)
 
     def draw_line(self, points, color=(0, 0, 0), thickness = 2):
-        trans_points = [self.translate3D_point(p) for p in points]
-        self.canvas.draw_line((trans_points[0].x, trans_points[0].y), (trans_points[1].x, trans_points[1].y), color, thickness=thickness)   
+        points = [self.translate3D_point(p) for p in points]
+        self.canvas.draw_line((points[0].x, points[0].y), (points[1].x, points[1].y), color, thickness=thickness)
+
+    def draw_face(self, face: Face3D):
+        print("draw face")
 
     def translate3D_point(self, point):
         p0 = np.array([[point.x, point.y, point.z, 1]])

@@ -10,5 +10,5 @@ class Line3D(Figure):
     def draw(self, renderer):
         if not self.drawed:
             super().draw(renderer)
-            self.canvas_points = renderer.draw_line(self.points, self.brush_color)
+            renderer.draw_line(self.points, self.brush_color)
             self.drawed = True

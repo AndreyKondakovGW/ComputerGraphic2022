@@ -52,13 +52,14 @@ class Face3D(Figure):
         for edge in self.edges:
             edge.brush_color = self.brush_color
             edge.draw(renderer)
+        renderer.draw_face(self)
 
     def mark_undrawed(self):
         for edge in self.edges:
             edge.drawed = False
 
     def select(self):
-        super().select()
+        #super().select()
         for edge in self.edges:
             edge.select()
 

@@ -26,6 +26,9 @@ class MyCanvas(Canvas):
         rx, ry = round(x),round(y)
         self.create_oval(rx-r, ry-r, rx+r, ry+r, fill=rgb2hex(color), outline=rgb2hex(color))
 
+    def put_pixel(self, x, y, color=(0,0,0)):
+        draw_pix(self.image, (x,y), color)
+
     def draw_line(self, p0, p1, color=(0, 0, 0), line_type = "simple", thickness = 2):
         rp0 = round(p0[0]),round(p0[1])
         rp1 = round(p1[0]),round(p1[1])

@@ -32,14 +32,14 @@ def get_plot_polygon(function: Function3D, points_along_axis_count: int, color=(
     step_y = (function.yb - function.ya) / points_along_axis_count
     xs = get_arguments_list(function.xa, function.xb, step_x)
     ys = get_arguments_list(function.ya, function.yb, step_y)
-    fm = get_f_matrix(function.callable_f, xs, ys)
+    points = get_points_matrix(function.callable_f, xs, ys)
     polygon = Polyhedron(color)
     for i in range(0, len(xs) - 1):
         for j in range(0, len(ys) - 1):
-            p1 = Point(xs[i], fm[i][j], ys[j])
-            p2 = Point(xs[i+1], fm[i+1][j], ys[j])
-            p3 = Point(xs[i+1], fm[i+1][j+1], ys[j+1])
-            p4 = Point(xs[i], fm[i][j+1], ys[j+1])
+            p1 = points[i][j]
+            p2 = points[i+1][j]
+            p3 = points[i+1][j+1]
+            p4 = points[i][j+1]
             polygon.points.append(p1)
             polygon.points.append(p2)
             polygon.points.append(p3)
@@ -50,14 +50,14 @@ def get_plot_polygon(function: Function3D, points_along_axis_count: int, color=(
             polygon.faces.append(triangle2)
     return polygon
 
-def get_f_matrix(f, xs, ys):
-    m = []
+def get_points_matrix(f, xs, ys):
+    points = []
     for x in xs:
         row = []
         for y in ys:
-            row.append(f(x, y))
-        m.append(row)
-    return m
+            row.append(Point(x, f(x, y), y))
+        points.append(row)
+    return points
 
 def get_arguments_list(a, b, step):
     args = []
