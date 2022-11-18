@@ -11,6 +11,7 @@ class Renderer:
         self.canvas = canvas
         self.projection = simple2D_projection()
         self.center = Point(self.canvas.width / 2, self.canvas.height / 2)
+        self.axis_bount = 200 #грница до которой рисуются оси и сетка
     
     def set_projection(self, projection):
         self.projection = projection
@@ -18,15 +19,15 @@ class Renderer:
     def render_scene(self, scene):
         self.canvas.clear()
         self.draw_axes()
-        #self.show_grid()
+        self.show_grid()
         for figure in scene.storage:
             figure.mark_undrawed()
             figure.draw(self)
 
     def draw_axes(self):
-        self.draw_line([Point(- 200 , 0, 0), Point(200, 0, 0)], color=(255, 0, 0), thickness = 4)
-        self.draw_line([Point(0, - 200, 0), Point(0,  200, 0)], color=(0, 255, 0), thickness = 4)
-        self.draw_line([Point(0, 0, - 200), Point(0, 0, 200)], color=(0, 0, 255), thickness = 4)
+        self.draw_line([Point(- self.axis_bount , 0, 0), Point(self.axis_bount, 0, 0)], color=(255, 0, 0), thickness = 4)
+        self.draw_line([Point(0, - self.axis_bount, 0), Point(0,  self.axis_bount, 0)], color=(0, 255, 0), thickness = 4)
+        self.draw_line([Point(0, 0, - self.axis_bount), Point(0, 0, self.axis_bount)], color=(0, 0, 255), thickness = 4)
 
     def show_grid(self):
         if self.gridX:
@@ -45,19 +46,19 @@ class Renderer:
 
 
     def draw_gridX(self):
-        for i in range(-self.canvas.width, self.canvas.width, 50):
-            self.draw_line([Point(i, 0, -self.canvas.width), Point(i, 0, self.canvas.width)], color=(200, 200, 200), thickness=1)
-            self.draw_line([Point(-self.canvas.width, 0, i), Point(self.canvas.width, 0, i)], color=(200, 200, 200), thickness=1)
+        for i in range(-self.axis_bount, self.axis_bount+50, 50):
+            self.draw_line([Point(i, 0, -self.axis_bount), Point(i, 0, self.axis_bount)], color=(200, 200, 200), thickness=1)
+            self.draw_line([Point(-self.axis_bount, 0, i), Point(self.axis_bount, 0, i)], color=(200, 200, 200), thickness=1)
     
     def draw_gridY(self):
-        for i in range(-self.canvas.width, self.canvas.width, 50):
-            self.draw_line([Point(0, -self.canvas.width, i), Point(0, self.canvas.width, i)], color=(200, 200, 200), thickness=1)
-            self.draw_line([Point(0, i, -self.canvas.width, i), Point(0, i, self.canvas.width)], color=(200, 200, 200), thickness=1)
+        for i in range(-self.axis_bount, self.axis_bount+50, 50):
+            self.draw_line([Point(0, -self.axis_bount, i), Point(0, self.axis_bount, i)], color=(200, 200, 200), thickness=1)
+            self.draw_line([Point(0, i, -self.axis_bount, i), Point(0, i, self.axis_bount)], color=(200, 200, 200), thickness=1)
 
     def draw_gridZ(self):
-        for i in range(-self.canvas.width, self.canvas.width, 50):
-            self.draw_line([Point(i, -self.canvas.width, 0), Point(i, self.canvas.width, 0)], color=(200, 200, 200), thickness=1)
-            self.draw_line([Point(-self.canvas.width, i, 0), Point(self.canvas.width, i, 0)], color=(200, 200, 200), thickness=1)
+        for i in range(-self.axis_bount, self.axis_bount+50, 50):
+            self.draw_line([Point(i, -self.axis_bount, 0), Point(i, self.axis_bount, 0)], color=(200, 200, 200), thickness=1)
+            self.draw_line([Point(-self.axis_bount, i, 0), Point(self.axis_bount, i, 0)], color=(200, 200, 200), thickness=1)
 
     def draw_point(self, point, color=(0, 0, 0)):
         point = self.translate3D_point(point)
