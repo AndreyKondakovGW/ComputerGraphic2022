@@ -72,13 +72,7 @@ class PolyRenderer(Renderer):
             if point.z < z_from_buffer:
                 x, y = point.x, point.y
                 self.colors_buffer[x][y] = point.color
-                self.z_buffer[point.x][point.y] = point.z
-
-    # def translate3D_point(self, point):
-    #     old_z = point.z
-    #     new_point = super().translate3D_point(point)
-    #     new_point.z = old_z
-    #     return new_point
+                self.z_buffer[x][y] = point.z
 
     def colored_screen_point(self, point: Point, color = (0,0,0)):
         translated = self.translate3D_point(point)
