@@ -90,7 +90,7 @@ class RotationFigure(Polyhedron):
         for f in self.all_faces:
             f.update_normal_vector()
             cos = angle_between_vectors(f.normal_vector, (proection.x,proection.y,proection.z))
-            if 90 > cos > 0:
+            if 90 > cos > 0 or 270 < cos < 360:
                 self.faces.append(f)
 
 

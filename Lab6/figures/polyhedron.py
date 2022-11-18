@@ -4,7 +4,7 @@ import numpy as np
 
 from src.figure import Figure
 from src.point import face_midpoint, Point
-from Lab6.transformation_3d import centroid, cos_between_vectors
+from Lab6.transformation_3d import centroid, cos_between_vectors, angle_between_vectors
 
 class Polyhedron(Figure):
     def __init__(self, color):
@@ -13,8 +13,8 @@ class Polyhedron(Figure):
 
     def draw(self, renderer):
         super().draw(renderer)
-        #faces = self.visual_faces(renderer.camera)
-        faces = self.faces
+        faces = self.visual_faces(renderer.camera)
+        # faces = self.faces
         for face in faces:
             face.draw(renderer)
 
@@ -39,8 +39,8 @@ class Polyhedron(Figure):
         camera_dir = (camera.direction.x, camera.direction.y, camera.direction.z)
         for f in self.faces:
             f.update_normal_vector()
-            cos = cos_between_vectors(f.normal_vector, camera_dir)
-            if 1 >= cos >= 0:
+            cos = angle_between_vectors(f.normal_vector, camera_dir)
+            if 90 > cos > 0 or 270 < cos < 360:
                 visual_faces.append(f)
         return visual_faces
 
@@ -91,6 +91,6 @@ class Face3D(Figure):
         return face_midpoint(self.points)
 
     def update_normal_vector(self):
-        v1 = self.points[1] - self.points[-1]
-        v2 = self.points[0] - self.points[2]
+        v1 = self.points[0] - self.points[1]
+        v2 = self.points[2] - self.points[1]
         self.normal_vector = np.cross((v1.x,v1.y,v1.z),(v2.x,v2.y,v2.z))
