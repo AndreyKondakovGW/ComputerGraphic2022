@@ -3,8 +3,8 @@ from turtle import color
 import numpy as np
 
 from src.figure import Figure
-from src.point import face_midpoint
-
+from src.point import face_midpoint, Point
+from Lab6.transformation_3d import centroid, cos_between_vectors
 
 class Polyhedron(Figure):
     def __init__(self, color):
@@ -13,7 +13,9 @@ class Polyhedron(Figure):
 
     def draw(self, renderer):
         super().draw(renderer)
-        for face in self.faces:
+        #faces = self.visual_faces(renderer.camera)
+        faces = self.faces
+        for face in faces:
             face.draw(renderer)
 
     def mark_undrawed(self):
@@ -29,6 +31,18 @@ class Polyhedron(Figure):
         super().deselect()
         for face in self.faces:
             face.deselect()
+
+    def visual_faces(self, camera):
+        visual_faces = []
+        c = centroid(self.points)
+        # proection = Point(c[0], c[1], c[2]) - camera_point
+        camera_dir = (camera.direction.x, camera.direction.y, camera.direction.z)
+        for f in self.faces:
+            f.update_normal_vector()
+            cos = cos_between_vectors(f.normal_vector, camera_dir)
+            if 1 >= cos >= 0:
+                visual_faces.append(f)
+        return visual_faces
 
 
 class Face3D(Figure):
@@ -77,6 +91,6 @@ class Face3D(Figure):
         return face_midpoint(self.points)
 
     def update_normal_vector(self):
-        v1 = self.edges[0].points[1] - self.edges[0].points[0]
-        v2 = self.edges[1].points[1] - self.edges[1].points[0]
+        v1 = self.points[1] - self.points[-1]
+        v2 = self.points[0] - self.points[2]
         self.normal_vector = np.cross((v1.x,v1.y,v1.z),(v2.x,v2.y,v2.z))
