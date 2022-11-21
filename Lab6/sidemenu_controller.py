@@ -62,7 +62,7 @@ class SideMenu_Controller():
         figure = self.instruments[self.instrument_name]()
         self.scene.add_figure(figure)
         self.renderer.render_scene(self.scene)
-        if self.figure_name == "Point":
+        """ if self.figure_name == "Point":
             self.scene.add_figure(Point3D(Point(0, 50, 0), (255, 0, 0)))
         elif self.figure_name == "Line":
             self.scene.add_figure(Line3D(Point(100, 0, 0), Point(0, 0, 0)))
@@ -79,7 +79,7 @@ class SideMenu_Controller():
         elif self.figure_name == "Load Figure":
             res = self.loader.open_file()
             self.scene.add_figure(res)
-        self.renderer.render_scene(self.scene)
+        self.renderer.render_scene(self.scene) """
 
     def axis_update(self, event):
         axis = event.widget.get()
