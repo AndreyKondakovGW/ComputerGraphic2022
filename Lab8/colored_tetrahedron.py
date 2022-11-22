@@ -11,10 +11,9 @@ class ColoredTetrahedron(Tetrahedron):
 
     def create_faces(self):
         self.faces = []
+        self.faces.append(Face3D([self.points[2], self.points[1], self.points[0]], self.color1))
 
-        self.faces.append(Face3D([self.edges[0], self.edges[1], self.edges[2]], self.color4))
-
-        self.faces.append(Face3D([self.edges[0], self.edges[3], self.edges[4]], self.color1))
-        self.faces.append(Face3D([self.edges[1], self.edges[4], self.edges[5]], self.color2))
-        self.faces.append(Face3D([self.edges[2], self.edges[3], self.edges[5]], self.color3))
+        self.faces.append(Face3D([self.points[3], self.points[1], self.points[0]], self.color2, False))
+        self.faces.append(Face3D([self.points[1], self.points[3], self.points[2]], self.color3, False))
+        self.faces.append(Face3D([self.points[2], self.points[3], self.points[0]], self.color4, False))
     

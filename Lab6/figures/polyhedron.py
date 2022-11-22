@@ -17,8 +17,6 @@ class Polyhedron(Figure):
             faces = self.visual_faces(renderer.camera)
         else:
             faces = self.faces
-        #for face in faces:
-            #renderer.draw_line([face.points[0], Point(face.normal_vector[0],face.normal_vector[1],face.normal_vector[2])])
         for face in faces:
             face.draw(renderer)
 
