@@ -2,7 +2,7 @@ from src.renderer import Renderer
 from src.point import Point
 import math
 from Lab8.raster_triangle import raster_triangle
-from point_with_color import PointWithColor
+from Lab8.point_with_color import PointWithColor
 
 class PolyRenderer(Renderer):
     def __init__(self, canvas, use_z_buffer=True):
@@ -55,7 +55,8 @@ class PolyRenderer(Renderer):
             return
 
         color = face.brush_color
-        points = [self.colored_screen_point(p, color) for p in face.points]
+        # points = [self.colored_screen_point(p, color) for p in face.points]
+        points = self.get_shaded_points(face.points)
         if len(face.points) == 3:
             p1, p2, p3 = points[0], points[1], points[2]
             self.draw_triangle(p1, p2, p3)
@@ -65,7 +66,18 @@ class PolyRenderer(Renderer):
         #         p2 = points[i-1]
         #         p3 = points[i]
         #         self.draw_triangle(p1, p2, p3)
-            
+
+    def get_shaded_points(self, points):
+        colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0)]
+        res = []
+        ind = 0
+        for point in points:
+            if isinstance(point, PointWithColor):
+                res.append(self.colored_screen_point(point, point.color))
+            else:
+                res.append(self.colored_screen_point(point, colors[ind]))
+            ind = ind + 1 % 4
+        return res
 
     def draw_triangle(self, p1, p2, p3):
         face_rasterized = raster_triangle(p1, p2, p3)
