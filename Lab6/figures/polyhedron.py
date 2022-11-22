@@ -38,24 +38,11 @@ class Polyhedron(Figure):
 
     def visual_faces(self, camera):
         visual_faces = []
-<<<<<<< HEAD
-        c = centroid(self.points)
-        # proection = Point(c[0], c[1], c[2]) - camera_point
-        camera_dir = Point(camera.direction.x, camera.direction.y, camera.direction.z)
-        for f in self.faces:
-            f.update_normal_vector()
-            # angle = angle_between_vectors(f.normal_vector, camera_dir)
-
-            normal_vec_point = Point(f.normal_vector[0], f.normal_vector[1], f.normal_vector[2])
-            scal_prod = normal_vec_point.dot(camera_dir)
-            if scal_prod < 1.0:
-=======
         for f in self.faces:
             f.update_normal_vector()
             f_point = Point(f.normal_vector[0], f.normal_vector[1], f.normal_vector[2]).normalize()
             v_point = (camera.position - f.points[1]).normalize()
             if f_point.dot(v_point) <= 0:
->>>>>>> a875c8da555d022b9c0047ac8eb9168dc993777e
                 visual_faces.append(f)
             # if 90 > angle > 0 or 270 < angle < 360:
             #     visual_faces.append(f)
