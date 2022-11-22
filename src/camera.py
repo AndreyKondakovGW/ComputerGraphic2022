@@ -19,6 +19,7 @@ class Camera:
 
     def change_position(self, delta):
         self.position = self.position + delta
+        self.direction = (self.position - self.target).normalize()
         self.lookAtMatrix = self.count_lookAtMatrix()
     
     def change_rotation(self, dyaw, dpitch):

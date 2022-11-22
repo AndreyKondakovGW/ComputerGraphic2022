@@ -14,6 +14,8 @@ class Polyhedron(Figure):
     def draw(self, renderer):
         super().draw(renderer)
         faces = self.visual_faces(renderer.camera)
+        #for face in faces:
+            #renderer.draw_line([face.points[0], Point(face.normal_vector[0],face.normal_vector[1],face.normal_vector[2])])
         for face in faces:
             face.draw(renderer)
 
@@ -33,15 +35,21 @@ class Polyhedron(Figure):
 
     def visual_faces(self, camera):
         visual_faces = []
-        camera_dir = (camera.direction.x, camera.direction.y, camera.direction.z)
         for f in self.faces:
             f.update_normal_vector()
-            norma_v = np.array([[f.normal_vector.x, f.normal_vector.y, f.normal_vector.z, 1]])
+            f_point = Point(f.normal_vector[0], f.normal_vector[1], f.normal_vector[2]).normalize()
+            norma_v = np.array([[f_point.x, f_point.y, f_point.z, 1]])
             norma_in_camera = np.dot(camera.lookAtMatrix, norma_v.T)
-            nomal_vector = Point(f.normal_vector.x, f.normal_vector.y, f.normal_vector.z)
+            nomal_vector = (norma_in_camera.T)[0]
+            nomal_vector = Point(nomal_vector[0] / nomal_vector[3], nomal_vector[1] / nomal_vector[3], nomal_vector[2]/ nomal_vector[3])
 
-            cos = angle_between_vectors(f.normal_vector, camera_dir)
-            if 90 > cos > 0 or 270 < cos < 360:
+            dir_v = np.array([[camera.direction.x, camera.direction.y, camera.direction.z, 1]])
+            dir_in_camera = np.dot(camera.lookAtMatrix, dir_v.T)
+            dir_vector = (dir_in_camera.T)[0]
+            dir_vector = Point(dir_vector[0] / dir_vector[3], dir_vector[1] / dir_vector[3], dir_vector[2]/ dir_vector[3])
+
+            v_point = (camera.position - f.points[1]).normalize()
+            if f_point.dot(v_point) <= 0:
                 visual_faces.append(f)
         return visual_faces
 
@@ -49,9 +57,9 @@ class Polyhedron(Figure):
 class Face3D(Figure):
     def __init__(self, points, color, front = True):
         # front - является ли грань лицевой
-        # поумолчанию точки даются против часовой стрелке
+        # поумолчанию точки даются по часовой стрелке
         super().__init__(color)
-        if not front:
+        if front:
             self.points = points
         else:
             self.points = points[::-1]

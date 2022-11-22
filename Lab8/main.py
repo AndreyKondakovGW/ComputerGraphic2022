@@ -5,7 +5,6 @@ from src.point import Point
 from Lab8.camera_mover import CameraMoverMode
 
 from Lab8.ui import UI8
-from Lab7.ui import UI7
 
 if __name__ == '__main__':
     ui = UI8()

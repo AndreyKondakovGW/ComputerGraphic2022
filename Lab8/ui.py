@@ -3,12 +3,11 @@ from src.point import Point
 from Lab8.colored_tetrahedron import ColoredTetrahedron
 #from Lab8.colored_cube import ColoredCube
 from Lab8.poly_renderer import PolyRenderer
-from src.renderer import Renderer
-from Lab8.camera_mover import CameraMoverMode
 
 class UI8(UI7):
     def __init__(self):
         super().__init__()
+        #self.create_renderer()
 
     def init_sidemenu_instruments(self):
         super().init_sidemenu_instruments()

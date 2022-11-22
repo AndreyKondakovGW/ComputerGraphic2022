@@ -23,15 +23,17 @@ class PolyRenderer(Renderer):
     def render_scene(self, scene):
         if not self.use_z_buffer:
             super().render_scene(scene)
-            return
-
-        self.clear_buffers()
-        super().render_scene(scene)
-        for x in range(0, len(self.colors_buffer)):
-            for y in range(0, len(self.colors_buffer[0])):
-                color = self.colors_buffer[x][y]
-                if color is not None:
-                    self.canvas.put_pixel(x, y, color)
+        else:
+            self.clear_buffers()
+            super().render_scene(scene)
+            for x in range(0, len(self.colors_buffer)):
+                for y in range(0, len(self.colors_buffer[0])):
+                    color = self.colors_buffer[x][y]
+                    if color is not None:
+                        self.canvas.put_pixel(x, y, color)
+        if self.show_axis:
+            self.draw_axes()
+            self.show_grid()
 
     def show_grid(self):
         self.should_draw_lines = self.show_axis
