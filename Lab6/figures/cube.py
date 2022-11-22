@@ -9,42 +9,45 @@ class Cube(Polyhedron):
         self.center = center
         self.size = size
         self.create_points()
-        self.create_edges()
         self.create_faces()
 
     def create_faces(self):
         self.faces = []
-        #bottom face
-        self.faces.append(Face3D([self.edges[0], self.edges[3], self.edges[6], self.edges[9]], self.brush_color))
-        #top face
-        self.faces.append(Face3D([self.edges[1], self.edges[4], self.edges[7], self.edges[10]], self.brush_color))
-        #back face
-        self.faces.append(Face3D([self.edges[0], self.edges[1], self.edges[2], self.edges[5]], self.brush_color))
-        #front face
-        self.faces.append(Face3D([self.edges[3], self.edges[4], self.edges[5], self.edges[8]], self.brush_color))
-        #right face
-        self.faces.append(Face3D([self.edges[6], self.edges[7], self.edges[8], self.edges[11]], self.brush_color))
-        #left face
-        self.faces.append(Face3D([self.edges[9], self.edges[10], self.edges[11], self.edges[2]], self.brush_color))
-
-
-    def create_edges(self):
-        self.edges = []
-        #bottom face
-        for i in range(4):
-            #bottom face
-            self.edges.append(Line3D(self.points[i], self.points[(i + 1) % 4],self.brush_color))
-            #top face
-            self.edges.append(Line3D(self.points[i + 4], self.points[(i + 1) % 4 + 4],self.brush_color))
-            #vertical edges
-            self.edges.append(Line3D(self.points[i], self.points[i + 4],self.brush_color))
+        #нижняя грань
+        self.faces.append(Face3D([self.points[0], self.points[1], self.points[2], self.points[3]], self.brush_color, False))
+        """ self.faces.append(Face3D([self.points[0], self.points[1], self.points[2]], self.brush_color, False))
+        self.faces.append(Face3D([self.points[0], self.points[2], self.points[3]], self.brush_color, False)) """
+        #верхняя грань
+        self.faces.append(Face3D([self.points[4], self.points[5], self.points[6], self.points[7]], self.brush_color))
+        """ self.faces.append(Face3D([self.points[4], self.points[5], self.points[6]], self.brush_color))
+        self.faces.append(Face3D([self.points[4], self.points[6], self.points[7]], self.brush_color)) """
+        #задняя грань x
+        self.faces.append(Face3D([self.points[4], self.points[0], self.points[3], self.points[7]], self.brush_color, False))
+        """ self.faces.append(Face3D([self.points[4], self.points[0], self.points[3]], self.brush_color, False))
+        self.faces.append(Face3D([self.points[4], self.points[3], self.points[7]], self.brush_color, False)) """
+        #задняя грань z
+        self.faces.append(Face3D([self.points[5], self.points[1], self.points[0], self.points[4]], self.brush_color, False))
+        """ self.faces.append(Face3D([self.points[5], self.points[1], self.points[0]], self.brush_color, False))
+        self.faces.append(Face3D([self.points[5], self.points[0], self.points[4]], self.brush_color, False)) """
+        #передняя грань x
+        self.faces.append(Face3D([self.points[6], self.points[2], self.points[3], self.points[7]], self.brush_color))
+        """ self.faces.append(Face3D([self.points[6], self.points[2], self.points[3]], self.brush_color))
+        self.faces.append(Face3D([self.points[6], self.points[3], self.points[7]], self.brush_color)) """
+        #передняя грань z
+        self.faces.append(Face3D([self.points[5], self.points[1], self.points[2], self.points[6]], self.brush_color))
+        """ self.faces.append(Face3D([self.points[5], self.points[1], self.points[2]], self.brush_color))
+        self.faces.append(Face3D([self.points[5], self.points[2], self.points[6]], self.brush_color)) """
 
     def create_points(self):
-        self.points.append(self.center + Point(-self.size / 2, -self.size / 2, -self.size / 2))
+        #Точки нижней грани
+        self.points.append(self.center + Point(self.size / 2, -self.size / 2, self.size / 2))
         self.points.append(self.center + Point(self.size / 2, -self.size / 2, -self.size / 2))
+        self.points.append(self.center + Point(-self.size / 2, -self.size / 2, -self.size / 2))
+        self.points.append(self.center + Point(-self.size / 2, -self.size / 2, self.size / 2))
+
+        #Точки верхней грани
+        self.points.append(self.center + Point(self.size / 2, self.size / 2, self.size / 2))
         self.points.append(self.center + Point(self.size / 2, self.size / 2, -self.size / 2))
         self.points.append(self.center + Point(-self.size / 2, self.size / 2, -self.size / 2))
-        self.points.append(self.center + Point(-self.size / 2, -self.size / 2, self.size / 2))
-        self.points.append(self.center + Point(self.size / 2, -self.size / 2, self.size / 2))
-        self.points.append(self.center + Point(self.size / 2, self.size / 2, self.size / 2))
         self.points.append(self.center + Point(-self.size / 2, self.size / 2, self.size / 2))
+        

@@ -29,7 +29,10 @@ class UI3D(UI_base):
         self.init_sidemenu()
         self.init_bindings()
 
+    def run(self):
         self.renderer.render_scene(self.scene)
+        super().run()
+        
 
     def add_buttons(self):
         self.add_leftmost_buttons()
