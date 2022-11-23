@@ -16,7 +16,6 @@ class GuroRenderer(PolyRenderer):
 
     def draw_face(self, face):
         normal_vector = Point(face.normal_vector[0], face.normal_vector[1], face.normal_vector[2]).normalize()
-        normal_vector = normal_vector * -1.0
         self.debug_face_normals(face, normal_vector)
         for point in face.points:
             point.normal = normal_vector

@@ -13,6 +13,8 @@ class Polyhedron(Figure):
 
     def draw(self, renderer):
         super().draw(renderer)
+        # for p in self.points:
+        #     p.face_normals = []
         if renderer.camera:
             faces = self.visual_faces(renderer.camera)
         else:
@@ -40,7 +42,7 @@ class Polyhedron(Figure):
             f.update_normal_vector()
             f_point = Point(f.normal_vector[0], f.normal_vector[1], f.normal_vector[2]).normalize()
             v_point = (camera.position - f.points[1]).normalize()
-            if f_point.dot(v_point) <= 0:
+            if f_point.dot(v_point) >= 0:
                 visual_faces.append(f)
             # if 90 > angle > 0 or 270 < angle < 360:
             #     visual_faces.append(f)
@@ -68,7 +70,7 @@ class Face3D(Figure):
         for edge in self.edges:
             edge.brush_color = self.brush_color
             edge.draw(renderer)
-    
+        # self.update_normals()
         renderer.draw_face(self)
 
     def mark_undrawed(self):
@@ -92,3 +94,8 @@ class Face3D(Figure):
         v1 = self.points[0] - self.points[1]
         v2 = self.points[2] - self.points[1]
         self.normal_vector = np.cross((v1.x,v1.y,v1.z),(v2.x,v2.y,v2.z))
+
+    def update_normals(self):
+        self.update_normal_vector()
+        for p in self.points:
+            p.update_normal(self.normal_vector)
