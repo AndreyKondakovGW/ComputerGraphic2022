@@ -7,12 +7,17 @@ from Lab6.transformation_3d import centroid
 class GuroRenderer(PolyRenderer):
     def __init__(self, canvas):
         super().__init__(canvas)
-        light_position = Point(500, 500, 500)
+        light_position = Point(50, 300, 350)
         self.light_source = PointLight(light_position)
+
+    def render_scene(self, scene):
+        super().render_scene(scene)
+        self.draw_point(self.light_source.point, color=(255, 255, 0))
 
     def draw_face(self, face):
         normal_vector = Point(face.normal_vector[0], face.normal_vector[1], face.normal_vector[2]).normalize()
-        # self.debug_face_normals(face, normal_vector)
+        normal_vector = normal_vector * -1.0
+        self.debug_face_normals(face, normal_vector)
         for point in face.points:
             point.normal = normal_vector
         super().draw_face(face)

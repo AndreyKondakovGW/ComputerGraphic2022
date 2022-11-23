@@ -1,6 +1,6 @@
 def guro_lightning(point, point_color, light_source):
-    # light_direction = light_source.point - point
-    light_direction = point - light_source.point
+    light_direction = light_source.point - point
+    # light_direction = point - light_source.point
     light_direction = light_direction.normalize()
     cos_phi = light_direction.dot(point.normal)
     if cos_phi > 1.0:
