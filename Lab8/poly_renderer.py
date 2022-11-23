@@ -60,21 +60,26 @@ class PolyRenderer(Renderer):
         if len(face.points) == 3:
             p1, p2, p3 = points[0], points[1], points[2]
             self.draw_triangle(p1, p2, p3)
-        # else:
-        #     for i in range(2, len(points)):
-        #         p1 = points[0]
-        #         p2 = points[i-1]
-        #         p3 = points[i]
-        #         self.draw_triangle(p1, p2, p3)
+        else:
+            p1 = points[0]
+            for i in range(2, len(points)):
+                p2 = points[i-1]
+                p3 = points[i]
+                self.draw_triangle(p1, p2, p3)
 
     def get_shaded_points(self, points, face_color):
         res = []
         for point in points:
             if isinstance(point, PointWithColor):
-                res.append(self.colored_screen_point(point, point.color))
+                color = self.calculate_point_color(point, point.color)
+                res.append(self.colored_screen_point(point, color))
             else:
-                res.append(self.colored_screen_point(point, face_color))
+                color = self.calculate_point_color(point, face_color)
+                res.append(self.colored_screen_point(point, color))
         return res
+
+    def calculate_point_color(self, point, color):
+        return color
 
     def draw_triangle(self, p1, p2, p3):
         face_rasterized = raster_triangle(p1, p2, p3)
