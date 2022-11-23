@@ -15,15 +15,15 @@ class Octahedron(Polyhedron):
     def create_faces(self):
         self.faces = []
 
-        self.faces.append(Face3D([self.points[0], self.points[2], self.points[3]], self.brush_color))
-        self.faces.append(Face3D([self.points[0], self.points[3], self.points[5]], self.brush_color))
-        self.faces.append(Face3D([self.points[0], self.points[5], self.points[4]], self.brush_color))
-        self.faces.append(Face3D([self.points[0], self.points[4], self.points[2]], self.brush_color))
+        self.faces.append(Face3D([self.points[0], self.points[2], self.points[3]], self.brush_color, False))
+        self.faces.append(Face3D([self.points[0], self.points[3], self.points[5]], self.brush_color, False))
+        self.faces.append(Face3D([self.points[0], self.points[5], self.points[4]], self.brush_color, False))
+        self.faces.append(Face3D([self.points[0], self.points[4], self.points[2]], self.brush_color, False))
 
-        self.faces.append(Face3D([self.points[1], self.points[3], self.points[2]], self.brush_color))
-        self.faces.append(Face3D([self.points[1], self.points[5], self.points[3]], self.brush_color))
-        self.faces.append(Face3D([self.points[1], self.points[4], self.points[5]], self.brush_color))
-        self.faces.append(Face3D([self.points[1], self.points[2], self.points[4]], self.brush_color))
+        self.faces.append(Face3D([self.points[1], self.points[3], self.points[2]], self.brush_color, False))
+        self.faces.append(Face3D([self.points[1], self.points[5], self.points[3]], self.brush_color, False))
+        self.faces.append(Face3D([self.points[1], self.points[4], self.points[5]], self.brush_color, False))
+        self.faces.append(Face3D([self.points[1], self.points[2], self.points[4]], self.brush_color, False))
 
 
     def create_points(self):
