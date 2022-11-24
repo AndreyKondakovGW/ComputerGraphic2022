@@ -3,6 +3,7 @@ from src.point import Point
 import math
 from Lab8.raster_triangle import raster_triangle
 from Lab9.texture_renderer import Texture_Renderer
+from Lab8.point_with_color import PointWithColor
 
 class PolyRenderer(Renderer):
     def __init__(self, canvas, use_z_buffer=True):

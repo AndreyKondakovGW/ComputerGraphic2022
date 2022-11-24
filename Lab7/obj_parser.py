@@ -60,9 +60,7 @@ class ObjParser:
         line = line.strip()
         line = line.split(' ')
         face_points = [p.split('/')[0] for p in line]
-        edges = []
+        points = []
         for i in range(len(face_points)):
-            p1 = self.polyhedron.points[int(face_points[i]) - 1]
-            p2 = self.polyhedron.points[int(face_points[(i + 1) % len(face_points)]) - 1]
-            edges.append(Line3D(p1, p2))
-        return Face3D(edges, (0, 0, 0))
+            points.append(self.polyhedron.points[int(face_points[i]) - 1])
+        return Face3D(points, (0, 0, 0))

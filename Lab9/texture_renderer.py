@@ -46,8 +46,6 @@ def draw_vert_line(canvas, x, y1, y2,x1,x2, uv1, uv2, texture):
         uv1, uv2 = uv2, uv1
     for i in range(int(y1), int(y2) + 1):
         uv = lininterp_texture_cord(i, (y1,x1), (y2,x2), uv1, uv2)
-        """ (interpalate_texture_cord((x1 - x) / (x1 - x2+ 10**-5), uv1[0], uv2[0]),
-            interpalate_texture_cord((y1 - i) / (y1-y2+ 10**-5), uv1[1], uv2[1])) """
         color = get_color(uv, texture)
         canvas.put_pixel(round(x),round(i), color)
 
@@ -63,21 +61,15 @@ def raster_triangle_texture(canvas,points, t_points, texture):
         if x < p2.x:
             d1 = get_y(x, p1, p2)
             uv1 = lininterp_texture_cord(x, (p1.x,p1.y), (p2.x,p2.y), t1, t2)
-            """ (interpalate_texture_cord((p1.x - x) / (p1.x - p3.x+ 10**-5), t1[0], t2[0]),
-                interpalate_texture_cord((p1.y - d1) / (p1.y - p2.y + 10**-5), t1[1], t2[1])) """
         elif x > p2.x:
             d1 = get_y(x, p2, p3)
             uv1 = lininterp_texture_cord(x, (p2.x,p2.y), (p3.x,p3.y), t2, t3)
-            """ uv1 = (interpalate_texture_cord((p2.x - x) / (p2.x - p3.x+ 10**-5), t2[0], t3[0]),
-                interpalate_texture_cord((p2.y - d1) / (p2.y - p3.y+ 10**-5), t2[1], t3[1])) """
         else:
             d1 = p2.y
             uv1 = t2
         
         d2 = get_y(x, p1, p3)
         uv2 = lininterp_texture_cord(x, (p1.x,p1.y), (p3.x,p3.y), t1, t3)
-        # uv2 = (interpalate_texture_cord((p1.x - x) / (p1.x - p3.x+ 10**-5), t1[0], t3[0]),
-        #     interpalate_texture_cord((p1.y - d2) / (p1.y - p3.y+ 10**-5), t1[1], t3[1]))
         draw_vert_line(canvas,x, d1, d2, p1.x, p3.x, uv1, uv2, texture)
 
 
