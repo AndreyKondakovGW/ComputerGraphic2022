@@ -18,16 +18,20 @@ class Renderer:
     def set_projection(self, projection):
         self.projection = projection
 
-    def render_scene(self, scene):
+    def render_scene(self, scene, show_axis=True):
         self.canvas.clear()
+        if show_axis:
+            self.show_grid()
+            self.draw_axes()
         for figure in scene.storage:
             figure.mark_undrawed()
             figure.draw(self)
+        self.canvas.show_image()
 
     def draw_axes(self):
-        self.draw_line([Point(- self.axis_bount , 0, 0), Point(self.axis_bount, 0, 0)], color=(255, 0, 0), thickness = 4)
-        self.draw_line([Point(0, - self.axis_bount, 0), Point(0,  self.axis_bount, 0)], color=(0, 255, 0), thickness = 4)
-        self.draw_line([Point(0, 0, - self.axis_bount), Point(0, 0, self.axis_bount)], color=(0, 0, 255), thickness = 4)
+        self.draw_line([Point(- self.axis_bount , 0, 0), Point(self.axis_bount, 0, 0)], color=(255, 0, 0), thickness = 3)
+        self.draw_line([Point(0, - self.axis_bount, 0), Point(0,  self.axis_bount, 0)], color=(0, 255, 0), thickness = 3)
+        self.draw_line([Point(0, 0, - self.axis_bount), Point(0, 0, self.axis_bount)], color=(0, 0, 255), thickness = 3)
 
     def show_grid(self):
         if self.gridX:

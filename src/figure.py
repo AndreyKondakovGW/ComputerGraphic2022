@@ -8,6 +8,7 @@ class Figure:
         self.points = []
         self.canvas_points = []
         self.drawed = False
+        self.texture = None
 
     def draw(self, renderer):
         self.canvas_points = [renderer.translate3D_point(p) for p in self.points]
@@ -36,3 +37,6 @@ class Figure:
     def deselect(self):
         self.selected = False
         self.brush_color = self.initial_color
+
+    def set_texture(self, texture):
+        pass

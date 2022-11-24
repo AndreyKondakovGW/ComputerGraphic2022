@@ -2,7 +2,7 @@ from src.renderer import Renderer
 from src.point import Point
 import math
 from Lab8.raster_triangle import raster_triangle
-from point_with_color import PointWithColor
+from Lab9.texture_renderer import Texture_Renderer
 
 class PolyRenderer(Renderer):
     def __init__(self, canvas, use_z_buffer=True):
@@ -10,6 +10,8 @@ class PolyRenderer(Renderer):
         canvas.update()
         self.camera_width = canvas.winfo_width()
         self.camera_height = canvas.winfo_height()
+        self.use_texture = False
+        self.texture_renderer = Texture_Renderer(self.canvas, self.camera)
         self.colors_buffer = [[None for _ in range(self.camera_height)] for _ in range(self.camera_width)]
         self.z_buffer = [[math.inf for _ in range(self.camera_height)] for _ in range(self.camera_width)]
         self.should_draw_lines = False
@@ -22,18 +24,16 @@ class PolyRenderer(Renderer):
 
     def render_scene(self, scene):
         if not self.use_z_buffer:
-            super().render_scene(scene)
+            super().render_scene(scene, self.show_axis)
         else:
             self.clear_buffers()
-            super().render_scene(scene)
+            super().render_scene(scene, self.show_axis)
             for x in range(0, len(self.colors_buffer)):
                 for y in range(0, len(self.colors_buffer[0])):
                     color = self.colors_buffer[x][y]
                     if color is not None:
                         self.canvas.put_pixel(x, y, color)
-        if self.show_axis:
-            self.draw_axes()
-            self.show_grid()
+        self.canvas.show_image()
 
     def show_grid(self):
         self.should_draw_lines = self.show_axis
@@ -50,6 +50,10 @@ class PolyRenderer(Renderer):
             super().draw_line(points, color, thickness)
 
     def draw_face(self, face):
+        if self.use_texture:
+            if face.texture is not None:
+                face_points = [self.translate3D_point(p) for p in face.points]
+                self.texture_renderer.apply_texture(face_points, 0)
         if not self.use_z_buffer:
             super().draw_face(face)
             return

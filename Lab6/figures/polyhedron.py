@@ -46,6 +46,11 @@ class Polyhedron(Figure):
                 visual_faces.append(f)
         return visual_faces
 
+    def set_texture(self, texture):
+        self.texture = texture
+        for face in self.faces:
+            face.texture = texture
+
 
 class Face3D(Figure):
     def __init__(self, points, color, front = True):
