@@ -1,10 +1,7 @@
 from Lab8.ui import UI8
-from src.point import Point
-from Lab8.colored_tetrahedron import ColoredTetrahedron
-#from Lab8.colored_cube import ColoredCube
-from Lab8.poly_renderer import PolyRenderer
 from tkinter import filedialog
 from PIL import Image
+from Lab9.guro_renderer import GuroRenderer
 from numpy import asarray
 import os
 class UI9(UI8):
@@ -34,3 +31,6 @@ class UI9(UI8):
             if fig.selected:
                 fig.set_texture(texture_matrix)
         self.renderer.render_scene(self.scene)
+
+    def create_renderer(self):
+        self.renderer = GuroRenderer(self.canv)

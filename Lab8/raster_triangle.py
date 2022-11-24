@@ -67,6 +67,9 @@ def raster_triangle(p1: PointWithColor, p2: PointWithColor, p3: PointWithColor):
     res_points = []
 
     if (op == p1):
+        if (ap == p1): # flat triangle on plane zOy
+            print("flat triangle. xs are equal")
+            return []  # dummy fix, this triangle is unseen
         ostart = p2
         oend = p3
         ap = p1

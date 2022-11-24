@@ -5,7 +5,7 @@ from Lab6.figures.line3D import Line3D
 from Lab6.figures.polyhedron import Polyhedron, Face3D
 
 class Octahedron(Polyhedron):
-    def __init__(self, center, size, color=(0, 0, 0)):
+    def __init__(self, center, size, color=(255, 0, 255)):
         super().__init__(color)
         self.center = center
         self.size = size

@@ -59,18 +59,33 @@ class PolyRenderer(Renderer):
             super().draw_face(face)
             return
 
-        color = face.brush_color
-        points = [self.colored_screen_point(p, color) for p in face.points]
+        face_color = face.brush_color
+        # points = [self.colored_screen_point(p, color) for p in face.points]
+        points = self.get_shaded_points(face.points, face_color)
+        print(f"colors: {set([point.color for point in points])}")
         if len(face.points) == 3:
             p1, p2, p3 = points[0], points[1], points[2]
             self.draw_triangle(p1, p2, p3)
-        # else:
-        #     for i in range(2, len(points)):
-        #         p1 = points[0]
-        #         p2 = points[i-1]
-        #         p3 = points[i]
-        #         self.draw_triangle(p1, p2, p3)
-            
+        else:
+            p1 = points[0]
+            for i in range(2, len(points)):
+                p2 = points[i-1]
+                p3 = points[i]
+                self.draw_triangle(p1, p2, p3)
+
+    def get_shaded_points(self, points, face_color):
+        res = []
+        for point in points:
+            if isinstance(point, PointWithColor):
+                color = self.calculate_point_color(point, point.color)
+                res.append(self.colored_screen_point(point, color))
+            else:
+                color = self.calculate_point_color(point, face_color)
+                res.append(self.colored_screen_point(point, color))
+        return res
+
+    def calculate_point_color(self, point, color):
+        return color
 
     def draw_triangle(self, p1, p2, p3):
         face_rasterized = raster_triangle(p1, p2, p3)
@@ -79,13 +94,7 @@ class PolyRenderer(Renderer):
             if point.z < z_from_buffer:
                 x, y = point.x, point.y
                 self.colors_buffer[x][y] = point.color
-                self.z_buffer[point.x][point.y] = point.z
-
-    # def translate3D_point(self, point):
-    #     old_z = point.z
-    #     new_point = super().translate3D_point(point)
-    #     new_point.z = old_z
-    #     return new_point
+                self.z_buffer[x][y] = point.z
 
     def colored_screen_point(self, point: Point, color = (0,0,0)):
         translated = self.translate3D_point(point)

@@ -5,6 +5,8 @@ class Point:
         self.x = x
         self.y = y
         self.z = z
+        self.faces_normals = []
+        self.normal = None
 
     def __add__(self, other):
         return Point(self.x + other.x, self.y + other.y, self.z + other.z)
@@ -26,6 +28,18 @@ class Point:
 
     def normalize(self):
         return self * (1 / self.distance(Point(0, 0, 0)))
+
+    def update_normal(self, face_normal):
+        face_normal_point = Point(face_normal[0], face_normal[1], face_normal[2]).normalize()
+        self.faces_normals.append(face_normal_point)
+        normal_x, normal_y, normal_z = 0, 0, 0
+        for face_normal_p in self.faces_normals:
+            normal_x += face_normal_p.x
+            normal_y += face_normal_p.y
+            normal_z += face_normal_p.z
+        count = len(self.faces_normals)
+        self.normal = Point(normal_x / count, normal_y / count, normal_z / count)
+        self.normal = self.normal.normalize()
 
 def face_midpoint(points):
     return Point(sum([p.x for p in points]) / len(points), sum([p.y for p in points]) / len(points), sum([p.z for p in points]) / len(points))
