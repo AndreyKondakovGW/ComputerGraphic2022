@@ -2,6 +2,7 @@ from typing import Callable
 from Lab7.function_plotter_modal_window import FunctionPlotterModalWindow
 from Lab6.figures.line3D import Line3D
 from Lab6.figures.polyhedron import Polyhedron, Face3D
+from Lab8.floating_horizon import PlotFloatingHorizon
 from src.point import Point
 from math import *
 
@@ -15,6 +16,9 @@ class Function3D:
 
 def plot(root, points_along_axis_count=100, color=(0,0,0)):
     function = get_plot_data(root)
+    if isinstance(function, PlotFloatingHorizon):
+        root.controller.switch_mode('floating_horizon')
+        return function
     poly = get_plot_polygon(function, points_along_axis_count, color)
     print(poly)
     return poly
@@ -25,7 +29,11 @@ def get_plot_data(root):
     callable_f = lambda x, y: eval(popup.f)
     xa, xb = popup.xa, popup.xb
     ya, yb = popup.ya, popup.yb
-    return Function3D(callable_f, xa, xb, ya, yb)
+    if popup.float_horizon_flag.get():
+
+        return PlotFloatingHorizon(callable_f, xa, xb, ya, yb)
+    else:
+        return Function3D(callable_f, xa, xb, ya, yb)
     
 def get_plot_polygon(function: Function3D, points_along_axis_count: int, color=(0,0,0)):
     step_x = (function.xb - function.xa) / points_along_axis_count

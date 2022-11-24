@@ -1,4 +1,4 @@
-from tkinter import Tk, Toplevel, Label, Frame, Entry, Button
+from tkinter import Tk, Toplevel, Label, Frame, Entry, Button, Checkbutton, BooleanVar
 from math import *
 
 class FunctionPlotterModalWindow:
@@ -9,7 +9,7 @@ class FunctionPlotterModalWindow:
 
     def setup_popup(self):
         self.popup.title = "Plotter"
-        self.popup.geometry("230x150")
+        self.popup.geometry("230x170")
         self.popup.config(bg="white")
 
     def setup_popup_ui(self):
@@ -21,6 +21,7 @@ class FunctionPlotterModalWindow:
         self.func_frame = Frame(self.popup)
         self.func_label = Label(self.func_frame, text="f(x, y) = ")
         self.func_input = Entry(self.func_frame)
+        self.func_input.insert(0,'5*(cos(x*x+y*y+1)/(x*x+y*y+1)+0.1)')
         self.func_label.grid(row=0, column=0)
         self.func_input.grid(row=0, column=1)
         self.func_frame.grid(row=r)
@@ -31,15 +32,23 @@ class FunctionPlotterModalWindow:
         
         self.xa_label = Label(self.constraints_frame, text="xa = ")
         self.xa_input = Entry(self.constraints_frame)
+        self.xa_input.insert(0,'-5')
         
         self.xb_label = Label(self.constraints_frame, text="xb = ")
         self.xb_input = Entry(self.constraints_frame)
+        self.xb_input.insert(0,'5')
+
         
         self.ya_label = Label(self.constraints_frame, text="ya = ")
         self.ya_input = Entry(self.constraints_frame)
+        self.ya_input.insert(0,'-5')
         
         self.yb_label = Label(self.constraints_frame, text="yb = ")
         self.yb_input = Entry(self.constraints_frame)
+        self.yb_input.insert(0,'5')
+
+        self.float_horizon_flag = BooleanVar()
+        self.float_horizon_checkbox = Checkbutton(self.constraints_frame, text='Плавающий горизонт', variable=self.float_horizon_flag)
 
         self.xa_label.grid(row=0, column=0)
         self.xa_input.grid(row=0, column=1)
@@ -49,6 +58,7 @@ class FunctionPlotterModalWindow:
         self.ya_input.grid(row=2, column=1)
         self.yb_label.grid(row=3, column=0)
         self.yb_input.grid(row=3, column=1)
+        self.float_horizon_checkbox.grid(row=4, column=1)
 
     def setup_apply_button(self, r=2):
         self.apply_button = Button(self.popup, text="Apply", command=self.apply)
