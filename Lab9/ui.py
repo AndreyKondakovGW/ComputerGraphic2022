@@ -3,10 +3,15 @@ from src.point import Point
 from Lab8.colored_tetrahedron import ColoredTetrahedron
 #from Lab8.colored_cube import ColoredCube
 from Lab8.poly_renderer import PolyRenderer
-
+from tkinter import filedialog
+from PIL import Image
+from numpy import asarray
+import os
 class UI9(UI8):
     def __init__(self):
         super().__init__()
+        current_dir = os.getcwd()
+        self.models_dir = os.path.join(current_dir, 'Lab9', 'textures')
 
     def add_leftmost_buttons(self):
         super().add_leftmost_buttons()
@@ -18,7 +23,14 @@ class UI9(UI8):
         self.renderer.render_scene(self.scene)
 
     def apply_texture(self):
+        filename = filedialog.askopenfilename(initialdir=self.models_dir, filetypes=[("Файл 'PNG'", ".png"), ("Файл 'JPG'", ".jpg")])
+        if filename is None:
+            return
+        img = Image.open(filename)
+ 
+        texture_matrix = asarray(img)
+        print(texture_matrix.shape)
         for fig in self.scene.storage:
             if fig.selected:
-                fig.set_texture(1)
+                fig.set_texture(texture_matrix)
         self.renderer.render_scene(self.scene)

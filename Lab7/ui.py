@@ -2,6 +2,7 @@ from Lab6.ui3D import UI3D
 from Lab7.obj_parser import ObjParser
 from Lab7.function_plotter import plot
 
+
 class UI7(UI3D):
     def __init__(self):
         self.loader = ObjParser()

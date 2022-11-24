@@ -33,6 +33,8 @@ class MyCanvas(Canvas):
         self.create_oval(rx-r, ry-r, rx+r, ry+r, fill=rgb2hex(color), outline=rgb2hex(color))
 
     def put_pixel(self, x, y, color=(0,0,0)):
+        if x < 0 or x >= self.pixels.shape[1] or y < 0 or y >= self.pixels.shape[0]:
+            return
         self.pixels[y][x] = color
         #draw_pix(self.image, (x,y), color)
 

@@ -53,7 +53,7 @@ class PolyRenderer(Renderer):
         if self.use_texture:
             if face.texture is not None:
                 face_points = [self.translate3D_point(p) for p in face.points]
-                self.texture_renderer.apply_texture(face_points, 0)
+                self.texture_renderer.apply_texture(face_points, face.texture)
         if not self.use_z_buffer:
             super().draw_face(face)
             return
